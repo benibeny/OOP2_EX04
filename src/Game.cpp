@@ -10,6 +10,7 @@ Game::Game()
         sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
     window.setFramerateLimit(60);
 }
+//hellp
 
 Game& Game::getInstance() 
 {
