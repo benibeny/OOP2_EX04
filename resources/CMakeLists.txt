@@ -1,0 +1,18 @@
+﻿#configure_file ("Wall.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Backgrounds/titlescreen.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Backgrounds/aquarium1.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Backgrounds/aquarium2.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Backgrounds/aquarium3.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Backgrounds/aquarium4.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Backgrounds/menubar.gif" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Backgrounds/talkshow.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+
+configure_file ("ANIMATION/HatchANIMATION.gif" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ANIMATION/smallFish.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ANIMATION/smallFish2.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ANIMATION/smalldie.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ANIMATION/smalleat.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ANIMATION/smallswim.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ANIMATION/money.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ANIMATION/food.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
