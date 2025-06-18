@@ -22,7 +22,7 @@ public:
 	
 	
 	void update(float deltaTime, const std::vector <std::unique_ptr<Eatable>>& foodItems, sf::Vector2u& windowSize) override;
-
+	int getMoneyValue() const { return m_moneyValue; }
 private:
 	void checkTouchedFloor(sf::Vector2u& windowSize, float deltaTime);
 

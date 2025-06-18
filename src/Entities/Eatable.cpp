@@ -42,6 +42,11 @@ bool Eatable::isEaten() const
 	return m_isEaten;
 }
 
+void Eatable::setEaten(bool eaten)
+{
+	m_isEaten = eaten;
+}
+
 void Eatable::updateAnimation(float deltaTime)
 {
 	m_animationTimer += deltaTime;

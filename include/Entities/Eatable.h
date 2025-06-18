@@ -20,6 +20,7 @@ public:
 	sf::Vector2f getCenter() const;
 
 	bool isEaten() const;
+	void setEaten(bool eaten) ;
 	Type getType() const;
 
 	void updateAnimation(float deltaTime);
