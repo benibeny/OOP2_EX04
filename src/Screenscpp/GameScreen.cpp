@@ -9,7 +9,16 @@ GameScreen::GameScreen()
     m_aquariumManager.addEatable(std::make_unique<GoldFish>(sf::Vector2f(300.f, 300.f)));
 	
   
-
+    m_money.setFont(m_font);
+	m_money.setString("$                ");
+    m_money.setCharacterSize(20);
+    m_money.setFillColor(sf::Color::Green);
+ 
+ 
+    sf::Vector2u winSize = Game::getInstance().getWindow().getSize();
+	m_money.setPosition(winSize.x - (m_money.getGlobalBounds()).width - 100, winSize.y / 20.0f);
+	
+    
 }
 
 void GameScreen::handleEvent(const sf::Event& event) 
@@ -51,8 +60,8 @@ void GameScreen::update(float deltaTime)
     m_aquariumManager.update(deltaTime);
     
     
-	
-    
+	//added
+    m_money.setString("$                " + std::to_string(AquariumManager::getCoins()));
 
 }
 
@@ -62,6 +71,7 @@ void GameScreen::render(sf::RenderWindow& window)
 	
     window.draw(m_shopBar);
 	window.draw(m_background);
+	window.draw(m_money);
 
     m_aquariumManager.draw(window);
 }

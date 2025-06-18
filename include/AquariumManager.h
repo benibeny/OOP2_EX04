@@ -19,13 +19,20 @@ public:
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
 
+	//added
+	static int getCoins(); // Add this line to the public section
+
 private:
+	bool isColliding(const sf::FloatRect& rect1, const sf::FloatRect& rect2);
+	bool handleCoinAndMonster(const sf::Vector2f mousePos);
 	void destroyEaten();
 	void checkCollisions(std::unique_ptr<Eatable>& eatable);
 	std::unique_ptr<Money> checkProduceMoney(std::unique_ptr<Eatable>& eatable);
 	//all with things out money
 	std::vector<std::unique_ptr<Eatable>> m_eatables;
 
+
+	static int m_coins;
 
 	int m_maxFoodSpawned = 1;
 	int m_foodCount = 0;

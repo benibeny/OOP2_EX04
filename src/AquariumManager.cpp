@@ -1,5 +1,6 @@
 #include "AquariumManager.h"
 
+int AquariumManager::m_coins = 0;
 
 AquariumManager::AquariumManager(sf::Vector2u windowSize) 
 	: m_windowSize(windowSize) 
@@ -8,8 +9,7 @@ AquariumManager::AquariumManager(sf::Vector2u windowSize)
 
 void AquariumManager::handleMouseClick(const sf::Vector2f mousePos)
 {
-	
-	if (m_maxFoodSpawned > m_foodCount) 
+	if (!handleCoinAndMonster(mousePos) && m_maxFoodSpawned > m_foodCount)
 	{
 		m_eatables.push_back(std::make_unique<Food>(Food::Foodtype::Worst, mousePos));
 		m_foodCount++;
@@ -60,6 +60,24 @@ void AquariumManager::draw(sf::RenderWindow& window)
 			eatable->draw(window);
 		}
 	}
+}
+
+
+bool AquariumManager::handleCoinAndMonster(const sf::Vector2f mousePos)
+{
+	sf::FloatRect mouseBounds(mousePos.x-5, mousePos.y-5, 10.f, 10.f);
+	for (auto& eatable : m_eatables) 
+	{
+		if (isColliding(mouseBounds,eatable->getBounds()) &&
+					   !eatable->isEaten() && typeid(*eatable) ==typeid(Money))
+		{
+			eatable->setEaten(true);
+			Money* money =	static_cast<Money*>(eatable.get());
+			m_coins += money->getMoneyValue();
+			return true;
+		}
+	}
+	return false;
 }
 
 void AquariumManager::destroyEaten()
@@ -118,7 +136,7 @@ void AquariumManager::checkCollisions(std::unique_ptr<Eatable>& eatable)
 {
 	for(std::unique_ptr<Eatable>& otherEatable : m_eatables)
 	{
-		if (otherEatable && eatable != otherEatable && eatable->getBounds().intersects(otherEatable->getBounds()))
+		if (otherEatable && eatable != otherEatable && isColliding(eatable->getBounds(), otherEatable->getBounds()))
 		{
 			processCollision(*eatable, *otherEatable);
 		}
@@ -140,4 +158,15 @@ std::unique_ptr<Money> AquariumManager::checkProduceMoney(std::unique_ptr<Eatabl
 		}
 	}
 	return nullptr; // No money produced in this case
+}
+
+bool AquariumManager::isColliding(const sf::FloatRect& rect1, const sf::FloatRect& rect2)
+{
+	return rect1.intersects(rect2);
+}
+
+//added
+int AquariumManager::getCoins() 
+{
+	return m_coins;
 }
