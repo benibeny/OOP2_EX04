@@ -15,7 +15,7 @@ Game::Game()
 Game& Game::getInstance() 
 {
     static Game instance;
-    return instance;
+    return instance;// sdsaddasd
 }
 
 void Game::run() 
