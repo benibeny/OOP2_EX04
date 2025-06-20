@@ -1,10 +1,10 @@
 #include <iostream>
 #include <memory>
 
-#include "Commands/Command.h"
-#include "Commands/StartAdventureCommand.h"
-#include "Commands/ShowHelpCommand.h"
-#include "Commands/QuitGameCommand.h"
+#include "Commands/CommandButton/CommandButton.h"
+#include "Commands/CommandButton/StartAdventureCommand.h"
+#include "Commands/CommandButton/ShowHelpCommand.h"
+#include "Commands/CommandButton/QuitGameCommand.h"
 
 #include "Screens/MenuScreen.h"
 #include "ScreenManager.h"

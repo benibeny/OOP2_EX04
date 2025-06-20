@@ -2,13 +2,13 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <string>
-#include "Commands/Command.h"
+#include "Commands/CommandButton/CommandButton.h"
 
 // Button class: represents a clickable text button that executes a Command
 class Button 
 {
 public:
-    Button(const std::string& textString, sf::Font& font, std::unique_ptr<Command> cmd);
+    Button(const std::string& textString, sf::Font& font, std::unique_ptr<CommandButton> cmd);
     // Non-copyable (contains unique_ptr)
     Button(const Button&) = delete;
     Button& operator=(const Button&) = delete;
@@ -37,7 +37,7 @@ public:
     void draw(sf::RenderWindow& window) const;
 private:
     sf::Text text;
-    std::unique_ptr<Command> command;
+    std::unique_ptr<CommandButton> command;
     bool isHovered;
     // Relative normalized position of the button's center (as fraction of window width/height)
     float relativeX;

@@ -11,11 +11,11 @@ Game::Game()
     window.setFramerateLimit(60);
 }
 
-//test2
+
 Game& Game::getInstance() 
 {
     static Game instance;
-    return instance;// sdsaddasd
+    return instance;
 }
 
 void Game::run() 
