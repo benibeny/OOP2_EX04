@@ -1,4 +1,4 @@
-#include "Commands/CommandButton/QuitGameCommand.h"
+#include "Commands/QuitGameCommand.h"
 #include <iostream>
 #include "Game.h"
 

@@ -1,4 +1,4 @@
-#include "Commands/CommandButton/ShowHelpCommand.h"
+#include "Commands/ShowHelpCommand.h"
 #include <iostream>
 #include "Screens/HelpScreen.h"
 #include "ScreenManager.h"

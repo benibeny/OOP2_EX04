@@ -16,3 +16,15 @@ configure_file ("ANIMATION/smallswim.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/money.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/food.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
+
+configure_file ("shopbar/moneyBackground.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("shopbar/foodSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("shopbar/goldFishSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("shopbar/max.jpeg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("shopbar/numberFoodSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("shopbar/PiranaSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("shopbar/weponSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
+
+
+configure_file ("arial.ttf" ${CMAKE_BINARY_DIR} COPYONLY)

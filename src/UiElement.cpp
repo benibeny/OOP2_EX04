@@ -5,18 +5,23 @@ UiElement::UiElement(std::string spriteName, const int rows, const int cols)
 	:m_position(0.0f,0.0f), m_size(1.0f, 1.0f), m_spriteName(spriteName)
 {
 	ResourceManager &resource = ResourceManager::getInstance();
-	resource.loadSpriteSheet(spriteName, rows, cols);
+	resource.loadSpriteSheet(spriteName, cols, rows);
 	resource.setSpriteTextureFromSheet(m_sprite,spriteName, 0, 0);
-	m_sprite.setPosition(m_position);
-	m_sprite.setScale(m_size);
+	/*m_sprite.setPosition(m_position);
+	m_sprite.setScale(m_size);*/
 }
 
 
-void UiElement::setSize(const float highet, const float width)
+void UiElement::setSize(const float width ,const float highet)
 {
-	m_size = sf::Vector2f(static_cast<float>(width), static_cast<float>(highet));
-	sf::Vector2u textureSize = m_sprite.getTexture()->getSize();
-	m_sprite.setScale(m_size.x / static_cast<float>(textureSize.x), m_size.y / static_cast<float>(textureSize.y));
+	m_size = sf::Vector2f(width, highet);
+	sf::FloatRect bounds = m_sprite.getLocalBounds();
+	
+	if (bounds.width > 0 && bounds.height > 0)
+	{
+		m_sprite.setScale(width / bounds.width, highet / bounds.height);
+	}
+
 
 }
 

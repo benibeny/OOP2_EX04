@@ -3,12 +3,12 @@
 #include "ResourceManager.h"
 #include <string>
 
-
+//shopbar element
 class UiElement 
 {
 public:
 	UiElement(std::string spriteName,const int rows,const int cols);
-	void setSize(const float highet, const float width);
+	void setSize(const float width, const float highet);
 
 	void setPosition(const sf::Vector2f& position);
 	

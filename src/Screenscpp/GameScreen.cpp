@@ -7,18 +7,7 @@ GameScreen::GameScreen()
     setUpUi();
     m_aquariumManager.addEatable(std::make_unique<GoldFish>(sf::Vector2f(200.f, 200.f)));
     m_aquariumManager.addEatable(std::make_unique<GoldFish>(sf::Vector2f(300.f, 300.f)));
-	
-  
-    m_money.setFont(m_font);
-	m_money.setString("$                ");
-    m_money.setCharacterSize(20);
-    m_money.setFillColor(sf::Color::Green);
- 
- 
-    sf::Vector2u winSize = Game::getInstance().getWindow().getSize();
-	m_money.setPosition(winSize.x - (m_money.getGlobalBounds()).width - 100, winSize.y / 20.0f);
-	
-    
+   
 }
 
 void GameScreen::handleEvent(const sf::Event& event) 
@@ -59,9 +48,7 @@ void GameScreen::update(float deltaTime)
 
     m_aquariumManager.update(deltaTime);
     
-    
-	//added
-    m_money.setString("$                " + std::to_string(AquariumManager::getCoins()));
+  
 
 }
 
@@ -69,9 +56,8 @@ void GameScreen::render(sf::RenderWindow& window)
 {
     // Draw gameplay elements (for now, just the message text)
 	
-    window.draw(m_shopBar);
+	m_shopBarManager.draw(window);
 	window.draw(m_background);
-	window.draw(m_money);
 
     m_aquariumManager.draw(window);
 }
@@ -79,40 +65,25 @@ void GameScreen::render(sf::RenderWindow& window)
 
 void GameScreen::setUpUi()
 {
-
     sf::Vector2u winSize = Game::getInstance().getWindow().getSize();
-
-    if (!m_font.loadFromFile("C:/Windows/Fonts/Arial.ttf"))
-    {
-        std::cerr << "Failed to load font for GameScreen.\n";
-    }
 
     if (!m_backgroundTexture.loadFromFile("aquarium1.jpg"))
     {
         std::cerr << "Failed to load background image!\n";
     }
 
-    if (!m_shopBarTexture.loadFromFile("menubar.gif"))
-    {
-        std::cerr << "Failed to load background image!\n";
-    }
 
+	float slotSize = winSize.x / 11.0f;// 11 slots in the shop bar
+	m_shopBarManager.initialize(slotSize);
+
+
+
+
+ 
+
+    float aquariumHeight = winSize.y - slotSize;
     
-
-
-	float shopBarHeight = winSize.y / 10.0f; // 10% of window height
-    if (shopBarHeight < 50)
-    {
-        shopBarHeight = 50;
-    }
-
-    m_shopBar.setSize(sf::Vector2f(winSize.x, shopBarHeight));
-    m_shopBar.setPosition(0, 0);
-    m_shopBar.setTexture(&m_shopBarTexture);
-
-    float aquariumHeight = winSize.y - shopBarHeight;
-    
-    m_background.setPosition(0, shopBarHeight);
+    m_background.setPosition(0, slotSize);
 	m_background.setScale(sf::Vector2f(static_cast<float>(winSize.x) / m_backgroundTexture.getSize().x,
                                                       aquariumHeight / m_backgroundTexture.getSize().y));
     m_background.setTexture(m_backgroundTexture);

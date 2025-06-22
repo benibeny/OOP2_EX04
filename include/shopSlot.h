@@ -1,21 +1,19 @@
 #pragma once
-#include "UiElement.h"
-#include "Commands/CommandShopBar/CommandShopBar.h"
+
+#include "Commands/Command.h"
+#include "Clickable.h"
 #include <memory>
 
-#define COLOMS 2
-#define SELCETED_COLOM 1
-#define UNSELCETED_COLOM 0
 
 #define MAX_SPRITE_SHEET "max.jpeg"
 
 
-class ShopSlot : public UiElement
+class ShopSlot : public Clickable
 {
 public:
-	ShopSlot(std::unique_ptr<CommandShopBar> command,std::string& spriteSheetName, const int row);
-	void onClick();
-	void changeHoverSprite(bool isHover);
+	ShopSlot(std::unique_ptr<Command> command,const std::string& spriteSheetName, const int row);
+	virtual void onClick() override;
+	
 	
 
 private:
@@ -25,6 +23,4 @@ private:
 	int m_row;
 
 	bool m_isMaxBought = false;
-
-	std::unique_ptr<CommandShopBar> m_command;
 };
