@@ -14,7 +14,7 @@ public:
     void render(sf::RenderWindow& window) override;
 private:
     sf::RectangleShape backgroundRect;
-    sf::Font font;
+    //sf::Font font;
     std::vector<Button> buttons;
 
     sf::Texture backgroundTexture;

@@ -94,11 +94,13 @@ void ResourceManager::setSpriteTextureFromSheet(sf::Sprite& sprite, const std::s
 }
 
 
+
+
 sf::IntRect ResourceManager::getFrameRect(const SpriteSheetInfo& info, int col, int row, int reduction) const
 {
 	sf::IntRect startRect = sf::IntRect(col * info.frameWidth,
 							row * info.frameHeight,
-							info.frameWidth,
+							info.frameWidth ,
 							info.frameHeight);
 
 
@@ -108,4 +110,19 @@ sf::IntRect ResourceManager::getFrameRect(const SpriteSheetInfo& info, int col, 
 									  startRect.width - reduction,
 									  startRect.height - reduction);
 	return newRect;
+}
+
+
+sf::Font& ResourceManager::getGameFont()
+{
+	if(m_gameFont.getInfo().family.empty())
+	{
+		loadGameFont();
+	}
+	return m_gameFont;
+}
+
+void ResourceManager::loadGameFont()
+{
+	m_gameFont.loadFromFile(GAME_FONT);
 }

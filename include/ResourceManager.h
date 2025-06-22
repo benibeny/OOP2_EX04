@@ -3,6 +3,8 @@
 #include <map>
 #include <sfml/Graphics.hpp>
 
+#define GAME_FONT "arial.ttf" 
+
 class ResourceManager
 {
 public:
@@ -17,6 +19,8 @@ public:
 	void setSpriteTextureFromSheet(sf::Sprite& sprite,
 							      const std::string& filename,
 								  int col,int row, int reduction = 0);
+
+	sf::Font& getGameFont();
 
 private:
 	ResourceManager() = default;
@@ -39,5 +43,8 @@ private:
 	std::map<std::string, SpriteSheetInfo> m_spriteSheets;
 
 	sf::IntRect getFrameRect(const SpriteSheetInfo& info, int col, int row, int reduction) const;
+
+	sf::Font m_gameFont;
+	void loadGameFont();
 	
 };

@@ -1,0 +1,50 @@
+#include "ShopBarManager.h"
+
+ShopBarManager::ShopBarManager()
+	:m_OptionButton(Clickable(std::make_unique<CommandOptions>(), MONEYBACKGROUND)),m_slotSize(0.0f)
+{
+	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
+	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), FOODSLOT, FOODROW));
+	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), NUMBERFOODSLOT, NUMBERFOODROW));
+	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), PIRANASLOT, PIRANAROW));
+	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), WEPONSLOT, WEPONROW));
+	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
+	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
+}
+
+
+
+void ShopBarManager::initialize(float slotSize)
+{
+	sf::Vector2u windowSize = Game::getInstance().getWindow().getSize();
+
+	for(int i = 0; i < m_shopSlots.size(); ++i)
+	{
+		m_shopSlots[i].setPosition(sf::Vector2f(i * slotSize, 0));
+		m_shopSlots[i].setSize(slotSize, slotSize);
+
+	}
+	float endOfSlots = m_shopSlots.size() * slotSize;
+	float optionMoneyWidth = windowSize.x - endOfSlots;
+	m_OptionButton.setPosition(sf::Vector2f(endOfSlots, 0));
+	m_OptionButton.setSize(optionMoneyWidth, slotSize/2);
+
+	m_moneyDisplay.setPosition(sf::Vector2f(endOfSlots, slotSize / 2));
+	m_moneyDisplay.setSize(optionMoneyWidth, slotSize / 2);
+
+}
+
+void ShopBarManager::handleClick(const sf::Vector2f& mousePos)
+{
+
+}
+
+void ShopBarManager::draw(sf::RenderWindow& window) const
+{
+	for(const auto& slot : m_shopSlots)
+	{
+		slot.draw(window);
+	}
+	m_OptionButton.draw(window);
+	m_moneyDisplay.draw(window);
+}

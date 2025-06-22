@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "ScreenManager.h"
 #include "Screens/MenuScreen.h"
+#include "ShopBarManager.h"
 #include <iostream>
 
 #include "Entities/Fish.h"
@@ -23,17 +24,11 @@ public:
 
 	void setUpUi();
 private:
-	//for the shop bar
-    sf::Font m_font;
-    sf::Text m_money;
-    sf::RectangleShape m_shopBar;
-	sf::Texture m_shopBarTexture;
-
 
 	sf::Sprite m_background;
     sf::Texture m_backgroundTexture;
 
-
+	ShopBarManager m_shopBarManager;
 	AquariumManager m_aquariumManager;
  
 };

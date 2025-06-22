@@ -1,14 +1,15 @@
 #include <iostream>
 #include <memory>
 
-#include "Commands/CommandButton/CommandButton.h"
-#include "Commands/CommandButton/StartAdventureCommand.h"
-#include "Commands/CommandButton/ShowHelpCommand.h"
-#include "Commands/CommandButton/QuitGameCommand.h"
+#include "Commands/Command.h"
+#include "Commands/StartAdventureCommand.h"
+#include "Commands/ShowHelpCommand.h"
+#include "Commands/QuitGameCommand.h"
 
 #include "Screens/MenuScreen.h"
 #include "ScreenManager.h"
 #include "Game.h"
+#include "ResourceManager.h"
 
 MenuScreen::MenuScreen() 
 {
@@ -16,11 +17,7 @@ MenuScreen::MenuScreen()
     sf::Vector2u size = window.getSize();
     window.setView(sf::View(sf::FloatRect(0.f, 0.f, static_cast<float>(size.x), static_cast<float>(size.y))));
 
-    // Load font for menu text and buttons
-    if (!font.loadFromFile("C:/Windows/Fonts/Arial.ttf")) 
-    {
-        std::cerr << "Failed to load font 'arial.ttf'! Menu text may not display.\n";
-    }
+    
 
 
     // Initialize background texture and sprite
@@ -34,8 +31,8 @@ MenuScreen::MenuScreen()
         static_cast<float>(winSize.x) / backgroundTexture.getSize().x,
         static_cast<float>(winSize.y) / backgroundTexture.getSize().y);
 
-
-
+	sf::Font& font = ResourceManager::getInstance().getGameFont();
+    
     // Create menu buttons with their respective commands
     buttons.emplace_back("Start Adventure", font, std::make_unique<StartAdventureCommand>());
     buttons.emplace_back("Help", font, std::make_unique<ShowHelpCommand>());

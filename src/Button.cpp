@@ -1,7 +1,7 @@
 #include "Button.h"
 #include <SFML/Graphics.hpp>
 
-Button::Button(const std::string& textString, sf::Font& font, std::unique_ptr<CommandButton> cmd)
+Button::Button(const std::string& textString, sf::Font& font, std::unique_ptr<Command> cmd)
     : command(std::move(cmd)), isHovered(false), relativeX(0.5f), relativeY(0.5f), baseCharSize(24) 
 {
     text.setFont(font);

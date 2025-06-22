@@ -1,4 +1,4 @@
-#include "Commands/CommandButton/StartAdventureCommand.h"
+#include "Commands/StartAdventureCommand.h"
 #include "Screens/GameScreen.h"
 #include "ScreenManager.h"
 #include "Game.h"
