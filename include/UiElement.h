@@ -10,11 +10,11 @@ public:
 	UiElement(std::string spriteName,const int rows,const int cols);
 	void setSize(const float width, const float highet);
 
-	void setPosition(const sf::Vector2f& position);
+	virtual void setPosition(const sf::Vector2f& position);
 	
 	sf::Vector2f getPosition() const;
 	sf::Vector2f getSize() const;
-	void draw(sf::RenderWindow& window) const;
+	virtual void draw(sf::RenderWindow& window) const;
 	bool isMouseOver(const sf::Vector2f& mousePosition) const;
 
 
@@ -24,4 +24,6 @@ protected:
 
 	sf::Sprite m_sprite;
 	std::string m_spriteName;
+
+
 };

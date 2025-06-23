@@ -2,7 +2,7 @@
 #include <iostream>
 
 Food::Food(Foodtype foodType ,const sf::Vector2f pos)
-	:Eatable(Type::Food, pos, FOOD_SPRITE_SHEET_NAME, 5, 10, int(foodType),20), m_foodType(foodType)
+	:GameObject(Type::Food, pos, FOOD_SPRITE_SHEET_NAME, 5, 10, int(foodType),20), m_foodType(foodType)
 {
 	m_sprite.setScale(1.5f, 1.5f);
 
@@ -44,7 +44,7 @@ void Food::destroyTouchedFloor(sf::Vector2u& windowSize)
 	
 	if (position.y + bounds.height > (windowSize.y - sandBarHeight))
 	{
-		m_isEaten = true;
+		setDestroyed(true);
 	}
 
 }
@@ -53,9 +53,9 @@ void Food::destroyTouchedFloor(sf::Vector2u& windowSize)
 //do both signal eaten and give value
 std::pair<int,int> Food::foodEaten()
 {
-	if (!isEaten())
+	if (!isDestroyed())
 	{
-		m_isEaten = true;
+		setDestroyed(true);
 		return std::pair<int,int>(m_healthValueGives, m_sizeValueGives);
 	}
 	return std::pair<int, int>(0,0);
@@ -64,9 +64,9 @@ std::pair<int,int> Food::foodEaten()
 
 
 
-void Food::update(float deltaTime, const std::vector <std::unique_ptr<Eatable>>& foodItems, sf::Vector2u& windowSize) 
+void Food::update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize)
 {
-	if (!m_isEaten)
+	if (!m_shouldDestroy)
 	{
 		sf::Vector2f currentPos = getPosition();
 		sf::Vector2f newPos = currentPos + m_velocity * deltaTime;
@@ -80,3 +80,8 @@ void Food::update(float deltaTime, const std::vector <std::unique_ptr<Eatable>>&
 
 
 
+void Food::setDestroyed(bool destroyed)
+{
+	GameObject::setDestroyed(destroyed);
+	EventManager::getInstance().notifyFoodDestroyed();
+}

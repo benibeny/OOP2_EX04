@@ -78,15 +78,15 @@ void Fish::foodEatenIncrement(std::pair<int,int> foodValue)
 }
 
 
-bool Fish::seekFood(const std::vector<std::unique_ptr<Eatable>>& foodItems)
+bool Fish::seekFood(const std::list<std::unique_ptr<GameObject>>& foodItems)
 {
 	bool foundFood = false;
 	//pointer to pointer to avoid copying the vector
-	std::vector<Eatable*> filteredFood;
+	std::vector<GameObject*> filteredFood;
 
 	for (const auto& foodItem : foodItems)
 	{
-		if (foodItem && !foodItem->isEaten() && foodItem->getType() == m_myFoodType) 
+		if (foodItem && !foodItem->isDestroyed() && foodItem->getType() == m_myFoodType) 
 		{
 			filteredFood.push_back(foodItem.get());
 		}
@@ -96,7 +96,7 @@ bool Fish::seekFood(const std::vector<std::unique_ptr<Eatable>>& foodItems)
 
 	if (!filteredFood.empty()) 
 	{
-		const Eatable* foundClosestFood = findClosestFood(filteredFood);
+		const GameObject* foundClosestFood = findClosestFood(filteredFood);
 
 		moveTowardFood(foundClosestFood);
 		foundFood = true;
@@ -115,25 +115,25 @@ void Fish::handleHungerTimer(float deltaTime)
 		m_health -= 1; // Decrease health due to hunger
 		if (m_health <= 0) 
 		{
-			m_isEaten = true; // Mark fish as dead if health drops to zero
+			m_shouldDestroy = true; // Mark fish as dead if health drops to zero
 		}
 	}
 
 }
 
 
-Eatable* Fish::findClosestFood(const std::vector<Eatable*> foodItems)
+GameObject* Fish::findClosestFood(const std::vector<GameObject*> foodItems)
 {
 	if (foodItems.empty())
 	{
 		return nullptr;
 	}
 
-	Eatable* closestFood = nullptr;
+	GameObject* closestFood = nullptr;
 	float closestDistance = std::numeric_limits<float>::max();
 	sf::Vector2f fishCenter = getCenter();	
 	
-	for(Eatable* foodItem : foodItems)
+	for(GameObject* foodItem : foodItems)
 	{
 		if (foodItem) 	
 		{
@@ -153,7 +153,7 @@ Eatable* Fish::findClosestFood(const std::vector<Eatable*> foodItems)
 
 }
 
-void Fish::moveTowardFood(const Eatable* food)
+void Fish::moveTowardFood(const GameObject* food)
 {
 	sf::Vector2f fishCenter = getCenter();
 	sf::Vector2f foodCenter = food->getCenter();

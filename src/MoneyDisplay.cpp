@@ -7,6 +7,8 @@ MoneyDisplay::MoneyDisplay()
 	m_moneyText.setFont(ResourceManager::getInstance().getGameFont());
 	m_moneyText.setCharacterSize(20);
 	m_moneyText.setFillColor(sf::Color::Green);
+
+	updateMoneyText();
 }
 
 
@@ -18,7 +20,8 @@ int MoneyDisplay::getMoney() const
 
 void MoneyDisplay::addMoney(int amount)
 {
-	m_money += amount; updateMoneyText();
+	m_money += amount;
+	updateMoneyText();
 }
 
 
@@ -34,4 +37,17 @@ void MoneyDisplay::updateMoneyText()
 	sf::FloatRect textBounds = m_moneyText.getLocalBounds();
 	m_moneyText.setPosition(m_position.x + (m_size.x - textBounds.width) / 2.0f,
 							m_position.y + (m_size.y - textBounds.height) / 2.0f);
+}
+
+
+void MoneyDisplay::draw(sf::RenderWindow& window)const
+{
+	UiElement::draw(window);
+	window.draw(m_moneyText);
+}
+
+void MoneyDisplay::setPosition(const sf::Vector2f& position)
+{
+	UiElement::setPosition(position);
+	updateMoneyText();
 }

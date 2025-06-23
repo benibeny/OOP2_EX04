@@ -1,7 +1,7 @@
 #include "Entities/Money.h"
 
 Money::Money(Moneytype moneyType, const sf::Vector2f pos)
-	:Eatable(Type::Money, pos, MONEY_SPRITE_SHEET_NAME, 6, 10, int(moneyType),40), m_moneyType(moneyType)
+	:GameObject(Type::Money, pos, MONEY_SPRITE_SHEET_NAME, 6, 10, int(moneyType),40), m_moneyType(moneyType)
 {
 	m_sprite.setScale(1.5f, 1.5f);
 
@@ -29,9 +29,9 @@ Money::Money(Moneytype moneyType, const sf::Vector2f pos)
 }
 
 
-void Money::update(float deltaTime, const std::vector <std::unique_ptr<Eatable>>& foodItems, sf::Vector2u& windowSize)
+void Money::update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize)
 {
-	if (!m_isEaten)
+	if (!m_shouldDestroy)
 	{
 		if (!m_touchedFloor)
 		{
@@ -67,8 +67,15 @@ void Money::checkTouchedFloor(sf::Vector2u& windowSize, float deltaTime)
 
 		if (m_floorTimer >= TIME_ON_FLOOR)
 		{
-			m_isEaten = true;
+			m_shouldDestroy = true;
 		}
 	}
 
+}
+
+
+void Money::clicked(const sf::Vector2f& mousePosition)
+{
+	setDestroyed(true);
+	EventManager::getInstance().notifyMoneyClick(getMoneyValue());
 }

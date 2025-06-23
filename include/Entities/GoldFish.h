@@ -4,6 +4,7 @@
 #include <string>
 
 #include "Entities/Fish.h"
+#include "EventManager.h"
 
 #include "ResourceManager.h"
 
@@ -29,12 +30,12 @@ public:
 
 	GoldFish(sf::Vector2f pos);
 		
-	void update(float deltaTime, const std::vector<std::unique_ptr<Eatable>>& foods, sf::Vector2u& windowSize) override;
+	void update(float deltaTime, const std::list<std::unique_ptr<GameObject>>& foods, sf::Vector2u& windowSize) override;
 	void updateAnimation(float deltaTime);
 	//void getFishSize(Size size);
-	void move(sf::Vector2u& windowSize, float deltaTime, const std::vector<std::unique_ptr<Eatable>>& foods);
+	void move(sf::Vector2u& windowSize, float deltaTime, const std::list<std::unique_ptr<GameObject>>& foods);
 	
-	Money::Moneytype shouldProduceMoney() override;
+	void shouldProduceMoney(float deltaTime) override;
 
 private:
 	//std::string getSpriteNameForSize(const Size size);

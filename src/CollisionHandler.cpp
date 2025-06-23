@@ -1,7 +1,7 @@
 #include "CollisionHandler.h"
 
 
-#include "Entities/Eatable.h"
+#include "Entities/GameObject.h"
 #include "Entities/GoldFish.h"
 #include "Entities/Food.h"
 
@@ -9,7 +9,7 @@
 namespace 
 {
 
-	void goldFishFood(Eatable& goldFish, Eatable& food)
+	void goldFishFood(GameObject& goldFish, GameObject& food)
 	{
 		GoldFish& goldFishFound = static_cast<GoldFish&>(goldFish);
 		Food& FoodFound = static_cast<Food&>(food);
@@ -21,14 +21,14 @@ namespace
 
 	}
 
-	void foodGoldFish(Eatable& food, Eatable& goldFish)
+	void foodGoldFish(GameObject& food, GameObject& goldFish)
 	{
 		goldFishFood(goldFish, food);
 	}
 
 
 
-	using CollisionHandlerFunction = void(*)(Eatable& , Eatable&);
+	using CollisionHandlerFunction = void(*)(GameObject& , GameObject&);
 	
 	using CollisionPairKey = std::pair<std::type_index, std::type_index>;
 
@@ -60,7 +60,7 @@ namespace
 }
 
 
-void processCollision(Eatable& object1, Eatable& object2)
+void processCollision(GameObject& object1, GameObject& object2)
 {
 	auto collisionFunction = lookup(typeid(object1), typeid(object2));
 	if (collisionFunction)

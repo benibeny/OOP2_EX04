@@ -10,6 +10,11 @@ GameScreen::GameScreen()
    
 }
 
+GameScreen::~GameScreen()
+{
+    EventManager::getInstance().cleanUp();
+}
+
 void GameScreen::handleEvent(const sf::Event& event) 
 {
     if (event.type == sf::Event::Resized) 
@@ -37,7 +42,15 @@ void GameScreen::handleEvent(const sf::Event& event)
         if (event.mouseButton.button == sf::Mouse::Left) 
         {
             sf::Vector2f mousePos(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
-            m_aquariumManager.handleMouseClick(mousePos);
+            if (mousePos.y <= m_shopBarManager.getSlotSize())
+            {
+                m_shopBarManager.handleMouseClick(mousePos);
+            }
+            else
+            {
+                m_aquariumManager.handleMouseClick(mousePos);
+            }
+            
         }
 	}
 }
@@ -73,7 +86,7 @@ void GameScreen::setUpUi()
     }
 
 
-	float slotSize = winSize.x / 11.0f;// 11 slots in the shop bar
+	float slotSize = winSize.x / 9.0f;// 9 slots in the shop bar
 	m_shopBarManager.initialize(slotSize);
 
 

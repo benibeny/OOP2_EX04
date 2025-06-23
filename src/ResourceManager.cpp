@@ -37,7 +37,7 @@ sf::Texture* ResourceManager::getTexture(const std::string& filename)
 }
 
 
-bool ResourceManager::loadSpriteSheet(const std::string& fileName, const int col, const int row,int frameWidth,int frameHeight)
+bool ResourceManager::loadSpriteSheet(const std::string& fileName, const int col, const int row, float frameWidth, float frameHeight)
 {
 	if (!loadTexture(fileName))
 	{
@@ -57,8 +57,8 @@ bool ResourceManager::loadSpriteSheet(const std::string& fileName, const int col
 
 	if (frameWidth == 0 || frameHeight == 0) 
 	{
-		frameHeight = texture->getSize().y / row;
-		frameWidth = texture->getSize().x / col;
+		frameHeight = float(texture->getSize().y) / row;
+		frameWidth = float(texture->getSize().x) / col;
 	}
 
 	m_spriteSheets[fileName] = SpriteSheetInfo

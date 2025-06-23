@@ -4,17 +4,17 @@
 #include <string>
 #include <vector>
 
-#include "Entities/Eatable.h"
+#include "Entities/GameObject.h"
 
 
 //snail ,fish 
-class Animal : public Eatable
+class Animal : public GameObject
 {
 public:
 	Animal(Type myType, sf::Vector2f pos, float speed,std::string textuerName, const int sheetRows, const int sheetCols, const int animationRow);
 	virtual ~Animal() = default;
 
-	virtual void handleCollision(Eatable* food) = 0;
+	virtual void handleCollision(GameObject* food) = 0;
 	//virtual std::string getType() const = 0;
 
 

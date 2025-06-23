@@ -3,15 +3,18 @@
 #include "shopSlot.h"
 #include "Game.h"
 #include "MoneyDisplay.h"
+#include "EventManager.h"
 
 #include "Commands/CommandBuyGoldFish.h"
 #include "Commands/CommandOptions.h"
+
 
 #include <memory>
 #include <vector>
 
 
 #define MONEYBACKGROUND "moneyBackground.jpg"
+#define MENUBACKGROUND "menu_slots.png" 
 
 #define FOODSLOT "foodSlot.png"
 #define FOODROW 2
@@ -40,9 +43,12 @@ public:
 	ShopBarManager();
 	
 	void initialize(float slotSize);
-	void handleClick(const sf::Vector2f& mousePos);
+	void handleMouseClick(const sf::Vector2f& mousePos);
 	void draw(sf::RenderWindow& window) const;
+	float getSlotSize() const { return m_slotSize; }
 private:
+	void registerToEventManager();
+
 	std::vector<ShopSlot> m_shopSlots;
 
 

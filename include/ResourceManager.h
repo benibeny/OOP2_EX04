@@ -15,7 +15,7 @@ public:
 
 	//return a pointer to the texture if it exists, otherwise load it and return a pointer to the newly loaded texture
 	sf::Texture* getTexture(const std::string& filename);
-	bool loadSpriteSheet(const std::string& fileName,const int col,const int row,int frameWidth = 0,int frameHeight = 0);
+	bool loadSpriteSheet(const std::string& fileName,const int col,const int row, float frameWidth = 0,float frameHeight = 0);
 	void setSpriteTextureFromSheet(sf::Sprite& sprite,
 							      const std::string& filename,
 								  int col,int row, int reduction = 0);
@@ -34,8 +34,8 @@ private:
 	{
 		int columns;
 		int rows;
-		int frameWidth;
-		int frameHeight;
+		float frameWidth;
+		float frameHeight;
 		int totalFrames;
 	};
 

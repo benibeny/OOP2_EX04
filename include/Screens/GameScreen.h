@@ -16,7 +16,7 @@ class GameScreen : public Screen
 {
 public:
     GameScreen();
-    ~GameScreen() override = default;
+    ~GameScreen() override;
 
     void handleEvent(const sf::Event& event) override;
     void update(float deltaTime) override;

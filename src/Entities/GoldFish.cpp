@@ -15,13 +15,13 @@ GoldFish::GoldFish(sf::Vector2f pos)
 }
 
 
-void GoldFish::update(float deltaTime, const std::vector <std::unique_ptr<Eatable>>& foodItems, sf::Vector2u& windowSize)
+void GoldFish::update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize)
 {
 	updateFishSize();
 	handleHungerTimer(deltaTime);
 	move(windowSize, deltaTime, foodItems);
-	m_coinTimer += deltaTime;// Update coin timer
-
+	
+	shouldProduceMoney(deltaTime);
 	
 	updateAnimation(deltaTime);
 }
@@ -67,7 +67,7 @@ void GoldFish::updateAnimation(float deltaTime)
 }
 
 
-void GoldFish::move(sf::Vector2u& windowSize,float deltaTime, const std::vector<std::unique_ptr<Eatable>>& eatable)
+void GoldFish::move(sf::Vector2u& windowSize,float deltaTime, const std::list<std::unique_ptr<GameObject>>& eatable)
 {
 	if (m_health <= FISH_HUNGER && !eatable.empty()) 
 	{
@@ -100,14 +100,15 @@ void GoldFish::move(sf::Vector2u& windowSize,float deltaTime, const std::vector<
 	bounceOffWalls(windowSize);
 }
 
-Money::Moneytype GoldFish::shouldProduceMoney()
+void GoldFish::shouldProduceMoney(float deltaTime)
 {
 	if (m_fishSize != Size::Small && m_coinTimer >= COIN_TIMER)
 	{
+		sf::Vector2f center = m_sprite.getPosition() + sf::Vector2f(m_sprite.getGlobalBounds().width / 2.f, m_sprite.getGlobalBounds().height / 2.f);
 		m_coinTimer = 0;
-		return getProducedMoneyType();
+		EventManager::getInstance().notifyCreateMoney(int(getProducedMoneyType()), center);
 	}
-	return Money::Moneytype::Invalid;
+	m_coinTimer += deltaTime;// Update coin timer
 }
 
 

@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <string>
 
-#include "Entities/Eatable.h"
+#include "Entities/GameObject.h"
 #include "Entities/GoldFish.h"
 #include "Entities/Food.h"
 
@@ -19,4 +19,4 @@
 //};
 
 
-void processCollision(Eatable& a, Eatable& b);
+void processCollision(GameObject& a, GameObject& b);

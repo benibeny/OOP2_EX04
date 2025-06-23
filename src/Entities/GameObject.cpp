@@ -1,9 +1,9 @@
-#include "Entities/Eatable.h"
+#include "Entities/GameObject.h"
 #include "ResourceManager.h"
 #include <iostream>
 
-Eatable::Eatable(Type myType,sf::Vector2f pos, const std::string& spriteName, const int sheetRows, const int sheetCols, const int animationRow,int spriteReduction)
-	:m_type(myType), m_spriteName(spriteName), m_isEaten(false), m_sheetCols(sheetCols), m_animationTimer(0.f), m_animationFrame(0), m_sheetRowIndex(animationRow), m_isSpriteLoaded(false), m_spriteReduction(spriteReduction)
+GameObject::GameObject(Type myType,sf::Vector2f pos, const std::string& spriteName, const int sheetRows, const int sheetCols, const int animationRow,int spriteReduction)
+	:m_type(myType), m_spriteName(spriteName), m_shouldDestroy(false), m_sheetCols(sheetCols), m_animationTimer(0.f), m_animationFrame(0), m_sheetRowIndex(animationRow), m_isSpriteLoaded(false), m_spriteReduction(spriteReduction)
 {
 	ResourceManager& resourceManager = ResourceManager::getInstance();
 	resourceManager.loadSpriteSheet(spriteName, sheetCols, sheetRows);
@@ -24,7 +24,7 @@ Eatable::Eatable(Type myType,sf::Vector2f pos, const std::string& spriteName, co
 
 
 
-void Eatable::draw(sf::RenderWindow& window)
+void GameObject::draw(sf::RenderWindow& window)
 {
 	if (m_isSpriteLoaded) 
 	{
@@ -37,17 +37,17 @@ void Eatable::draw(sf::RenderWindow& window)
 	}
 }
 
-bool Eatable::isEaten() const
+bool GameObject::isDestroyed() const
 {
-	return m_isEaten;
+	return m_shouldDestroy;
 }
 
-void Eatable::setEaten(bool eaten)
+void GameObject::setDestroyed(bool destroyed)
 {
-	m_isEaten = eaten;
+	m_shouldDestroy = destroyed;
 }
 
-void Eatable::updateAnimation(float deltaTime)
+void GameObject::updateAnimation(float deltaTime)
 {
 	m_animationTimer += deltaTime;
 	if (m_animationTimer >= 0.2f) // Adjust the speed of the animation here
@@ -59,7 +59,7 @@ void Eatable::updateAnimation(float deltaTime)
 	
 }
 
-sf::FloatRect Eatable::getBounds() const
+sf::FloatRect GameObject::getBounds() const
 {
 	if (m_isSpriteLoaded)
 	{
@@ -69,7 +69,7 @@ sf::FloatRect Eatable::getBounds() const
 }
 
 
-sf::Vector2f Eatable::getPosition() const
+sf::Vector2f GameObject::getPosition() const
 {
 	if (m_isSpriteLoaded)
 	{
@@ -79,7 +79,7 @@ sf::Vector2f Eatable::getPosition() const
 }
 
 
-sf::Vector2f Eatable::getCenter() const
+sf::Vector2f GameObject::getCenter() const
 {
 	if (m_isSpriteLoaded)
 	{
@@ -91,7 +91,7 @@ sf::Vector2f Eatable::getCenter() const
 }
 
 
-void Eatable::setPosition(const sf::Vector2f& position)
+void GameObject::setPosition(const sf::Vector2f& position)
 {
 	if (m_isSpriteLoaded)
 	{
@@ -100,7 +100,7 @@ void Eatable::setPosition(const sf::Vector2f& position)
 }
 
 
-Eatable::Type Eatable::getType() const
+GameObject::Type GameObject::getType() const
 {
 	return m_type;
 }

@@ -4,6 +4,8 @@
 UiElement::UiElement(std::string spriteName, const int rows, const int cols)
 	:m_position(0.0f,0.0f), m_size(1.0f, 1.0f), m_spriteName(spriteName)
 {
+
+
 	ResourceManager &resource = ResourceManager::getInstance();
 	resource.loadSpriteSheet(spriteName, cols, rows);
 	resource.setSpriteTextureFromSheet(m_sprite,spriteName, 0, 0);

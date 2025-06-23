@@ -2,7 +2,7 @@
 #include <limits>
 #include <iostream>
 Animal::Animal(Type myType, sf::Vector2f pos, float speed, std::string textuerName, const int sheetRows, const int sheetCols, const int animationRow)
-	: Eatable(myType,pos, textuerName, sheetRows, sheetCols, animationRow), m_speed(speed), m_velocity(0.f,0.f)
+	: GameObject(myType,pos, textuerName, sheetRows, sheetCols, animationRow), m_speed(speed), m_velocity(0.f,0.f)
 {}
 
 void Animal::bounceOffWalls(const sf::Vector2u& windowSize)
@@ -26,7 +26,7 @@ void Animal::bounceOffWalls(const sf::Vector2u& windowSize)
 		
 	}
 
-	float shopBarHeight = windowSize.y / 10.0f;
+	float shopBarHeight = windowSize.x / 9.0f;
 	float sandBarHeight = windowSize.y / 10.0f;
 
 	if( position.y <= shopBarHeight)

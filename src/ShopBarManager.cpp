@@ -1,18 +1,28 @@
 #include "ShopBarManager.h"
 
 ShopBarManager::ShopBarManager()
-	:m_OptionButton(Clickable(std::make_unique<CommandOptions>(), MONEYBACKGROUND)),m_slotSize(0.0f)
+	:m_OptionButton(Clickable(std::make_unique<CommandOptions>(), MENUBACKGROUND)),m_slotSize(0.0f)
 {
-	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
-	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), FOODSLOT, FOODROW));
-	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), NUMBERFOODSLOT, NUMBERFOODROW));
-	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), PIRANASLOT, PIRANAROW));
-	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), WEPONSLOT, WEPONROW));
-	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
-	m_shopSlots.emplace_back(ShopSlot(std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
+	m_shopSlots.emplace_back(ShopSlot(100,std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
+	m_shopSlots.emplace_back(ShopSlot(200,std::make_unique<CommandBuyGoldFish>(), FOODSLOT, FOODROW));
+	m_shopSlots.emplace_back(ShopSlot(300,std::make_unique<CommandBuyGoldFish>(), NUMBERFOODSLOT, NUMBERFOODROW));
+	m_shopSlots.emplace_back(ShopSlot(1000,std::make_unique<CommandBuyGoldFish>(), PIRANASLOT, PIRANAROW));
+	m_shopSlots.emplace_back(ShopSlot(1000,std::make_unique<CommandBuyGoldFish>(), WEPONSLOT, WEPONROW));
+	m_shopSlots.emplace_back(ShopSlot(10,std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
+	m_shopSlots.emplace_back(ShopSlot(10,std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
+
+	registerToEventManager();
 }
 
+void ShopBarManager::registerToEventManager() 
+{
+	EventManager& eventManager = EventManager::getInstance();
+	eventManager.subscribeToMoneyClick([this](int moneyValue)
+		{
+			m_moneyDisplay.addMoney(moneyValue);
 
+		});
+}
 
 void ShopBarManager::initialize(float slotSize)
 {
@@ -29,14 +39,30 @@ void ShopBarManager::initialize(float slotSize)
 	m_OptionButton.setPosition(sf::Vector2f(endOfSlots, 0));
 	m_OptionButton.setSize(optionMoneyWidth, slotSize/2);
 
-	m_moneyDisplay.setPosition(sf::Vector2f(endOfSlots, slotSize / 2));
+
 	m_moneyDisplay.setSize(optionMoneyWidth, slotSize / 2);
+	m_moneyDisplay.setPosition(sf::Vector2f(endOfSlots, slotSize / 2));
+	
+
+	m_slotSize = slotSize;
 
 }
 
-void ShopBarManager::handleClick(const sf::Vector2f& mousePos)
+void ShopBarManager::handleMouseClick(const sf::Vector2f& mousePos)
 {
-
+	for (auto& slot : m_shopSlots)
+	{
+		if(slot.isMouseOver(mousePos))
+		{
+			int slotPrice = slot.getPrice();
+			if (m_moneyDisplay.getMoney() >= slotPrice && !slot.isMaxBought())
+			{
+				slot.onClick();
+				m_moneyDisplay.subtractMoney(slotPrice);
+			}
+			
+		}
+	}
 }
 
 void ShopBarManager::draw(sf::RenderWindow& window) const
