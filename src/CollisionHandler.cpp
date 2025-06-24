@@ -4,6 +4,7 @@
 #include "Entities/GameObject.h"
 #include "Entities/GoldFish.h"
 #include "Entities/Food.h"
+#include "Entities/NormalMonstar.h"
 
 #include <iostream>
 namespace 
@@ -27,6 +28,17 @@ namespace
 	}
 
 
+	void normalMonstarFish(GameObject& normalMonstar, GameObject& fish)
+	{
+		fish.setDestroyed(true);
+	}
+
+	void fishNormalMonstar(GameObject& fish,GameObject& normalMonstar)
+	{
+		normalMonstarFish(normalMonstar, fish);
+	}
+
+
 
 	using CollisionHandlerFunction = void(*)(GameObject& , GameObject&);
 	
@@ -41,6 +53,8 @@ namespace
 		
 		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(Food))] = &goldFishFood;
 		collisionMap[CollisionPairKey(typeid(Food), typeid(GoldFish))] = &foodGoldFish;
+		collisionMap[CollisionPairKey(typeid(NormalMonstar), typeid(GoldFish))] = &normalMonstarFish;
+		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(NormalMonstar))] = &fishNormalMonstar;
 
 		return collisionMap;
 	}

@@ -8,27 +8,10 @@
 
 
 Fish::Fish(Type foodType,Type myType, sf::Vector2f pos, float speed, std::string textureName,const int sheetRows,const int sheetCols,const int animationRow,const std::string& turningSpriteSheetName)
-	:Animal(myType , pos, speed,textureName, sheetRows, sheetCols, animationRow), m_myFoodType(foodType), m_isTurning(false), m_turningFrame(0), m_turningSpriteSheetName(turningSpriteSheetName),
-	 m_random(std::random_device{}()), m_randomDirection(-1.0f, 1.0f)
+	:Animal(myType , pos, speed,textureName, sheetRows, sheetCols, animationRow), m_myFoodType(foodType), m_isTurning(false), m_turningFrame(0), m_turningSpriteSheetName(turningSpriteSheetName)
 {}
 
 
-
-
-
-void Fish::moveRandomly(float deltaTime)
-{
-	
-	m_directionChangeTime += deltaTime;
-	if (m_directionChangeTime > 2.0f) // Change direction every second
-	{
-		m_velocity.x = m_randomDirection(m_random) * m_speed ; // Random speed in x direction
-		m_velocity.y = m_randomDirection(m_random) * m_speed * 0.5f;
-		m_directionChangeTime = 0.0f;
-
-		//checkTurn();
-	}
-}
 
 
 void Fish::checkTurn()

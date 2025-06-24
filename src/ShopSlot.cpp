@@ -2,8 +2,8 @@
 
 
 
-ShopSlot::ShopSlot(const int price ,std::unique_ptr<Command> command,const std::string& spriteSheetName,const int row)
-	:Clickable(std::move(command), spriteSheetName, row), m_spriteSheetRows(row), m_row(0), m_price(price)
+ShopSlot::ShopSlot(const int price ,std::unique_ptr<Command> command,const std::string& spriteSheetName,const int row,bool hasMax)
+	:Clickable(std::move(command), spriteSheetName, row), m_spriteSheetRows(row), m_row(0), m_price(price), m_hasMax(hasMax)
 {}
 
 void ShopSlot::onClick()
@@ -13,15 +13,18 @@ void ShopSlot::onClick()
 
 		m_command->execute();
 
-		m_row++;
-		if (m_row >= m_spriteSheetRows)
+		if (m_hasMax)
 		{
-			m_isMaxBought = true;
-			setMaxSprite();
-		}
-		else 
-		{
-			updateSlotSpriteRow();
+			m_row++;
+			if (m_row >= m_spriteSheetRows)
+			{
+				m_isMaxBought = true;
+				setMaxSprite();
+			}
+			else
+			{
+				updateSlotSpriteRow();
+			}
 		}
 	}
 }

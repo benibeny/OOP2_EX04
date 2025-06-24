@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
+#include <random>
 
 #include "Entities/GameObject.h"
 
@@ -27,6 +28,7 @@ public:
 
 protected:
 	void bounceOffWalls(const sf::Vector2u& windowSize);
+	void moveRandomly(float deltaTime);
 	
 
 	enum class AnimalDirection
@@ -41,4 +43,8 @@ protected:
 	
 	float m_health = 30.0f;
 
+	//heavy use as member and not local variable to avoid re-seeding
+	float m_directionChangeTime = 2.0f;
+	mutable std::mt19937 m_random;
+	mutable std::uniform_real_distribution<float> m_randomDirection;
 };

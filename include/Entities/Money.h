@@ -21,7 +21,7 @@ public:
 
 	Money(Moneytype moneyType, const sf::Vector2f pos);
 	
-	void clicked(const sf::Vector2f& mousePosition) override;
+	void clicked(int damage) override;
 
 	void update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize) override;
 	int getMoneyValue() const { return m_moneyValue; }

@@ -91,8 +91,6 @@ void GoldFish::move(sf::Vector2u& windowSize,float deltaTime, const std::list<st
 	//}
 	checkTurn();
 	
-
-
 	sf::Vector2f currentPos = m_sprite.getPosition();
 	sf::Vector2f newPos = currentPos + m_velocity * deltaTime;
 	setPosition(newPos);
