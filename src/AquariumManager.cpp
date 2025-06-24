@@ -3,7 +3,7 @@
 int AquariumManager::m_coins = 0;
 
 AquariumManager::AquariumManager(sf::Vector2u windowSize) 
-	: m_windowSize(windowSize) 
+	: m_windowSize(windowSize),m_foodType(Food::Foodtype::Worst)
 {
 	registerToEventManager();
 }
@@ -16,14 +16,15 @@ void AquariumManager::handleMouseClick(const sf::Vector2f mousePos)
 	{
 		if (isColliding(mouseBounds, eatable->getBounds()))
 		{
-			eatable->clicked(mousePos);
+			eatable->clicked(m_currentHitDmg);
 			return;
 		}
 	}
 
-	if (m_maxFoodSpawned > m_foodCount)
+
+	if (!m_monserSpawned && m_maxFoodSpawned > m_foodCount)
 	{
-		m_eatables.push_back(std::make_unique<Food>(Food::Foodtype::Worst, mousePos));
+		m_eatables.push_back(std::make_unique<Food>(m_foodType, mousePos));
 		m_foodCount++;
 	}
 	
@@ -48,7 +49,7 @@ void AquariumManager::update(float deltaTime)
 			checkCollisions(eatable);
 		}
 	}
-
+	checkSpawnMonster(deltaTime);
 	destroyEaten();
 }
 
@@ -76,27 +77,24 @@ void AquariumManager::destroyEaten()
 		});
 }
 
-//maybe a problem
-//void AquariumManager::destroyEaten()
-//{
-//	int foodRemoved = 0;
-//
-//	auto newEnd = std::remove_if(m_eatables.begin(), m_eatables.end(),
-//		[&foodRemoved](const std::unique_ptr<Eatable>& eatable)
-//		{
-//			if (eatable->isEaten()) 
-//			{
-//				if (eatable->getType() == Eatable::Type::Food) 
-//				{
-//					++foodRemoved;
-//				}
-//				return true;
-//			}
-//			return false;
-//		});
-//	m_eatables.erase(newEnd, m_eatables.end());
-//	m_foodCount -= foodRemoved;
-//}
+
+void AquariumManager::checkSpawnMonster(float deltaTime)
+{
+
+	if (!m_monserSpawned) 
+	{
+		m_monsterSpawnTimer += deltaTime;
+		if (m_monsterSpawnTimer > MONSETER_SPAWN_TIME)
+		{
+			addEatable(std::make_unique<NormalMonstar>());
+			m_monsterSpawnTimer = 0.f;
+			m_monserSpawned = true;
+		}
+		
+	}
+	
+}
+
 
 
 void AquariumManager::checkCollisions(std::unique_ptr<GameObject>& eatable)
@@ -107,6 +105,16 @@ void AquariumManager::checkCollisions(std::unique_ptr<GameObject>& eatable)
 		{
 			processCollision(*eatable, *otherEatable);
 		}
+	}
+}
+
+void AquariumManager::updateFoodType()
+{
+	if (m_foodType != Food::Foodtype::Best)
+	{
+		int foodType = int(m_foodType);
+		foodType++;
+		m_foodType = static_cast<Food::Foodtype>(foodType);
 	}
 }
 
@@ -125,12 +133,34 @@ int AquariumManager::getCoins()
 
 void AquariumManager::registerToEventManager()
 {
-	EventManager& Manager = EventManager::getInstance();
+	EventManager& manager = EventManager::getInstance();
 
-	Manager.subscribeToFoodDestroyed([this]() { m_foodCount--; });
+	manager.subscribeToFoodAmount([this]()
+		{
+			m_maxFoodSpawned++;
+		});
 
-	Manager.subscribeToCreateMoney([this](int type, const sf::Vector2f& position)
+	manager.subscribeToFoodTier([this]()
+		{
+			updateFoodType();
+		});
+
+	manager.subscribeToBuyAnimal([this](std::unique_ptr<GameObject> gameObj)
+		{
+			addEatable(std::move(gameObj));
+		});
+
+	manager.subscribeToFoodDestroyed([this]() { m_foodCount--; });
+
+
+	manager.subscribeToCreateMoney([this](int type, const sf::Vector2f& position)
 		{
 			addEatable(std::make_unique<Money>(static_cast<Money::Moneytype>(type), position));
+		});
+
+	manager.subscribeToMonstarDeath([this](const sf::Vector2f& position)
+		{
+			m_monserSpawned = false;
+			addEatable(std::make_unique<Money>(Money::Moneytype::Diamond, position));
 		});
 }

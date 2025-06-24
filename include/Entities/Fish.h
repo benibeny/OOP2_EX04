@@ -40,7 +40,6 @@ public:
 protected:
 	virtual Money::Moneytype getProducedMoneyType() = 0;
 
-	virtual void moveRandomly(float deltaTime);
 	GameObject* findClosestFood(const std::vector<GameObject*> foodItems);
 	void moveTowardFood(const GameObject* food);
 
@@ -60,10 +59,7 @@ protected:
 	
 
 
-	//heavy use as member and not local variable to avoid re-seeding
-	float m_directionChangeTime = 2.0f;
-	mutable std::mt19937 m_random;
-	mutable std::uniform_real_distribution<float> m_randomDirection;
+
 
 
 };

@@ -11,7 +11,7 @@
 class ShopSlot : public Clickable
 {
 public:
-	ShopSlot(const int price ,std::unique_ptr<Command> command,const std::string& spriteSheetName, const int row);
+	ShopSlot(const int price ,std::unique_ptr<Command> command,const std::string& spriteSheetName, const int row, bool hasMax = true);
 	virtual void onClick() override;
 	
 	int getPrice() const { return m_price; }
@@ -26,5 +26,6 @@ private:
 
 	int m_price;
 
+	bool m_hasMax;
 	bool m_isMaxBought = false;
 };

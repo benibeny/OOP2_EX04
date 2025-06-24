@@ -14,6 +14,7 @@ configure_file ("ANIMATION/smalldie.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/smalleat.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/smallswim.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/money.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ANIMATION/balrog.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/food.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 

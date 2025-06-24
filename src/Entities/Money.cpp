@@ -74,7 +74,7 @@ void Money::checkTouchedFloor(sf::Vector2u& windowSize, float deltaTime)
 }
 
 
-void Money::clicked(const sf::Vector2f& mousePosition)
+void Money::clicked(int damage)
 {
 	setDestroyed(true);
 	EventManager::getInstance().notifyMoneyClick(getMoneyValue());

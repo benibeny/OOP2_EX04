@@ -11,6 +11,7 @@ public:
 		Food,
 		GoldFish,
 		Money,
+		Monster,
 
 	};
 
@@ -24,7 +25,7 @@ public:
 	virtual void setDestroyed(bool destroyed) ;
 	Type getType() const;
 
-	virtual void clicked(const sf::Vector2f& mousePosition) {};
+	virtual void clicked(int damage) {};
 
 	void updateAnimation(float deltaTime);
 	void setPosition(const sf::Vector2f& position);

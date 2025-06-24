@@ -6,6 +6,8 @@
 #include "EventManager.h"
 
 #include "Commands/CommandBuyGoldFish.h"
+#include "Commands/CommandBuyFoodTier.h"
+#include "Commands/CommandBuyFoodAmount.h"
 #include "Commands/CommandOptions.h"
 
 
