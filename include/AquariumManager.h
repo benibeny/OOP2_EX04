@@ -10,7 +10,8 @@
 #include "CollisionHandler.h"
 #include "EventManager.h"
 
-#define MONSETER_SPAWN_TIME 1.0f // Time in seconds to spawn a monster
+#define MONSETER_SPAWN_TIME 3.0f // Time in seconds to spawn a monster
+#define NORMALMONSTAR_HITMARK_SPTITE "hitmark.png"
 
 class AquariumManager
 {
@@ -31,7 +32,7 @@ public:
 private:
 	bool isColliding(const sf::FloatRect& rect1, const sf::FloatRect& rect2);
 	void destroyEaten();
-	void checkSpawnMonster(float deltaTime);
+	void checkSpawnMonsterAndHit(float deltaTime);
 	void checkCollisions(std::unique_ptr<GameObject>& eatable);
 	void updateFoodType();
 	//all with things out money
@@ -50,4 +51,10 @@ private:
 	int m_currentHitDmg = 5;
 
 	sf::Vector2u m_windowSize;
+
+
+	int m_weaponLevel = 0;
+	float m_hitAnimationTimer = 0.0f;
+	bool m_isHitAnimation = false;
+	sf::Sprite m_hitMark;
 };

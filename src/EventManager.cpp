@@ -118,10 +118,16 @@ void EventManager::notifyFoodAmount()
 
 void EventManager::subscribeToBuyWeapon(const std::function<void()> callback)
 {
+	m_buyWeapon.push_back(callback);
 }
 
 void EventManager::notifyBuyWeapon()
 {
+	for(auto callback : m_buyWeapon)
+		if (callback)
+		{
+			callback();
+		}
 }
 
 

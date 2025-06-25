@@ -21,7 +21,7 @@ public:
 	virtual void update(float deltaTime, const std::list<std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize) = 0;
 	virtual void handleCollision(GameObject* food) {}
 	
-	void checkTurn();
+	void checkTurn()override;
 	virtual void handleTurnAnimation();
 
 

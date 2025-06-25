@@ -7,7 +7,7 @@ ShopBarManager::ShopBarManager()
 	m_shopSlots.emplace_back(ShopSlot(200,std::make_unique<CommandBuyFoodTier>(), FOODSLOT, FOODROW));
 	m_shopSlots.emplace_back(ShopSlot(300,std::make_unique<CommandBuyFoodAmount>(), NUMBERFOODSLOT, NUMBERFOODROW));
 	m_shopSlots.emplace_back(ShopSlot(1000,std::make_unique<CommandBuyGoldFish>(), PIRANASLOT, PIRANAROW));
-	m_shopSlots.emplace_back(ShopSlot(1000,std::make_unique<CommandBuyGoldFish>(), WEPONSLOT, WEPONROW));
+	m_shopSlots.emplace_back(ShopSlot(1000,std::make_unique<CommandBuyWeapon>(), WEPONSLOT, WEPONROW));
 	m_shopSlots.emplace_back(ShopSlot(10,std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
 	m_shopSlots.emplace_back(ShopSlot(10,std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
 

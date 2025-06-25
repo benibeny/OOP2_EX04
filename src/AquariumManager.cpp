@@ -6,26 +6,43 @@ AquariumManager::AquariumManager(sf::Vector2u windowSize)
 	: m_windowSize(windowSize),m_foodType(Food::Foodtype::Worst)
 {
 	registerToEventManager();
+
+	ResourceManager& resourceManager = ResourceManager::getInstance();
+	resourceManager.loadSpriteSheet(NORMALMONSTAR_HITMARK_SPTITE, 1, 11);
+	resourceManager.setSpriteTextureFromSheet(m_hitMark, NORMALMONSTAR_HITMARK_SPTITE, 0, 0);
 }
 
 
 void AquariumManager::handleMouseClick(const sf::Vector2f mousePos)
 {
+	bool clickedOnGameObject = false;
 	sf::FloatRect mouseBounds(mousePos.x - 5, mousePos.y - 5, 10.f, 10.f);
 	for (auto& eatable : m_eatables)
 	{
 		if (isColliding(mouseBounds, eatable->getBounds()))
 		{
-			eatable->clicked(m_currentHitDmg);
-			return;
+			eatable->clicked(m_currentHitDmg, mousePos);
+			clickedOnGameObject = true;
 		}
 	}
 
-
-	if (!m_monserSpawned && m_maxFoodSpawned > m_foodCount)
+	if (!m_monserSpawned)
 	{
-		m_eatables.push_back(std::make_unique<Food>(m_foodType, mousePos));
-		m_foodCount++;
+		if (m_maxFoodSpawned > m_foodCount && !clickedOnGameObject)
+		{
+			m_eatables.push_back(std::make_unique<Food>(m_foodType, mousePos));
+			m_foodCount++;
+		}
+
+	}
+	else 
+	{
+		ResourceManager::getInstance().setSpriteTextureFromSheet(m_hitMark, NORMALMONSTAR_HITMARK_SPTITE, 0, m_weaponLevel);
+
+		m_hitMark.setOrigin(m_hitMark.getLocalBounds().width / 2.0f, m_hitMark.getLocalBounds().height / 2.0f);
+		m_hitMark.setScale(0.2f, 0.2f);
+		m_hitMark.setPosition(mousePos);
+		m_isHitAnimation = true;
 	}
 	
 }
@@ -49,7 +66,7 @@ void AquariumManager::update(float deltaTime)
 			checkCollisions(eatable);
 		}
 	}
-	checkSpawnMonster(deltaTime);
+	checkSpawnMonsterAndHit(deltaTime);
 	destroyEaten();
 }
 
@@ -63,6 +80,11 @@ void AquariumManager::draw(sf::RenderWindow& window)
 		{
 			eatable->draw(window);
 		}
+	}
+
+	if (m_isHitAnimation)
+	{
+		window.draw(m_hitMark);
 	}
 }
 
@@ -78,7 +100,7 @@ void AquariumManager::destroyEaten()
 }
 
 
-void AquariumManager::checkSpawnMonster(float deltaTime)
+void AquariumManager::checkSpawnMonsterAndHit(float deltaTime)
 {
 
 	if (!m_monserSpawned) 
@@ -91,6 +113,19 @@ void AquariumManager::checkSpawnMonster(float deltaTime)
 			m_monserSpawned = true;
 		}
 		
+	}
+	else if(m_isHitAnimation)
+	{
+		m_hitAnimationTimer += deltaTime;
+
+		if (m_hitAnimationTimer > 1.f)
+		{
+			m_isHitAnimation = false;
+			m_hitAnimationTimer = 0.f;
+			m_hitMark.setScale(0.f,0.f);
+		}
+		sf::Vector2f currScale = m_hitMark.getScale();
+		m_hitMark.setScale(currScale.x / 1.1f, currScale.y / 1.1f);
 	}
 	
 }
@@ -161,6 +196,20 @@ void AquariumManager::registerToEventManager()
 	manager.subscribeToMonstarDeath([this](const sf::Vector2f& position)
 		{
 			m_monserSpawned = false;
+			m_isHitAnimation = false;
+			m_hitAnimationTimer = 0.f;
+			m_hitMark.setScale(0.f, 0.f);
+
 			addEatable(std::make_unique<Money>(Money::Moneytype::Diamond, position));
 		});
+
+	manager.subscribeToBuyWeapon([this]()
+	{
+			m_currentHitDmg += 5;
+
+			if (m_weaponLevel < 11) 
+			{
+				m_weaponLevel++;
+			}
+	});
 }

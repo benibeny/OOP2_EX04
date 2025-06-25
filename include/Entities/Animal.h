@@ -26,7 +26,9 @@ public:
 	void setHealth(float health) { m_health = health; }
 	void setVelocity(const sf::Vector2f& velocity) { m_velocity = velocity; }
 
+
 protected:
+	virtual void checkTurn();
 	void bounceOffWalls(const sf::Vector2u& windowSize);
 	void moveRandomly(float deltaTime);
 	
@@ -48,3 +50,5 @@ protected:
 	mutable std::mt19937 m_random;
 	mutable std::uniform_real_distribution<float> m_randomDirection;
 };
+
+

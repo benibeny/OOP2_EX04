@@ -73,3 +73,24 @@ void Animal::moveRandomly(float deltaTime)
 		//checkTurn();
 	}
 }
+
+
+void Animal::checkTurn()
+{
+
+	if (m_velocity.x > 0 && m_direction != AnimalDirection::Right)
+	{
+		m_direction = AnimalDirection::Right;
+		m_sprite.setScale(-std::abs(m_sprite.getScale().x), m_sprite.getScale().y);
+		m_sprite.setPosition(getPosition().x + m_sprite.getGlobalBounds().width, getPosition().y);
+		
+	}
+	else if (m_velocity.x < 0 && m_direction != AnimalDirection::Left)
+	{
+		m_direction = AnimalDirection::Left;
+
+		m_sprite.setScale(std::abs(m_sprite.getScale().x), m_sprite.getScale().y);
+		m_sprite.setPosition(getPosition().x - m_sprite.getGlobalBounds().width, getPosition().y);
+		
+	}
+}

@@ -1,6 +1,5 @@
 #include "Entities/GameObject.h"
-#include "ResourceManager.h"
-#include <iostream>
+
 
 GameObject::GameObject(Type myType,sf::Vector2f pos, const std::string& spriteName, const int sheetRows, const int sheetCols, const int animationRow,int spriteReduction)
 	:m_type(myType), m_spriteName(spriteName), m_shouldDestroy(false), m_sheetCols(sheetCols), m_animationTimer(0.f), m_animationFrame(0), m_sheetRowIndex(animationRow), m_isSpriteLoaded(false), m_spriteReduction(spriteReduction)

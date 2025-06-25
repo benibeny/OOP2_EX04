@@ -29,3 +29,4 @@ configure_file ("shopbar/menu_slots.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 configure_file ("arial.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("hitmark.png" ${CMAKE_BINARY_DIR} COPYONLY)

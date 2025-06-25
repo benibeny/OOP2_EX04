@@ -3,6 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 
+#include "ResourceManager.h"
+#include <iostream>
+
 class GameObject
 {
 public:
@@ -25,7 +28,7 @@ public:
 	virtual void setDestroyed(bool destroyed) ;
 	Type getType() const;
 
-	virtual void clicked(int damage) {};
+	virtual void clicked(int damage, sf::Vector2f mousePos) {};
 
 	void updateAnimation(float deltaTime);
 	void setPosition(const sf::Vector2f& position);

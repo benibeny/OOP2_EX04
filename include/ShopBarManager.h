@@ -9,6 +9,7 @@
 #include "Commands/CommandBuyFoodTier.h"
 #include "Commands/CommandBuyFoodAmount.h"
 #include "Commands/CommandOptions.h"
+#include "Commands/CommandBuyWeapon.h"
 
 
 #include <memory>
