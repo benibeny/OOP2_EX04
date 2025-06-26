@@ -8,7 +8,7 @@ int main()
     Game& game = Game::getInstance();
     ScreenManager& screenManager = ScreenManager::getInstance();
     // Start the game at the main menu screen
-    screenManager.switchScreen(new MenuScreen());
+    screenManager.switchScreen(ScreenType::MainMenu);
     // Enter the main game loop
     game.run();
     return 0;

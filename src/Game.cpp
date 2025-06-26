@@ -20,6 +20,7 @@ Game& Game::getInstance()
 
 void Game::run() 
 {
+    ScreenManager& screen = ScreenManager::getInstance();
     sf::Clock clock;
     // Main game loop
     while (window.isOpen()) 
@@ -34,48 +35,19 @@ void Game::run()
             {
                 window.close();
             }
-            // Forward event to the current active screen
-            Screen* currentScreen = ScreenManager::getInstance().getCurrentScreen();
-            if (currentScreen) 
-            {
-                currentScreen->handleEvent(event);
-            }
-            // If window was closed or a screen switch was triggered, break out of event loop
-            if (!window.isOpen() || ScreenManager::getInstance().hasPendingScreen()) 
-            {
-                break;
-            }
+			screen.handleEvents(event);
         }
-        // If a screen change was requested, delete the old screen before continuing
-        if (ScreenManager::getInstance().hasPendingScreen()) 
-        {
-            ScreenManager::getInstance().processScreenChange();
-        }
+        
         // If window was closed (e.g., Quit command), exit the loop
         if (!window.isOpen()) 
         {
             break;
         }
-        // Update the current screen logic
-        Screen* currentScreen = ScreenManager::getInstance().getCurrentScreen();
-        if (currentScreen) 
-        {
-            currentScreen->update(dt.asSeconds());
-        }
-        // Render the current screen
-        if (currentScreen) 
-        {
-            currentScreen->render(window);
-        }
+        screen.updateAndRender(dt.asSeconds(),window);
+        
         window.display();
     }
-    // Cleanup: delete remaining current screen (if any) after loop ends
-    Screen* currScreen = ScreenManager::getInstance().getCurrentScreen();
-    if (currScreen) 
-    {
-        delete currScreen;
-        ScreenManager::getInstance().setCurrentScreen(nullptr);
-    }
+    
 }
 
 void Game::quit() 

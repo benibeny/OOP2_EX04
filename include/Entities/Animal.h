@@ -12,12 +12,8 @@
 class Animal : public GameObject
 {
 public:
-	Animal(Type myType, sf::Vector2f pos, float speed,std::string textuerName, const int sheetRows, const int sheetCols, const int animationRow);
+	Animal(sf::Vector2f pos, float speed,std::string textuerName, const int sheetRows, const int sheetCols, const int animationRow);
 	virtual ~Animal() = default;
-
-	virtual void handleCollision(GameObject* food) = 0;
-	//virtual std::string getType() const = 0;
-
 
 	void swapDirection();
 	sf::Vector2f getVelocity() const { return m_velocity; }

@@ -1,7 +1,7 @@
 #include "Entities/Money.h"
 
 Money::Money(Moneytype moneyType, const sf::Vector2f pos)
-	:GameObject(Type::Money, pos, MONEY_SPRITE_SHEET_NAME, 6, 10, int(moneyType),40), m_moneyType(moneyType)
+	:GameObject(pos, MONEY_SPRITE_SHEET_NAME, 6, 10, int(moneyType),40), m_moneyType(moneyType)
 {
 	m_sprite.setScale(1.5f, 1.5f);
 

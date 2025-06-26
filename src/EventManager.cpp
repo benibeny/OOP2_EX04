@@ -18,6 +18,7 @@ void EventManager::cleanUp()
 	m_foodAmount.clear();
 	m_buyWeapon.clear();
 	m_monstarDeath.clear();
+	m_nextLevel.clear();
 	m_buyAnimalCallBack = nullptr;
 
 }
@@ -143,6 +144,22 @@ void EventManager::notifyMonstarDeath(sf::Vector2f position)
 		if (callback)
 		{
 			callback(position);
+		}
+	}
+}
+
+void EventManager::subscribeToNextLevel(const std::function<void()> callback)
+{
+	m_nextLevel.push_back(callback);
+}
+
+void EventManager::notifyNextLevel()
+{
+	for (auto& callback : m_nextLevel)
+	{
+		if (callback)
+		{
+			callback();
 		}
 	}
 }

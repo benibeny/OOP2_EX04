@@ -6,8 +6,8 @@
 #include "Entities/Money.h"
 #include "Game.h"
 #include "ScreenManager.h"
-#include "Screens/MenuScreen.h"
 #include "ShopBarManager.h"
+#include "EventManager.h"
 #include <iostream>
 
 #include "Entities/Fish.h"
@@ -18,15 +18,20 @@ public:
     GameScreen();
     ~GameScreen() override;
 
+	void registerEvents();
     void handleEvent(const sf::Event& event) override;
     void update(float deltaTime) override;
     void render(sf::RenderWindow& window) override;
 
 	void setUpUi();
 private:
+	void updateBackground();
+
+	int m_currentLevel;
+    bool m_isActive;
 
 	sf::Sprite m_background;
-    sf::Texture m_backgroundTexture;
+    //sf::Texture m_backgroundTexture;
 
 	ShopBarManager m_shopBarManager;
 	AquariumManager m_aquariumManager;

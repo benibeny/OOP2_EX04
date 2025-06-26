@@ -17,7 +17,7 @@ public:
 	int getPrice() const { return m_price; }
 	bool isMaxBought() const { return m_isMaxBought; }
 
-private:
+protected:
 	void setMaxSprite();
 	void updateSlotSpriteRow();
 

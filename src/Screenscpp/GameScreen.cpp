@@ -2,11 +2,16 @@
 
 
 GameScreen::GameScreen()
-    :m_aquariumManager(Game::getInstance().getWindow().getSize())
+	:m_aquariumManager(Game::getInstance().getWindow().getSize()), m_isActive(false), m_currentLevel(1)
 {
+
+    updateBackground();
     setUpUi();
     m_aquariumManager.addEatable(std::make_unique<GoldFish>(sf::Vector2f(200.f, 200.f)));
     m_aquariumManager.addEatable(std::make_unique<GoldFish>(sf::Vector2f(300.f, 300.f)));
+
+    registerEvents();
+	
    
 }
 
@@ -15,26 +20,32 @@ GameScreen::~GameScreen()
     EventManager::getInstance().cleanUp();
 }
 
-void GameScreen::handleEvent(const sf::Event& event) 
+
+void GameScreen::registerEvents()
 {
+    EventManager& manager = EventManager::getInstance();
+
+    manager.subscribeToNextLevel([this]()
+        {
+			m_currentLevel++;
+            updateBackground();
+        });
+}
+
+
+void GameScreen::handleEvent(const sf::Event& event)
+{
+
     if (event.type == sf::Event::Resized) 
     {
-        // Re-center and resize text when window size changes
-        /*sf::Vector2u newSize(event.size.width, event.size.height);
-        float widthRatio = newSize.x / 800.0f;
-        unsigned int newCharSize = static_cast<unsigned int>(Game::BASE_FONT_SIZE * widthRatio);
-        if (newCharSize < 5) newCharSize = 5;
-        text.setCharacterSize(newCharSize);
-        sf::FloatRect bounds = text.getLocalBounds();
-        text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
-        text.setPosition(newSize.x / 2.0f, newSize.y / 2.0f);*/
+		setUpUi();
     }
     else if (event.type == sf::Event::KeyPressed) 
     {
         if (event.key.code == sf::Keyboard::Escape) 
         {
             // Press ESC to return to the main menu
-            ScreenManager::getInstance().switchScreen(new MenuScreen());
+            ScreenManager::getInstance().switchScreen(ScreenType::MainMenu);
         }
     }
     else if(event.type == sf::Event::MouseButtonPressed) 
@@ -80,26 +91,37 @@ void GameScreen::setUpUi()
 {
     sf::Vector2u winSize = Game::getInstance().getWindow().getSize();
 
-    if (!m_backgroundTexture.loadFromFile("aquarium1.jpg"))
-    {
-        std::cerr << "Failed to load background image!\n";
-    }
-
+	
 
 	float slotSize = winSize.x / 9.0f;// 9 slots in the shop bar
 	m_shopBarManager.initialize(slotSize);
 
-
-
-
- 
-
     float aquariumHeight = winSize.y - slotSize;
     
+	const sf::Texture* texture = m_background.getTexture();
+
     m_background.setPosition(0, slotSize);
-	m_background.setScale(sf::Vector2f(static_cast<float>(winSize.x) / m_backgroundTexture.getSize().x,
-                                                      aquariumHeight / m_backgroundTexture.getSize().y));
-    m_background.setTexture(m_backgroundTexture);
+    if (texture)
+    {
+        m_background.setScale(sf::Vector2f(static_cast<float>(winSize.x) / texture->getSize().x,
+            aquariumHeight / texture->getSize().y));
+    }
+
+    
+	
+
+    updateBackground();
+ 
+}
 
 
+void GameScreen::updateBackground()
+{
+	std::string backgroundFile = "aquarium" + std::to_string(m_currentLevel) + ".jpg";
+
+   
+
+    ResourceManager& resourceManager = ResourceManager::getInstance();
+    resourceManager.loadSpriteSheet(backgroundFile, 1, 1);
+    resourceManager.setSpriteTextureFromSheet(m_background, backgroundFile, 0, 0);
 }

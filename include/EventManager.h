@@ -36,6 +36,9 @@ public:
 	void subscribeToMonstarDeath(const std::function<void(sf::Vector2f)> callback);
 	void notifyMonstarDeath(sf::Vector2f position);
 
+	void subscribeToNextLevel(const std::function<void()> callback);
+	void notifyNextLevel();
+
 
 	void cleanUp();
 
@@ -56,5 +59,6 @@ private:
 	std::vector<std::function<void()>> m_foodAmount;
 	std::vector<std::function<void()>> m_buyWeapon;
 	std::vector<std::function<void(sf::Vector2f)>> m_monstarDeath;
+	std::vector<std::function<void()>> m_nextLevel;
 
 };
