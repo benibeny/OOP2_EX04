@@ -10,7 +10,7 @@
 #include "CollisionHandler.h"
 #include "EventManager.h"
 
-#define MONSETER_SPAWN_TIME 3.0f // Time in seconds to spawn a monster
+#define MONSETER_SPAWN_TIME 10.0f // Time in seconds to spawn a monster
 #define NORMALMONSTAR_HITMARK_SPTITE "hitmark.png"
 
 class AquariumManager

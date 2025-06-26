@@ -120,7 +120,7 @@ HelpScreen::HelpScreen() {
 
 void HelpScreen::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-        ScreenManager::getInstance().switchScreen(new MenuScreen());
+        ScreenManager::getInstance().switchScreen(ScreenType::MainMenu);
     }
 }
 

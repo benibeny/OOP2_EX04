@@ -8,8 +8,11 @@
 #include "Commands/CommandBuyGoldFish.h"
 #include "Commands/CommandBuyFoodTier.h"
 #include "Commands/CommandBuyFoodAmount.h"
+#include "Commands/CommandBuyPirana.h"
 #include "Commands/CommandOptions.h"
 #include "Commands/CommandBuyWeapon.h"
+#include "Commands/CommandBuyEgg.h"
+#include "EggShopSlot.h"
 
 
 #include <memory>

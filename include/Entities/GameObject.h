@@ -6,41 +6,48 @@
 #include "ResourceManager.h"
 #include <iostream>
 
+class GoldFish;
+class Pirana;
+class NormalMonstar;
+class Money;
+class Food;
+class Fish;
+
+
 class GameObject
 {
 public:
-	enum class Type
-	{
-		Food,
-		GoldFish,
-		Money,
-		Monster,
-
-	};
-
-
 	virtual void draw(sf::RenderWindow& window);
 	sf::FloatRect getBounds() const;
 	sf::Vector2f getPosition() const;
 	sf::Vector2f getCenter() const;
 
 	bool isDestroyed() const;
-	virtual void setDestroyed(bool destroyed) ;
-	Type getType() const;
+	virtual void setDestroyed(bool destroyed);
+	
 
 	virtual void clicked(int damage, sf::Vector2f mousePos) {};
+	
 
 	void updateAnimation(float deltaTime);
 	void setPosition(const sf::Vector2f& position);
 	virtual void update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize) = 0;
 
 
-	GameObject(Type myType, sf::Vector2f pos, const std::string& spritename,const int sheetRows,const int sheetCols,const int animationRow, int spriteReduction = 0);
+	GameObject(sf::Vector2f pos, const std::string& spritename,const int sheetRows,const int sheetCols,const int animationRow, int spriteReduction = 0);
 	virtual ~GameObject() = default;
 
-protected:
-	Type m_type;
+	//double dispatch - defult all false.
+	virtual bool canBeEatenBy(const Fish& fish) const;
+	virtual bool canBeEatenBy(const GoldFish& goldFish);
+	virtual bool canBeEatenBy(const Pirana& pirana);
+	virtual bool canBeEatenBy(const NormalMonstar& monster);
+	virtual bool canBeEatenBy(const Money& money);
+	virtual bool canBeEatenBy(const Food& food);
 
+
+	
+protected:
 
 	bool m_isSpriteLoaded;
 
@@ -56,7 +63,6 @@ protected:
 
 	int m_spriteReduction; // Reduction in size for the sprite
 
-	
 	
 
 };

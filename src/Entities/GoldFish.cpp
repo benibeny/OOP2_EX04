@@ -2,7 +2,7 @@
 
 
 GoldFish::GoldFish(sf::Vector2f pos)
-	:Fish(Type::Food ,Type::GoldFish,pos, GOLDFISH_SPEED, MOVE_ONE_DIRC_SPRITE_NAME,5, MAX_FRAMES,2, TURNING_SPRITE_NAME),
+	:Fish(pos, GOLDFISH_SPEED, MOVE_ONE_DIRC_SPRITE_NAME,5, MAX_FRAMES,2, TURNING_SPRITE_NAME),
 	m_fishSize(Size::Small), m_swimingFrame(0)
 {
 	ResourceManager::getInstance().loadSpriteSheet(TURNING_SPRITE_NAME, MAX_FRAMES, 5);
@@ -183,4 +183,22 @@ void GoldFish::applyDirectionScale()
 		}
 	}
 	
+}
+
+
+
+
+bool GoldFish::tryToEat(GameObject& food)
+{
+	return food.canBeEatenBy(*this);
+}
+
+bool GoldFish::canBeEatenBy(const Pirana& pirana)
+{
+	return m_fishSize == Size::Small;
+}
+
+bool GoldFish::canBeEatenBy(const NormalMonstar& monster)
+{
+	return true;
 }

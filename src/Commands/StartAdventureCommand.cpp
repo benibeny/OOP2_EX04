@@ -7,6 +7,6 @@
 
 void StartAdventureCommand::execute() 
 {
-    ScreenManager::getInstance().switchScreen(new GameScreen());
+    ScreenManager::getInstance().switchScreen(ScreenType::GameScreen);
 }
 

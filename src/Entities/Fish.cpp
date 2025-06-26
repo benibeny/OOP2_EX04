@@ -1,14 +1,15 @@
 #include "Entities/Fish.h"
 #include <iostream>
+#include <string>
 #include "ResourceManager.h"
 #include "Entities/Money.h"
-#include <iostream>
 
 
 
 
-Fish::Fish(Type foodType,Type myType, sf::Vector2f pos, float speed, std::string textureName,const int sheetRows,const int sheetCols,const int animationRow,const std::string& turningSpriteSheetName)
-	:Animal(myType , pos, speed,textureName, sheetRows, sheetCols, animationRow), m_myFoodType(foodType), m_isTurning(false), m_turningFrame(0), m_turningSpriteSheetName(turningSpriteSheetName)
+
+Fish::Fish( sf::Vector2f pos, float speed, std::string textureName,const int sheetRows,const int sheetCols,const int animationRow,const std::string& turningSpriteSheetName)
+	:SeekingFoodAnimal(pos, speed,textureName, sheetRows, sheetCols, animationRow), m_isTurning(false), m_turningFrame(0), m_turningSpriteSheetName(turningSpriteSheetName)
 {}
 
 
@@ -61,32 +62,7 @@ void Fish::foodEatenIncrement(std::pair<int,int> foodValue)
 }
 
 
-bool Fish::seekFood(const std::list<std::unique_ptr<GameObject>>& foodItems)
-{
-	bool foundFood = false;
-	//pointer to pointer to avoid copying the vector
-	std::vector<GameObject*> filteredFood;
 
-	for (const auto& foodItem : foodItems)
-	{
-		if (foodItem && !foodItem->isDestroyed() && foodItem->getType() == m_myFoodType) 
-		{
-			filteredFood.push_back(foodItem.get());
-		}
-	}
-
-	
-
-	if (!filteredFood.empty()) 
-	{
-		const GameObject* foundClosestFood = findClosestFood(filteredFood);
-
-		moveTowardFood(foundClosestFood);
-		foundFood = true;
-	}
-	
-	return foundFood;
-}
 
 
 void Fish::handleHungerTimer(float deltaTime)
@@ -105,48 +81,3 @@ void Fish::handleHungerTimer(float deltaTime)
 }
 
 
-GameObject* Fish::findClosestFood(const std::vector<GameObject*> foodItems)
-{
-	if (foodItems.empty())
-	{
-		return nullptr;
-	}
-
-	GameObject* closestFood = nullptr;
-	float closestDistance = std::numeric_limits<float>::max();
-	sf::Vector2f fishCenter = getCenter();	
-	
-	for(GameObject* foodItem : foodItems)
-	{
-		if (foodItem) 	
-		{
-			sf::Vector2f foodCenter = foodItem->getCenter();
-			sf::Vector2f diffrence = foodCenter - fishCenter;
-
-			float distance = std::sqrt(diffrence.x * diffrence.x + diffrence.y * diffrence.y);
-
-			if (distance < closestDistance)
-			{
-				closestDistance = distance;
-				closestFood = foodItem;
-			}
-		}
-	}
-	return closestFood;	
-
-}
-
-void Fish::moveTowardFood(const GameObject* food)
-{
-	sf::Vector2f fishCenter = getCenter();
-	sf::Vector2f foodCenter = food->getCenter();
-	sf::Vector2f direction = foodCenter - fishCenter;
-
-	float magnitude = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-
-	if (magnitude > 0)
-	{
-		direction /= magnitude;
-		m_velocity = direction * m_speed;
-	}
-}

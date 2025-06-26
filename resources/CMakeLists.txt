@@ -8,7 +8,6 @@ configure_file ("Backgrounds/menubar.gif" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Backgrounds/talkshow.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("ANIMATION/HatchANIMATION.gif" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("ANIMATION/smallFish.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/smallFish2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/smalldie.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/smalleat.png" ${CMAKE_BINARY_DIR} COPYONLY)

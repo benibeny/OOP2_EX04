@@ -26,6 +26,9 @@ public:
 
 	void setDestroyed(bool destroyed) override;
 
+	//double dispatch
+	virtual bool canBeEatenBy(const GoldFish& goldFish)override;
+
 private:
 	const sf::Vector2f m_velocity = sf::Vector2f(0.0f,50.0f);
 

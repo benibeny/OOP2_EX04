@@ -6,5 +6,5 @@
 
 void ShowHelpCommand::execute() 
 {
-    ScreenManager::getInstance().switchScreen(new HelpScreen());
+    ScreenManager::getInstance().switchScreen(ScreenType::HelpScreen);
 }

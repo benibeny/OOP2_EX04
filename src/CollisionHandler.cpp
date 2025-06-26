@@ -5,6 +5,7 @@
 #include "Entities/GoldFish.h"
 #include "Entities/Food.h"
 #include "Entities/NormalMonstar.h"
+#include "Entities/Pirana.h"
 
 #include <iostream>
 namespace 
@@ -18,8 +19,6 @@ namespace
 		{
 			goldFishFound.foodEatenIncrement(FoodFound.foodEaten());
 		}
-		
-
 	}
 
 	void foodGoldFish(GameObject& food, GameObject& goldFish)
@@ -28,14 +27,37 @@ namespace
 	}
 
 
-	void normalMonstarFish(GameObject& normalMonstar, GameObject& fish)
+	void normalMonstarGoldFish(GameObject& normalMonstar, GameObject& fish)
 	{
 		fish.setDestroyed(true);
 	}
 
-	void fishNormalMonstar(GameObject& fish,GameObject& normalMonstar)
+	void goldFishNormalMonstar(GameObject& fish,GameObject& normalMonstar)
 	{
-		normalMonstarFish(normalMonstar, fish);
+		normalMonstarGoldFish(normalMonstar, fish);
+	}
+
+
+	void normalMonstarPirana(GameObject& normalMonstar, GameObject& pirana)
+	{
+		pirana.setDestroyed(true);
+	}
+
+	void piranaNormalMonstar(GameObject& pirana, GameObject& normalMonstar)
+	{
+		normalMonstarPirana(normalMonstar, pirana);
+	}
+
+	void piranaGoldFish(GameObject& pirana, GameObject& goldFish)
+	{
+		Pirana& piranaFound = static_cast<Pirana&>(pirana);
+		piranaFound.foodEatenIncrement();
+		goldFish.setDestroyed(true);
+	}
+
+	void goldFishPirana(GameObject& goldFish, GameObject& pirana)
+	{
+		piranaGoldFish(pirana, goldFish);
 	}
 
 
@@ -53,8 +75,12 @@ namespace
 		
 		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(Food))] = &goldFishFood;
 		collisionMap[CollisionPairKey(typeid(Food), typeid(GoldFish))] = &foodGoldFish;
-		collisionMap[CollisionPairKey(typeid(NormalMonstar), typeid(GoldFish))] = &normalMonstarFish;
-		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(NormalMonstar))] = &fishNormalMonstar;
+		collisionMap[CollisionPairKey(typeid(NormalMonstar), typeid(GoldFish))] = &normalMonstarGoldFish;
+		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(NormalMonstar))] = &goldFishNormalMonstar;
+		collisionMap[CollisionPairKey(typeid(NormalMonstar), typeid(Pirana))] = &normalMonstarPirana;
+		collisionMap[CollisionPairKey(typeid(Pirana), typeid(NormalMonstar))] = &piranaNormalMonstar;
+		collisionMap[CollisionPairKey(typeid(Pirana), typeid(GoldFish))] = &piranaGoldFish;
+		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(Pirana))] = &goldFishPirana;
 
 		return collisionMap;
 	}

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Animal.h"
+#include "SeekingFoodAnimal.h"
 #include "EventManager.h"
 
 
@@ -10,23 +10,19 @@
 
 #define START_MAX_TIMER 3.0f // seconds
 
-class NormalMonstar : public Animal 
+class NormalMonstar : public SeekingFoodAnimal
 {
 public:
 	NormalMonstar();
 
 	void update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize)override;
-	void handleCollision(GameObject* food)override {}
 
 
-	bool seekFood(const std::list<std::unique_ptr<GameObject>>& foodItems);
-	void moveTowardFood(const GameObject* food);
-	GameObject* findClosestFood(const std::vector<GameObject*> foodItems);
 	void clicked(int damage, sf::Vector2f mousePos)override;
 
 private:
-	//GameObject* findClosestFood(const std::vector<GameObject*> foodItems);
-	//void moveTowardFood(const GameObject* food);
+	virtual bool tryToEat(GameObject& food)override;
+
 	void handleWaitingTimer(float deltaTime);
 	void move(sf::Vector2u& windowSize, float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems);
 

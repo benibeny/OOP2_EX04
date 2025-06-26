@@ -1,8 +1,8 @@
 #include "Entities/GameObject.h"
 
 
-GameObject::GameObject(Type myType,sf::Vector2f pos, const std::string& spriteName, const int sheetRows, const int sheetCols, const int animationRow,int spriteReduction)
-	:m_type(myType), m_spriteName(spriteName), m_shouldDestroy(false), m_sheetCols(sheetCols), m_animationTimer(0.f), m_animationFrame(0), m_sheetRowIndex(animationRow), m_isSpriteLoaded(false), m_spriteReduction(spriteReduction)
+GameObject::GameObject(sf::Vector2f pos, const std::string& spriteName, const int sheetRows, const int sheetCols, const int animationRow,int spriteReduction)
+	: m_spriteName(spriteName), m_shouldDestroy(false), m_sheetCols(sheetCols), m_animationTimer(0.f), m_animationFrame(0), m_sheetRowIndex(animationRow), m_isSpriteLoaded(false), m_spriteReduction(spriteReduction)
 {
 	ResourceManager& resourceManager = ResourceManager::getInstance();
 	resourceManager.loadSpriteSheet(spriteName, sheetCols, sheetRows);
@@ -99,7 +99,33 @@ void GameObject::setPosition(const sf::Vector2f& position)
 }
 
 
-GameObject::Type GameObject::getType() const
+bool GameObject::canBeEatenBy(const Fish& gameObject) const
 {
-	return m_type;
+	std::cout << "GameObject::canBeEatenBy called for Fish" << std::endl;
+	return false;
+}
+
+bool GameObject::canBeEatenBy(const GoldFish& goldFish)
+{
+	return false;
+}
+
+bool GameObject::canBeEatenBy(const Pirana& pirana)
+{
+	return false;
+}
+
+bool GameObject::canBeEatenBy(const NormalMonstar& monster)
+{
+	return false;
+}
+
+bool GameObject::canBeEatenBy(const Money& money)
+{
+	return false;
+}
+
+bool GameObject::canBeEatenBy(const Food& food)
+{
+	return false;
 }

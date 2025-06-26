@@ -1,8 +1,10 @@
 #include "Entities/Animal.h"
 #include <limits>
 #include <iostream>
-Animal::Animal(Type myType, sf::Vector2f pos, float speed, std::string textuerName, const int sheetRows, const int sheetCols, const int animationRow)
-	: GameObject(myType,pos, textuerName, sheetRows, sheetCols, animationRow), m_speed(speed), m_velocity(0.f,0.f),
+
+
+Animal::Animal(sf::Vector2f pos, float speed, std::string textuerName, const int sheetRows, const int sheetCols, const int animationRow)
+	: GameObject(pos, textuerName, sheetRows, sheetCols, animationRow), m_speed(speed), m_velocity(0.f,0.f),
 	m_random(std::random_device{}()), m_randomDirection(-1.0f, 1.0f)
 {}
 
