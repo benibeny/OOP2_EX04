@@ -16,7 +16,7 @@ Button::Button(const std::string& textString, sf::Font& font, std::unique_ptr<Co
     // Center the origin of the text for proper scaling and positioning
     sf::FloatRect bounds = text.getLocalBounds();
     text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
-}
+} // test test
 
 bool Button::contains(float x, float y) const 
 {
