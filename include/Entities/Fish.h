@@ -30,7 +30,7 @@ public:
 	
 
 	void handleHungerTimer(float deltaTime);
-	bool isHungry() const { return m_health <= float(FISH_HUNGER); }
+	bool isHungry() const { return m_health <= float(m_fishStartHunger); }
 	//virtual bool shouldProduceMoney() const;
 	//void resetMoneyTimer() override;
 
@@ -45,8 +45,8 @@ protected:
 
 	int foodEaten = 0;
 	float m_hungerTimer = 0.0f;
-	static const int FISH_HUNGER = 30;
-
+	int m_fishStartHunger = 30;//can change for every fish
+	
 
 	bool m_isTurning;
 	int m_turningFrame;
@@ -54,7 +54,7 @@ protected:
 
 
 	float m_coinTimer = 0.0f;
-	static constexpr float COIN_TIMER = 5.0f;
+	float m_maxCoinTimer = 12.0f;//can change for every fish
 	
 
 

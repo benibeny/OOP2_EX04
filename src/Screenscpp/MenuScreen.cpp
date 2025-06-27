@@ -50,10 +50,6 @@ MenuScreen::MenuScreen()
         buttons[i].resize(winSize);
     }
 
-
-
-
-
 }
 
 void MenuScreen::handleEvent(const sf::Event& event) 

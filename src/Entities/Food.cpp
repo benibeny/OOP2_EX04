@@ -10,17 +10,17 @@ Food::Food(Foodtype foodType ,const sf::Vector2f pos)
 	{
 		case Foodtype::Worst:
 			m_healthValueGives = 6;
-			m_sizeValueGives = 6;
+			m_sizeValueGives = 3;
 			break;
 
 		case Foodtype::Medium:
 			m_healthValueGives = 6;
-			m_sizeValueGives = 12;
+			m_sizeValueGives = 4;
 			break;
 
 		case Foodtype::Best:
-			m_healthValueGives = 12;
-			m_sizeValueGives = 12;
+			m_healthValueGives = 8;
+			m_sizeValueGives = 5;
 			break;
 
 		default:

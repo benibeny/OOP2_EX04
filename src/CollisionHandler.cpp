@@ -51,8 +51,12 @@ namespace
 	void piranaGoldFish(GameObject& pirana, GameObject& goldFish)
 	{
 		Pirana& piranaFound = static_cast<Pirana&>(pirana);
-		piranaFound.foodEatenIncrement();
-		goldFish.setDestroyed(true);
+		if (piranaFound.isHungry())
+		{
+			piranaFound.foodEatenIncrement();
+			goldFish.setDestroyed(true);
+		}
+		
 	}
 
 	void goldFishPirana(GameObject& goldFish, GameObject& pirana)

@@ -56,9 +56,9 @@ void Fish::handleTurnAnimation()
 
 void Fish::foodEatenIncrement(std::pair<int,int> foodValue)
 {
-	foodEaten += foodValue.second + 30;
+	foodEaten += foodValue.second + 10;
 
-	m_health += foodValue.first + FISH_HUNGER;
+	m_health += foodValue.first + m_fishStartHunger;
 }
 
 

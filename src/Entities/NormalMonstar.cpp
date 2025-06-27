@@ -1,10 +1,10 @@
 #include "Entities/NormalMonstar.h"
 
 NormalMonstar::NormalMonstar()
-	:SeekingFoodAnimal(sf::Vector2f(700.0f,400.0f), NORMALMONSTAR_SPEED, NORMALMONSTAR_SPRITE,2,10,0),m_startTimer(0.0f)
+	:SeekingFoodAnimal(sf::Vector2f(900.0f,400.0f), NORMALMONSTAR_SPEED, NORMALMONSTAR_SPRITE,2,10,0),m_startTimer(0.0f)
 {
 	m_health = 100;
-	m_sprite.setScale(1.5f,1.5f);
+	m_sprite.setScale(1.3f,1.3f);
 
 }
 
