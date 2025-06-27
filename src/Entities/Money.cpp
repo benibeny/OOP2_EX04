@@ -8,15 +8,15 @@ Money::Money(Moneytype moneyType, const sf::Vector2f pos)
 	switch (moneyType)
 	{
 	case Moneytype::Silver:
-		m_moneyValue = 10;
+		m_moneyValue = 15;
 		break;
 
 	case Moneytype::Gold:
-		m_moneyValue = 20;
+		m_moneyValue = 35;
 		break;
 
 	case Moneytype::Diamond:
-		m_moneyValue = 50;
+		m_moneyValue = 100;
 		break;
 
 	default:

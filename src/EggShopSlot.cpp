@@ -16,21 +16,21 @@ void EggShopSlot::onClick()
 		if (m_currentBoughtEggs % 3 == 0)
 		{
 			m_command->execute();
+			m_price *= 2;
 		}
 		
 
-		if (m_hasMax)
+		
+		m_row++;
+		if (m_row >= m_spriteSheetRows)
 		{
-			m_row++;
-			if (m_row >= m_spriteSheetRows)
-			{
-				m_isMaxBought = true;
-				setMaxSprite();
-			}
-			else
-			{
-				updateSlotSpriteRow();
-			}
+			m_isMaxBought = true;
+			setMaxSprite();
 		}
+		else
+		{
+			updateSlotSpriteRow();
+		}
+		
 	}
 }

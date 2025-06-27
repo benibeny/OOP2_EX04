@@ -69,7 +69,7 @@ void GoldFish::updateAnimation(float deltaTime)
 
 void GoldFish::move(sf::Vector2u& windowSize,float deltaTime, const std::list<std::unique_ptr<GameObject>>& eatable)
 {
-	if (m_health <= FISH_HUNGER && !eatable.empty()) 
+	if (m_health <= m_fishStartHunger && !eatable.empty()) 
 	{
 		// Try to seek food; if not successful, move randomly
 		if (!seekFood(eatable)) 
@@ -100,7 +100,7 @@ void GoldFish::move(sf::Vector2u& windowSize,float deltaTime, const std::list<st
 
 void GoldFish::shouldProduceMoney(float deltaTime)
 {
-	if (m_fishSize != Size::Small && m_coinTimer >= COIN_TIMER)
+	if (m_fishSize != Size::Small && m_coinTimer >= m_maxCoinTimer)
 	{
 		sf::Vector2f center = m_sprite.getPosition() + sf::Vector2f(m_sprite.getGlobalBounds().width / 2.f, m_sprite.getGlobalBounds().height / 2.f);
 		m_coinTimer = 0;

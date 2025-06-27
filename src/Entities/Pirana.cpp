@@ -72,7 +72,7 @@ void Pirana::foodEatenIncrement(std::pair<int, int> foodValue)
 
 void Pirana::move(sf::Vector2u& windowSize, float deltaTime, const std::list<std::unique_ptr<GameObject>>& eatable)
 {
-	if (m_health <= FISH_HUNGER && !eatable.empty())
+	if (m_health <= m_fishStartHunger && !eatable.empty())
 	{
 		// Try to seek food; if not successful, move randomly
 		if (!seekFood(eatable))
@@ -103,7 +103,7 @@ void Pirana::move(sf::Vector2u& windowSize, float deltaTime, const std::list<std
 
 void Pirana::shouldProduceMoney(float deltaTime)
 {
-	if (m_coinTimer >= COIN_TIMER)
+	if (m_coinTimer >= m_maxCoinTimer)
 	{
 		sf::Vector2f center = m_sprite.getPosition() + sf::Vector2f(m_sprite.getGlobalBounds().width / 2.f, m_sprite.getGlobalBounds().height / 2.f);
 		m_coinTimer = 0;

@@ -12,6 +12,7 @@ class Clickable : public UiElement
 {
 public:
 	Clickable(std::unique_ptr<Command> command , const std::string& spriteName, const int rows = 1 ,const int currentRow = 0);
+	virtual ~Clickable() = default;
 
 	virtual void onClick();
 	void changeHoverSprite(bool isHover);

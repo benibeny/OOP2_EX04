@@ -8,6 +8,8 @@ class UiElement
 {
 public:
 	UiElement(std::string spriteName,const int rows,const int cols);
+	virtual ~UiElement() = default;
+
 	void setSize(const float width, const float highet);
 
 	virtual void setPosition(const sf::Vector2f& position);
@@ -16,6 +18,8 @@ public:
 	sf::Vector2f getSize() const;
 	virtual void draw(sf::RenderWindow& window) const;
 	bool isMouseOver(const sf::Vector2f& mousePosition) const;
+	
+
 
 
 protected:

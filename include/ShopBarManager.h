@@ -37,6 +37,9 @@
 #define WEPONSLOT "weponSlot.png"
 #define WEPONROW 10
 
+#define EGGSSLOT "eggs.png"
+#define EGGSROW 12
+
 
 #define MAXSLOTS 7
 
@@ -52,10 +55,13 @@ public:
 	void handleMouseClick(const sf::Vector2f& mousePos);
 	void draw(sf::RenderWindow& window) const;
 	float getSlotSize() const { return m_slotSize; }
+	void reset();
 private:
+	
 	void registerToEventManager();
 
-	std::vector<ShopSlot> m_shopSlots;
+	//std::vector<ShopSlot> m_shopSlots;
+	std::vector<std::unique_ptr<ShopSlot>> m_shopSlots;
 
 
 	MoneyDisplay m_moneyDisplay;
