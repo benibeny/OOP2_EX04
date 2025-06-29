@@ -3,14 +3,22 @@
 #include "Screens/MenuScreen.h"
 #include "Screens/GameScreen.h"
 #include "Screens/HelpScreen.h"
+#include "Screens/ChooseLevelScreen.h"
 
 
 ScreenManager::ScreenManager() :m_screenType(ScreenType::MainMenu)
 {
-	m_mainMenuScreen = std::make_unique<MenuScreen>();
-    m_gameScreen = std::make_unique<GameScreen>();
-	m_helpScreen = std::make_unique<HelpScreen>();
-   
+	
+
+	m_screens[ScreenType::Level1] = std::make_unique<GameScreen>(1);
+	m_screens[ScreenType::Level2] = std::make_unique<GameScreen>(2);
+	m_screens[ScreenType::Level3] = std::make_unique<GameScreen>(3);
+	m_screens[ScreenType::Level4] = std::make_unique<GameScreen>(4);
+	m_screens[ScreenType::ChooseLevelScreen] = std::make_unique<ChooseLevelScreen>();
+	m_screens[ScreenType::HelpScreen] = std::make_unique<HelpScreen>();
+	m_screens[ScreenType::MainMenu] = std::make_unique<MenuScreen>();
+	
+
 }
 
 ScreenManager& ScreenManager::getInstance() 
@@ -19,50 +27,32 @@ ScreenManager& ScreenManager::getInstance()
     return instance;
 }
 
-void ScreenManager::switchScreen(ScreenType screen) 
+void ScreenManager::switchScreen(ScreenType screen)
 {
-	m_screenType = screen;
+	m_screens[m_screenType]->setActive(false);
+	if (m_screens.contains(screen))
+	{
+		m_screenType = screen;
+		m_screens[m_screenType]->setActive(true);
+	}
 }
+	
 
 void ScreenManager::updateAndRender(float deltaTime, sf::RenderWindow& window)
 {
-	switch (m_screenType)
+	if (m_screens.contains(m_screenType))
 	{
-	case ScreenType::MainMenu:
-		m_mainMenuScreen->update(deltaTime);
-		m_mainMenuScreen->render(window);
-		break;
-
-	case ScreenType::GameScreen:
-		m_gameScreen->update(deltaTime);
-		m_gameScreen->render(window);
-		break;
-
-	case ScreenType::HelpScreen:
-		m_helpScreen->update(deltaTime);
-		m_helpScreen->render(window);
-		break;
-
-	default:
-		break;
+		m_screens[m_screenType]->render(window);
+		m_screens[m_screenType]->update(deltaTime);
+		
 	}
 }
 
 void ScreenManager::handleEvents(const sf::Event& event)
 {
-	switch (m_screenType)
+	if (m_screens.contains(m_screenType))
 	{
-	case ScreenType::MainMenu:
-		m_mainMenuScreen->handleEvent(event);
-		break;
-	case ScreenType::GameScreen:
-		m_gameScreen->handleEvent(event);
-		break;
-	case ScreenType::HelpScreen:
-		m_helpScreen->handleEvent(event);
-		break;
-	default:
-		break;
+		m_screens[m_screenType]->handleEvent(event);
 	}
 }
 

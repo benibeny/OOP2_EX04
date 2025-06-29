@@ -11,4 +11,8 @@ public:
     virtual void update(float deltaTime) = 0;
     // Render the screen contents onto the given window
     virtual void render(sf::RenderWindow& window) = 0;
+
+    virtual void setActive(bool active) { m_isActive = active; }
+private:
+	bool m_isActive = false;
 };

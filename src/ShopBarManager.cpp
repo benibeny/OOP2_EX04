@@ -1,27 +1,38 @@
 #include "ShopBarManager.h"
 
-ShopBarManager::ShopBarManager()
+ShopBarManager::ShopBarManager(int level)
 	:m_OptionButton(Clickable(std::make_unique<CommandOptions>(), MENUBACKGROUND)),m_slotSize(0.0f)
 {
-	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(100, std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW, false));
+	int eggPrice = 250, eggRow = 0;
+	for (int i = 1; i < level; i++)
+	{
+		eggPrice *= 2;
+		eggRow += 3;
+		
+	}
+
+
+
+	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(100, std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW,0, false));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(200,std::make_unique<CommandBuyFoodTier>(), FOODSLOT, FOODROW));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(300,std::make_unique<CommandBuyFoodAmount>(), NUMBERFOODSLOT, NUMBERFOODROW));
-	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(1000,std::make_unique<CommandBuyPirana>(), PIRANASLOT, PIRANAROW, false));
+	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(1000,std::make_unique<CommandBuyPirana>(), PIRANASLOT, PIRANAROW,0, false));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(1000,std::make_unique<CommandBuyWeapon>(), WEPONSLOT, WEPONROW));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(10,std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
-	m_shopSlots.emplace_back(std::make_unique<EggShopSlot>(250,std::make_unique<CommandBuyEgg>(), EGGSSLOT, EGGSROW));
+	m_shopSlots.emplace_back(std::make_unique<EggShopSlot>(eggRow,eggPrice,std::make_unique<CommandBuyEgg>(), EGGSSLOT, EGGSROW));
 
 	registerToEventManager();
 }
 
 void ShopBarManager::registerToEventManager() 
 {
-	EventManager& eventManager = EventManager::getInstance();
-	eventManager.subscribeToMoneyClick([this](int moneyValue)
+	m_moneyChange = [this](int moneyValue)
 		{
 			m_moneyDisplay.addMoney(moneyValue);
+		};
 
-		});
+	EventManager& manager = EventManager::getInstance();
+	manager.subscribeToMoneyChange(m_moneyChange);
 }
 
 void ShopBarManager::initialize(float slotSize)
@@ -78,5 +89,14 @@ void ShopBarManager::draw(sf::RenderWindow& window) const
 
 void ShopBarManager::reset()
 {
+
+}
+
+
+void ShopBarManager::unRegisterFromEventManager()
+{
+
+	EventManager& manager = EventManager::getInstance();
+	manager.unsubscribeFromMoneyChange(m_moneyChange);
 
 }

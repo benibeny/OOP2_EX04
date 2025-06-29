@@ -32,6 +32,7 @@ void AquariumManager::handleMouseClick(const sf::Vector2f mousePos)
 		{
 			m_eatables.push_back(std::make_unique<Food>(m_foodType, mousePos));
 			m_foodCount++;
+			EventManager::getInstance().notifyMoneyChange(-FOOD_COST);
 		}
 
 	}
@@ -166,34 +167,68 @@ int AquariumManager::getCoins()
 	return m_coins;
 }
 
+
 void AquariumManager::registerToEventManager()
 {
 	EventManager& manager = EventManager::getInstance();
 
-	manager.subscribeToFoodAmount([this]()
+	auto amountFoodCallBack = [this]()
 		{
 			m_maxFoodSpawned++;
+		};
+	manager.subscribeToFoodAmount(amountFoodCallBack);
+	m_eventSubscriptions.push_back(
+		{
+			[=,&manager]() {manager.unsubscribeFromFoodAmount(amountFoodCallBack); }
 		});
 
-	manager.subscribeToFoodTier([this]()
+
+	auto FoodTierCallBack = [this]()
 		{
 			updateFoodType();
+		};
+	manager.subscribeToFoodTier(FoodTierCallBack);
+	m_eventSubscriptions.push_back(
+		{
+			[=,&manager]() {manager.unsubscribeFromFoodTier(FoodTierCallBack); }
 		});
 
-	manager.subscribeToBuyAnimal([this](std::unique_ptr<GameObject> gameObj)
+
+	auto BuyAnimalCallBack = [this](std::unique_ptr<GameObject> gameObj)
 		{
 			addEatable(std::move(gameObj));
+		};
+	manager.subscribeToBuyAnimal(BuyAnimalCallBack);
+	m_eventSubscriptions.push_back(
+		{
+			[=,&manager]() {manager.unsubscribeFromBuyAnimal(BuyAnimalCallBack); }
 		});
 
-	manager.subscribeToFoodDestroyed([this]() { m_foodCount--; });
+	
+
+	auto FoodDestroyed = [this]()
+		{
+			m_foodCount--;
+		};
+	manager.subscribeToFoodDestroyed(FoodDestroyed);
+	m_eventSubscriptions.push_back(
+		{
+			[=,&manager]() {manager.unsubscribeFromFoodDestroyed(FoodDestroyed); }
+		});
 
 
-	manager.subscribeToCreateMoney([this](int type, const sf::Vector2f& position)
+	auto CreateMoney = [this](int type, const sf::Vector2f& position)
 		{
 			addEatable(std::make_unique<Money>(static_cast<Money::Moneytype>(type), position));
+		};
+	manager.subscribeToCreateMoney(CreateMoney);
+	m_eventSubscriptions.push_back(
+		{
+			[=,&manager]() {manager.unsubscribeFromCreateMoney(CreateMoney); }
 		});
 
-	manager.subscribeToMonstarDeath([this](const sf::Vector2f& position)
+
+	auto MonstarDeath = [this](const sf::Vector2f& position)
 		{
 			m_monserSpawned = false;
 			m_isHitAnimation = false;
@@ -201,15 +236,38 @@ void AquariumManager::registerToEventManager()
 			m_hitMark.setScale(0.f, 0.f);
 
 			addEatable(std::make_unique<Money>(Money::Moneytype::Diamond, position));
+		};
+	manager.subscribeToMonstarDeath(MonstarDeath);
+	m_eventSubscriptions.push_back(
+		{
+			[=,&manager]() {manager.unsubscribeFromMonstarDeath(MonstarDeath); }
 		});
 
-	manager.subscribeToBuyWeapon([this]()
-	{
+
+	
+
+	auto BuyWeapon = [this]()
+		{
 			m_currentHitDmg += 5;
 
-			if (m_weaponLevel < 11) 
+			if (m_weaponLevel < 11)
 			{
 				m_weaponLevel++;
 			}
-	});
+		};
+	manager.subscribeToBuyWeapon(BuyWeapon);
+	m_eventSubscriptions.push_back(
+		{
+			[=,&manager]() {manager.subscribeToBuyWeapon(BuyWeapon); }
+		});
+
+}
+
+void AquariumManager::unRegisterFromEventManager()
+{
+	for(auto& subscription : m_eventSubscriptions)
+	{
+		subscription.unsubscribe();
+	}
+	m_eventSubscriptions.clear();
 }

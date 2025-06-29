@@ -49,23 +49,25 @@
 class ShopBarManager
 {
 public:
-	ShopBarManager();
+	ShopBarManager(int level);
 	
 	void initialize(float slotSize);
 	void handleMouseClick(const sf::Vector2f& mousePos);
 	void draw(sf::RenderWindow& window) const;
 	float getSlotSize() const { return m_slotSize; }
 	void reset();
-private:
-	
-	void registerToEventManager();
 
+	void unRegisterFromEventManager();
+	void registerToEventManager();
+private:
 	//std::vector<ShopSlot> m_shopSlots;
 	std::vector<std::unique_ptr<ShopSlot>> m_shopSlots;
 
 
 	MoneyDisplay m_moneyDisplay;
 	Clickable m_OptionButton;
+
+	std::function<void(int money)> m_moneyChange;
 
 	float m_slotSize ;	
 };

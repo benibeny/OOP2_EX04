@@ -1,35 +1,39 @@
 #include "Screens/GameScreen.h"
 
 
-GameScreen::GameScreen()
-	:m_aquariumManager(Game::getInstance().getWindow().getSize()), m_isActive(false), m_currentLevel(1)
+GameScreen::GameScreen(int level)
+	:m_aquariumManager(Game::getInstance().getWindow().getSize()), m_isActive(false), m_currentLevel(level)
+    ,m_shopBarManager(level)
 {
 
     updateBackground();
     setUpUi();
     m_aquariumManager.addEatable(std::make_unique<GoldFish>(sf::Vector2f(200.f, 200.f)));
     m_aquariumManager.addEatable(std::make_unique<GoldFish>(sf::Vector2f(300.f, 300.f)));
-
-    registerEvents();
-	
    
 }
 
 GameScreen::~GameScreen()
 {
     EventManager::getInstance().cleanUp();
+	unRegisterEvents();
+
 }
 
 
 void GameScreen::registerEvents()
 {
-    EventManager& manager = EventManager::getInstance();
+	m_aquariumManager.registerToEventManager();
+	m_shopBarManager.registerToEventManager();
 
-    manager.subscribeToNextLevel([this]()
+    m_onNextLevelCallback = [this]()
         {
-			m_currentLevel++;
+            m_currentLevel++;
             updateBackground();
-        });
+		};
+
+    EventManager& manager = EventManager::getInstance();
+	manager.subscribeToNextLevel(m_onNextLevelCallback);
 }
 
 
@@ -124,4 +128,26 @@ void GameScreen::updateBackground()
     ResourceManager& resourceManager = ResourceManager::getInstance();
     resourceManager.loadSpriteSheet(backgroundFile, 1, 1);
     resourceManager.setSpriteTextureFromSheet(m_background, backgroundFile, 0, 0);
+}
+
+void GameScreen::unRegisterEvents()
+{
+    EventManager& manager = EventManager::getInstance();
+	manager.unsubscribeFromNextLevel(m_onNextLevelCallback);
+    m_aquariumManager.unRegisterFromEventManager();
+	m_shopBarManager.unRegisterFromEventManager();
+}
+
+
+void GameScreen::setActive(bool active)
+{
+	Screen::setActive(active);
+    if (active)
+    {
+        registerEvents();
+    }
+    else 
+    {
+		unRegisterEvents();
+    }
 }

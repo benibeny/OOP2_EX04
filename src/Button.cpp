@@ -72,3 +72,12 @@ void Button::draw(sf::RenderWindow& window) const
     window.draw(background);
     window.draw(text);
 }
+
+void Button::setColor(const sf::Color& color)
+{
+    normalColor = color,
+    hoverColor = color;
+
+	background.setFillColor(normalColor);
+	background.setOutlineColor(normalColor);
+}
