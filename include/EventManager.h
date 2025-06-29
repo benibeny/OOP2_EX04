@@ -12,32 +12,41 @@ public:
 	static EventManager& getInstance();
 	
 
-	void subscribeToMoneyClick(const std::function<void(int)> callback);
-	void notifyMoneyClick(int amount);
+	void subscribeToMoneyChange(const std::function<void(int)> callback);
+	void notifyMoneyChange(int amount);
+	void unsubscribeFromMoneyChange(const std::function<void(int)>& callback);
 
 	void subscribeToCreateMoney(const std::function<void(int, sf::Vector2f)> callback);
 	void notifyCreateMoney(int amount, sf::Vector2f position);
+	void unsubscribeFromCreateMoney(const std::function<void(int, sf::Vector2f)>& callback);
 
 	void subscribeToFoodDestroyed(const std::function<void()> callback);
 	void notifyFoodDestroyed();
+	void unsubscribeFromFoodDestroyed(const std::function<void()>& callback);
 
 	void subscribeToBuyAnimal(const std::function<void(std::unique_ptr<GameObject>)> callback);
 	void notifyBuyAnimal(std::unique_ptr<GameObject> animal);
+	void unsubscribeFromBuyAnimal(const std::function<void(std::unique_ptr<GameObject>)>& callback);
 
 	void subscribeToFoodTier(const std::function<void()> callback);
 	void notifyFoodTier();
+	void unsubscribeFromFoodTier(const std::function<void()>& callback);
 
 	void subscribeToFoodAmount(const std::function<void()> callback);
 	void notifyFoodAmount();
+	void unsubscribeFromFoodAmount(const std::function<void()>& callback);
 
 	void subscribeToBuyWeapon(const std::function<void()> callback);
 	void notifyBuyWeapon();
+	void unsubscribeFromBuyWeapon(const std::function<void()>& callback);
 
 	void subscribeToMonstarDeath(const std::function<void(sf::Vector2f)> callback);
 	void notifyMonstarDeath(sf::Vector2f position);
+	void unsubscribeFromMonstarDeath(const std::function<void(sf::Vector2f)>& callback);
 
 	void subscribeToNextLevel(const std::function<void()> callback);
 	void notifyNextLevel();
+	void unsubscribeFromNextLevel(const std::function<void()>& callback);
 
 
 	void cleanUp();
@@ -49,7 +58,7 @@ private:
 	~EventManager() = default;
 
 	//events : moneyclick, createmoney, fooddestoryed
-	std::vector<std::function<void(int)>> m_moneyClick;
+	std::vector<std::function<void(int)>> m_moneyChange;
 	std::vector<std::function<void(int,sf::Vector2f)>> m_createMoney;
 	std::vector<std::function<void()>> m_foodDestroyed;
 

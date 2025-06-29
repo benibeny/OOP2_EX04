@@ -13,6 +13,9 @@
 #define MONSETER_SPAWN_TIME 10.0f // Time in seconds to spawn a monster
 #define NORMALMONSTAR_HITMARK_SPTITE "hitmark.png"
 
+
+#define FOOD_COST 5
+
 class AquariumManager
 {
 public:
@@ -28,6 +31,8 @@ public:
 	static int getCoins(); // Add this line to the public section
 
 	void registerToEventManager();
+
+	void unRegisterFromEventManager();
 
 private:
 	bool isColliding(const sf::FloatRect& rect1, const sf::FloatRect& rect2);
@@ -57,4 +62,11 @@ private:
 	float m_hitAnimationTimer = 0.0f;
 	bool m_isHitAnimation = false;
 	sf::Sprite m_hitMark;
+
+	struct EventSubscription
+	{
+		std::function<void()> unsubscribe;
+	};
+
+	std::vector<EventSubscription> m_eventSubscriptions;
 };

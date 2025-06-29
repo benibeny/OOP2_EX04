@@ -9,7 +9,8 @@
 
 
 Fish::Fish( sf::Vector2f pos, float speed, std::string textureName,const int sheetRows,const int sheetCols,const int animationRow,const std::string& turningSpriteSheetName)
-	:SeekingFoodAnimal(pos, speed,textureName, sheetRows, sheetCols, animationRow), m_isTurning(false), m_turningFrame(0), m_turningSpriteSheetName(turningSpriteSheetName)
+	:SeekingFoodAnimal(pos, speed,textureName, sheetRows, sheetCols, animationRow)
+	,m_isTurning(false), m_turningFrame(0), m_turningSpriteSheetName(turningSpriteSheetName)
 {}
 
 

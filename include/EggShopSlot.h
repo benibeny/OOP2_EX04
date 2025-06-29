@@ -6,7 +6,7 @@
 class EggShopSlot : public ShopSlot
 {
 public:
-	EggShopSlot(const int price, std::unique_ptr<Command> command, const std::string& spriteSheetName, const int row);
+	EggShopSlot(int currentRow,const int price, std::unique_ptr<Command> command, const std::string& spriteSheetName, const int row);
 
 	void onClick()override;
 

@@ -35,6 +35,8 @@ public:
     void setBaseCharacterSize(unsigned int size) { baseCharSize = size; }
     // Draw the button (its text) to the window
     void draw(sf::RenderWindow& window) const;
+ 
+    void setColor(const sf::Color& color);
 private:
     sf::Text text;
     std::unique_ptr<Command> command;

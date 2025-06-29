@@ -1,7 +1,7 @@
 #include "Clickable.h"
 
 Clickable::Clickable(std::unique_ptr<Command> Command, const std::string& spriteName,  const int rows, const int currentRow)
-	:UiElement(spriteName, rows, COLOMS), m_command(std::move(Command)), m_currentRow(currentRow)
+	:UiElement(spriteName, rows, COLOMS, currentRow), m_command(std::move(Command)), m_currentRow(currentRow)
 {
 
 }
