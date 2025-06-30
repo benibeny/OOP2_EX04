@@ -32,6 +32,18 @@ configure_file ("shopbar/weponSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("shopbar/menu_slots.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("shopbar/eggs.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
+configure_file("sounds/musicbackround.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file("sounds/eat.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file("sounds/diamond.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file("sounds/DROPFOOD.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file("sounds/alienEat.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file("sounds/shot.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file("sounds/ROAR3.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file("sounds/nikoopen.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file("sounds/buttonclick.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file("sounds/BUY.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file("sounds/BUZZER.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("arial.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("hitmark.png" ${CMAKE_BINARY_DIR} COPYONLY)
+

@@ -1,4 +1,5 @@
 #include "Entities/Pirana.h"
+#include "SoundManager.h"
 
 
 Pirana::Pirana(sf::Vector2f pos)
@@ -68,6 +69,7 @@ void Pirana::updateAnimation(float deltaTime)
 void Pirana::foodEatenIncrement(std::pair<int, int> foodValue)
 {
 	m_health += 50; //pirana hunger
+	SoundManager::getInstance().play("alienEat");
 }
 
 void Pirana::move(sf::Vector2u& windowSize, float deltaTime, const std::list<std::unique_ptr<GameObject>>& eatable)

@@ -4,7 +4,7 @@
 #include "Commands/Command.h"
 
 #define MONEY_DISPLAY_SPRITE "moneyBackground.jpg"
-#define MONEY_START 100000 
+#define MONEY_START 10 
 
 class MoneyDisplay : public UiElement
 {

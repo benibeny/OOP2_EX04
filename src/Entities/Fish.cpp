@@ -3,6 +3,7 @@
 #include <string>
 #include "ResourceManager.h"
 #include "Entities/Money.h"
+#include "SoundManager.h"
 
 
 
@@ -57,7 +58,9 @@ void Fish::handleTurnAnimation()
 
 void Fish::foodEatenIncrement(std::pair<int,int> foodValue)
 {
-	foodEaten += foodValue.second + 10;
+	SoundManager::getInstance().play("eat"); //add
+
+	foodEaten += foodValue.second + 10; 
 
 	m_health += foodValue.first + m_fishStartHunger;
 }

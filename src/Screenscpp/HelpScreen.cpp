@@ -72,6 +72,8 @@ void HelpScreen::update(float)
         sf::Vector2i mousePos = sf::Mouse::getPosition(Game::getInstance().getWindow());
         bool isHovering = switchBackgroundButton->contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
         switchBackgroundButton->setHover(isHovering);
+        sf::Vector2u winSize = Game::getInstance().getWindow().getSize();
+        switchBackgroundButton->resize(winSize);
     }
 }
 
