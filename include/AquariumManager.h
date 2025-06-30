@@ -14,7 +14,7 @@
 #define NORMALMONSTAR_HITMARK_SPTITE "hitmark.png"
 
 
-#define FOOD_COST 5
+
 
 class AquariumManager
 {
@@ -27,12 +27,12 @@ public:
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
 
-	//added
-	static int getCoins(); // Add this line to the public section
 
 	void registerToEventManager();
 
 	void unRegisterFromEventManager();
+
+	void reset();
 
 private:
 	bool isColliding(const sf::FloatRect& rect1, const sf::FloatRect& rect2);
@@ -41,10 +41,10 @@ private:
 	void checkCollisions(std::unique_ptr<GameObject>& eatable);
 	void updateFoodType();
 	//all with things out money
+
 	std::list<std::unique_ptr<GameObject>> m_eatables;
 
 
-	static int m_coins;
 
 	int m_maxFoodSpawned = 1;
 	int m_foodCount = 0;

@@ -40,6 +40,9 @@ public:
 
 	void updateAndRender(float deltaTime, sf::RenderWindow& window);
 	void handleEvents(const sf::Event& event);
+
+    void reset(ScreenType screen);
+    void reset();
    
  
 private:

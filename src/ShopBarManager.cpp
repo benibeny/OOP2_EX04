@@ -12,27 +12,44 @@ ShopBarManager::ShopBarManager(int level)
 	}
 
 
-
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(100, std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW,0, false));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(200,std::make_unique<CommandBuyFoodTier>(), FOODSLOT, FOODROW));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(300,std::make_unique<CommandBuyFoodAmount>(), NUMBERFOODSLOT, NUMBERFOODROW));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(1000,std::make_unique<CommandBuyPirana>(), PIRANASLOT, PIRANAROW,0, false));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(1000,std::make_unique<CommandBuyWeapon>(), WEPONSLOT, WEPONROW));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(10,std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
-	m_shopSlots.emplace_back(std::make_unique<EggShopSlot>(eggRow,eggPrice,std::make_unique<CommandBuyEgg>(), EGGSSLOT, EGGSROW));
+	m_shopSlots.emplace_back(std::make_unique<EggShopSlot>(eggRow,eggPrice,std::make_unique<CommandBuyEgg>(level+1), EGGSSLOT, EGGSROW));
 
-	registerToEventManager();
 }
 
 void ShopBarManager::registerToEventManager() 
 {
-	m_moneyChange = [this](int moneyValue)
-		{
-			m_moneyDisplay.addMoney(moneyValue);
-		};
-
 	EventManager& manager = EventManager::getInstance();
-	manager.subscribeToMoneyChange(m_moneyChange);
+	
+	auto moneyChange = [this](int moneyValue)
+		{
+			m_moneyDisplay.changeMoney(moneyValue);
+		};
+	manager.subscribeToMoneyChange(moneyChange);
+	m_eventSubscriptions.push_back(
+		{
+			[=,&manager]() {manager.unsubscribeFromMoneyChange(moneyChange); }
+		});
+
+	auto tryBuyFood = [this]()
+		{
+			if (m_moneyDisplay.getMoney() >= FOOD_COST) 
+			{
+				m_moneyDisplay.changeMoney(-FOOD_COST);
+				return true;
+			}
+			return false;
+		};
+	manager.subscribeToTryBuyFood(tryBuyFood);
+	m_eventSubscriptions.push_back(
+		{
+			[=,&manager]() {manager.unsubscribeFromTryBuyFood(); }
+		});
 }
 
 void ShopBarManager::initialize(float slotSize)
@@ -68,13 +85,27 @@ void ShopBarManager::handleMouseClick(const sf::Vector2f& mousePos)
 			int slotPrice = slot->getPrice();
 			if (m_moneyDisplay.getMoney() >= slotPrice && !slot->isMaxBought())
 			{
+				m_moneyDisplay.changeMoney(-slotPrice);
 				slot->onClick();
-				m_moneyDisplay.subtractMoney(slotPrice);
 			}
 			
 		}
 	}
 }
+
+void ShopBarManager::handleMouseHover(const sf::Vector2f& mousePos)
+{
+	for (auto& slot : m_shopSlots)
+	{
+
+		bool isOver = slot->isMouseOver(mousePos);
+		slot->changeHoverSprite(isOver);
+	}
+	
+	bool isOverOptionButton = m_OptionButton.isMouseOver(mousePos);
+	m_OptionButton.changeHoverSprite(isOverOptionButton);
+}
+
 
 void ShopBarManager::draw(sf::RenderWindow& window) const
 {
@@ -87,16 +118,29 @@ void ShopBarManager::draw(sf::RenderWindow& window) const
 }
 
 
-void ShopBarManager::reset()
+void ShopBarManager::reset(int level)
 {
+	int eggRow = 0;
+	for (int i = 1; i < level; i++)
+	{
+		eggRow += 3;
+	}
 
+	for (int i = 0; i < m_shopSlots.size()-1; ++i)
+	{
+		m_shopSlots[i]->reset(0);
+	}
+	m_shopSlots.back()->reset(eggRow);
+	m_moneyDisplay.reset();
 }
 
 
 void ShopBarManager::unRegisterFromEventManager()
 {
 
-	EventManager& manager = EventManager::getInstance();
-	manager.unsubscribeFromMoneyChange(m_moneyChange);
-
+	for (auto& subscription : m_eventSubscriptions)
+	{
+		subscription.unsubscribe();
+	}
+	m_eventSubscriptions.clear();
 }

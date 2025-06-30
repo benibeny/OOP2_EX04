@@ -28,7 +28,7 @@ ChooseLevelScreen::ChooseLevelScreen()
 		m_buttons[i].setColor(sf::Color::Transparent);
 	}
 
-
+	registerEvents();
 	
 }
 
@@ -77,3 +77,27 @@ void ChooseLevelScreen::handleEvent(const sf::Event& event)
 void ChooseLevelScreen::update(float deltaTime)
 {
 }
+
+
+void ChooseLevelScreen::setActive(bool active)
+{
+	m_isActive = active;
+}
+
+
+void ChooseLevelScreen::registerEvents()
+{
+	EventManager& eventManager = EventManager::getInstance();
+	
+
+	eventManager.subscribeToNextLevel([this](int nextLevel) 
+		{
+			if (m_currentAmountOfLevels < nextLevel && nextLevel <= MAX_LEVELS)
+			{
+				m_currentAmountOfLevels = nextLevel;
+			}
+		});
+}
+
+
+void ChooseLevelScreen::reset() {}

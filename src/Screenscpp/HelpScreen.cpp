@@ -113,3 +113,11 @@ void HelpScreen::toggleBackground() {
         winSize.y / static_cast<float>(backgroundTexture.getSize().y)
     );
 }
+
+
+void HelpScreen::setActive(bool active)
+{
+    m_isActive = active;
+}
+
+void HelpScreen::reset() {}

@@ -25,15 +25,6 @@ void GameScreen::registerEvents()
 {
 	m_aquariumManager.registerToEventManager();
 	m_shopBarManager.registerToEventManager();
-
-    m_onNextLevelCallback = [this]()
-        {
-            m_currentLevel++;
-            updateBackground();
-		};
-
-    EventManager& manager = EventManager::getInstance();
-	manager.subscribeToNextLevel(m_onNextLevelCallback);
 }
 
 
@@ -67,6 +58,15 @@ void GameScreen::handleEvent(const sf::Event& event)
             }
             
         }
+	}
+    else if(event.type == sf::Event::MouseMoved) 
+    {
+        sf::Vector2f mousePos(static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y));
+        if (mousePos.y <= m_shopBarManager.getSlotSize() + 20)
+        {
+            m_shopBarManager.handleMouseHover(mousePos);
+        }
+        
 	}
 }
 
@@ -133,7 +133,6 @@ void GameScreen::updateBackground()
 void GameScreen::unRegisterEvents()
 {
     EventManager& manager = EventManager::getInstance();
-	manager.unsubscribeFromNextLevel(m_onNextLevelCallback);
     m_aquariumManager.unRegisterFromEventManager();
 	m_shopBarManager.unRegisterFromEventManager();
 }
@@ -141,7 +140,7 @@ void GameScreen::unRegisterEvents()
 
 void GameScreen::setActive(bool active)
 {
-	Screen::setActive(active);
+	m_isActive = active;
     if (active)
     {
         registerEvents();
@@ -150,4 +149,10 @@ void GameScreen::setActive(bool active)
     {
 		unRegisterEvents();
     }
+}
+
+void GameScreen::reset()
+{
+    m_aquariumManager.reset();
+    m_shopBarManager.reset(m_currentLevel);
 }

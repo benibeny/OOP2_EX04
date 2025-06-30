@@ -17,7 +17,7 @@ public:
 	sf::Vector2f getPosition() const;
 	sf::Vector2f getSize() const;
 	virtual void draw(sf::RenderWindow& window) const;
-	bool isMouseOver(const sf::Vector2f& mousePosition) const;
+	virtual bool isMouseOver(const sf::Vector2f& mousePosition) const;
 	
 
 
