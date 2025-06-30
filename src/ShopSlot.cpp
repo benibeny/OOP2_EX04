@@ -1,4 +1,5 @@
 #include "shopSlot.h"
+#include "SoundManager.h"
 
 
 
@@ -12,6 +13,8 @@ void ShopSlot::onClick()
 	{
 
 		m_command->execute();
+
+		SoundManager::getInstance().play("buy"); //add
 
 		if (m_hasMax)
 		{

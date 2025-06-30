@@ -1,4 +1,5 @@
 #include "ShopBarManager.h"
+#include "SoundManager.h"
 
 ShopBarManager::ShopBarManager(int level)
 	:m_OptionButton(Clickable(std::make_unique<CommandOptions>(), MENUBACKGROUND)),m_slotSize(0.0f)
@@ -88,6 +89,11 @@ void ShopBarManager::handleMouseClick(const sf::Vector2f& mousePos)
 				m_moneyDisplay.changeMoney(-slotPrice);
 				slot->onClick();
 			}
+			else if (m_moneyDisplay.getMoney() < slotPrice) //add
+			{
+				SoundManager::getInstance().play("buzzer");
+			}
+
 			
 		}
 	}

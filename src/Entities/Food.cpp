@@ -1,10 +1,13 @@
 #include "Entities/Food.h"
 #include <iostream>
+#include "SoundManager.h"
 
 Food::Food(Foodtype foodType ,const sf::Vector2f pos)
 	:GameObject(pos, FOOD_SPRITE_SHEET_NAME, 5, 10, int(foodType),20), m_foodType(foodType)
 {
 	m_sprite.setScale(1.5f, 1.5f);
+
+	SoundManager::getInstance().play("drop"); //add
 
 	switch (m_foodType)
 	{

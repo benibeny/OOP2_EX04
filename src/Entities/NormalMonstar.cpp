@@ -1,10 +1,12 @@
 #include "Entities/NormalMonstar.h"
+#include "SoundManager.h"
 
 NormalMonstar::NormalMonstar()
 	:SeekingFoodAnimal(sf::Vector2f(900.0f,400.0f), NORMALMONSTAR_SPEED, NORMALMONSTAR_SPRITE,2,10,0),m_startTimer(0.0f)
 {
 	m_health = 100;
 	m_sprite.setScale(1.3f,1.3f);
+	SoundManager::getInstance().play("roar");
 
 }
 
@@ -72,6 +74,7 @@ bool NormalMonstar::tryToEat(GameObject& food)
 
 void NormalMonstar::clicked(int damage, sf::Vector2f mousePos)
 {
+	SoundManager::getInstance().play("shot");
 	sf::FloatRect bounds = m_sprite.getGlobalBounds();
 	sf::Vector2f center(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
 
@@ -79,6 +82,7 @@ void NormalMonstar::clicked(int damage, sf::Vector2f mousePos)
 	setHealth(getHealth() - damage);
 	if (m_health <= 0)
 	{
+		SoundManager::getInstance().play("deadBoss");
 		EventManager::getInstance().notifyMonstarDeath(center);
 		setDestroyed(true);
 	}
@@ -99,3 +103,4 @@ void NormalMonstar::clicked(int damage, sf::Vector2f mousePos)
 
 	checkTurn();
 }
+
