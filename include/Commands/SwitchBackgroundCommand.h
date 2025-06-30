@@ -1,4 +1,3 @@
-//add
 #pragma once
 #include "Commands/Command.h"
 #include "Screens/HelpScreen.h"

@@ -7,6 +7,7 @@ Pirana::Pirana(sf::Vector2f pos)
 	,m_swimingFrame(0)
 {
 	ResourceManager::getInstance().loadSpriteSheet(TURNING_SPRITE_NAME, MAX_FRAMES, 5);
+	ResourceManager::getInstance().loadSpriteSheet("smalldie.png", 10, 5);
 
 
 	//maybe change to update fishsize
@@ -18,6 +19,43 @@ Pirana::Pirana(sf::Vector2f pos)
 
 void Pirana::update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize)
 {
+	if (m_isDying) {
+		const float frameDuration = 0.2f;
+		m_deathTimer += deltaTime;
+
+		if (!m_deathAnimDone && m_deathTimer >= frameDuration) {
+			ResourceManager::getInstance().setSpriteTextureFromSheet(
+				m_sprite, "smalldie.png", m_deathFrame, getDeathRow()
+			);
+
+			m_sprite.setScale(1.2f, 1.2f); 
+
+			m_deathFrame++;
+			m_deathTimer -= frameDuration;
+
+			if (m_deathFrame >= 10) {
+				m_deathAnimDone = true;
+				m_deathTimer = 0.0f;  // reset for fade-out
+			}
+		}
+		else if (m_deathAnimDone) {
+			float fadeDuration = 2.0f;
+			m_deathTimer += deltaTime;
+			float alphaRatio = 1.0f - (m_deathTimer / fadeDuration);
+
+			if (alphaRatio <= 0.0f) {
+				setDestroyed(true);
+			}
+			else {
+				sf::Color color = m_sprite.getColor();
+				color.a = static_cast<sf::Uint8>(255 * alphaRatio);
+				m_sprite.setColor(color);
+			}
+		}
+
+		return; // don't move while dying
+	}
+
 	handleHungerTimer(deltaTime);
 	move(windowSize, deltaTime, foodItems);
 
@@ -160,4 +198,9 @@ bool Pirana::tryToEat(GameObject& food)
 bool Pirana::canBeEatenBy(const NormalMonstar& monster)
 {
 	return true; // Pirana can be eaten by any NormalMonstar
+}
+
+int Pirana::getDeathRow() const 
+{
+	return 4;  
 }

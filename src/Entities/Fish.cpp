@@ -58,7 +58,7 @@ void Fish::handleTurnAnimation()
 
 void Fish::foodEatenIncrement(std::pair<int,int> foodValue)
 {
-	SoundManager::getInstance().play("eat"); //add
+	SoundManager::getInstance().play("eat"); 
 
 	foodEaten += foodValue.second + 10; 
 
@@ -76,11 +76,30 @@ void Fish::handleHungerTimer(float deltaTime)
 	{
 		m_hungerTimer = 0.0f; // Reset hunger timer
 		m_health -= 1; // Decrease health due to hunger
-		if (m_health <= 0) 
+
+		//if (m_health <= 0) 
+		//{
+		//	SoundManager::getInstance().play("die");
+		//	m_shouldDestroy = true; // Mark fish as dead if health drops to zero
+		//}
+		if (m_health <= 0 && !m_isDying)
 		{
 			SoundManager::getInstance().play("die");
-			m_shouldDestroy = true; // Mark fish as dead if health drops to zero
+
+			m_isDying = true;
+			m_deathTimer = 0.0f;
+			m_deathFrame = 0;
+			m_deathAnimDone = false;
+			m_velocity = sf::Vector2f(0.f, 0.f);  // stop movement
+
+			// set first death frame
+			sf::Vector2f currentScale = m_sprite.getScale();
+			ResourceManager::getInstance().setSpriteTextureFromSheet(
+				m_sprite, "smalldie.png", 0, getDeathRow());
+				m_sprite.setScale(1.4f, 1.4f);
+
 		}
+
 	}
 }
 

@@ -21,7 +21,6 @@ configure_file ("ANIMATION/money.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/balrog.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/food.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
-
 configure_file ("shopbar/moneyBackground.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("shopbar/foodSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("shopbar/goldFishSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)

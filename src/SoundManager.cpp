@@ -16,6 +16,9 @@ void SoundManager::loadEffect(const std::string& key, const std::string& filePat
 }
 
 void SoundManager::play(const std::string& key) {
+    if (m_muted)
+        return;
+
     auto it = m_buffers.find(key);
     if (it == m_buffers.end()) {
         throw std::runtime_error("Sound buffer not found for key: " + key);

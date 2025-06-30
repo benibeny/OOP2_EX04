@@ -13,10 +13,16 @@ public:
     void stopCurrent();
     void stopAll();
     void loadAndPlay(const std::string& key, const std::string& filePath, bool loop = false);
+    void setMuted(bool mute);
+    bool isMuted() const { return m_muted; }
 
 private:
     MusicManager() = default;
     ~MusicManager() = default;
+    bool m_muted = false;
+
+    std::string m_lastTrackKey;
+    bool m_lastLoopState = false;
 
     MusicManager(const MusicManager&) = delete;
     MusicManager& operator=(const MusicManager&) = delete;

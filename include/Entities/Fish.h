@@ -41,7 +41,9 @@ public:
 
 protected:
 	virtual Money::Moneytype getProducedMoneyType() = 0;
-	
+
+	virtual int getDeathRow() const = 0; //add
+
 
 	int foodEaten = 0;
 	float m_hungerTimer = 0.0f;
@@ -56,6 +58,11 @@ protected:
 	float m_coinTimer = 0.0f;
 	float m_maxCoinTimer = 12.0f;//can change for every fish
 	
+	// Death animation state
+	bool m_isDying = false;         // Is the fish in dying state
+	float m_deathTimer = 0.0f;      // Time since death started
+	int m_deathFrame = 0;           // Current frame in death animation
+	bool m_deathAnimDone = false;   // Did we finish the death animation
 
 
 
