@@ -2,7 +2,8 @@
 #include "ScreenManager.h"
 #include "Screens/Screen.h"
 #include <SFML/Graphics.hpp>
-#include "MusicManager.h" //add
+#include "MusicManager.h" 
+
 #include "SoundManager.h"
 
 Game::Game() 
@@ -22,7 +23,7 @@ Game& Game::getInstance()
 
 void Game::run() 
 {
-    MusicManager::getInstance().loadAndPlay("menu", "musicbackround.ogg", true); //add
+    MusicManager::getInstance().loadAndPlay("menu", "musicbackround.ogg", true); 
     SoundManager::getInstance().initialize(); //add
 
     ScreenManager& screen = ScreenManager::getInstance();

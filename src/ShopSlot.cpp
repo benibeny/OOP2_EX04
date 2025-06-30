@@ -14,7 +14,7 @@ void ShopSlot::onClick()
 
 		m_command->execute();
 
-		SoundManager::getInstance().play("buy"); //add
+		SoundManager::getInstance().play("buy"); 
 
 		if (m_hasMax)
 		{

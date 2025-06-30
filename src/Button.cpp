@@ -42,7 +42,7 @@ void Button::setHover(bool hover)
 
 void Button::onClick() 
 {
-    SoundManager::getInstance().play("buttonclick"); //add
+    SoundManager::getInstance().play("buttonclick");
 
     if (command) 
     {

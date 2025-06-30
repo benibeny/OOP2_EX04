@@ -34,7 +34,8 @@ public:
 	//double dispatch
 	virtual bool canBeEatenBy(const NormalMonstar& monster)override;
 
-	
+	int getDeathRow() const override;
+
 private:
 	//std::string getSpriteNameForSize(const Size size);
 	//void updateSpriteDirection(float deltaTime);

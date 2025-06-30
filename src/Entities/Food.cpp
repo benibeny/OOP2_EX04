@@ -7,13 +7,13 @@ Food::Food(Foodtype foodType ,const sf::Vector2f pos)
 {
 	m_sprite.setScale(1.5f, 1.5f);
 
-	SoundManager::getInstance().play("drop"); //add
+	SoundManager::getInstance().play("drop"); 
 
 	switch (m_foodType)
 	{
 		case Foodtype::Worst:
-			m_healthValueGives = 6;
-			m_sizeValueGives = 3;
+			m_healthValueGives = 6; 
+			m_sizeValueGives = 3; 
 			break;
 
 		case Foodtype::Medium:

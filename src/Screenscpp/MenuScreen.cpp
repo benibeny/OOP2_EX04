@@ -5,6 +5,8 @@
 #include "Commands/StartAdventureCommand.h"
 #include "Commands/ShowHelpCommand.h"
 #include "Commands/QuitGameCommand.h"
+#include "Commands/SwitchBackgroundCommand.h"
+#include "Commands/CommandToggleMute.h"
 
 #include "Screens/MenuScreen.h"
 #include "ScreenManager.h"
@@ -38,17 +40,25 @@ MenuScreen::MenuScreen()
     buttons.emplace_back("Help", font, std::make_unique<ShowHelpCommand>());
     buttons.emplace_back("Quit Game", font, std::make_unique<QuitGameCommand>());
 
+    buttons.emplace_back("Mute", font, std::make_unique<ToggleMuteCommand>());
+    
+
+
     // Set normalized positions for each button (centered horizontally, spaced vertically)
     float startY = 0.5f;
     float stepY = 0.2f;
 
-    for (size_t i = 0; i < buttons.size(); ++i) 
+    for (size_t i = 0; i < buttons.size() - 1; ++i)
     {
         float posY = startY + i * stepY;
         buttons[i].setRelativePosition(0.5f, posY);
         buttons[i].setBaseCharacterSize(Game::BASE_FONT_SIZE);
         buttons[i].resize(winSize);
     }
+
+    buttons.back().setRelativePosition(0.1f, 0.95f);
+    buttons.back().setBaseCharacterSize(Game::BASE_FONT_SIZE - 4);
+    buttons.back().resize(winSize);
 
 }
 

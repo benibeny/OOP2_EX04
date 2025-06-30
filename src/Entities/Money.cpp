@@ -79,6 +79,6 @@ void Money::clicked(int damage, sf::Vector2f mousePos)
 {
 	setDestroyed(true);
 	EventManager::getInstance().notifyMoneyChange(getMoneyValue());
-	SoundManager::getInstance().play("diamond"); //add
+	SoundManager::getInstance().play("diamond"); 
 }	
 

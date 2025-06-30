@@ -44,6 +44,7 @@ void ShopBarManager::registerToEventManager()
 				m_moneyDisplay.changeMoney(-FOOD_COST);
 				return true;
 			}
+			SoundManager::getInstance().play("buzzer");
 			return false;
 		};
 	manager.subscribeToTryBuyFood(tryBuyFood);
@@ -89,7 +90,7 @@ void ShopBarManager::handleMouseClick(const sf::Vector2f& mousePos)
 				m_moneyDisplay.changeMoney(-slotPrice);
 				slot->onClick();
 			}
-			else if (m_moneyDisplay.getMoney() < slotPrice) //add
+			else if (m_moneyDisplay.getMoney() < slotPrice) 
 			{
 				SoundManager::getInstance().play("buzzer");
 			}

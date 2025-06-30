@@ -46,6 +46,8 @@ public:
 
 	//bool seekFood(const std::list<std::unique_ptr<GameObject>>& foodItems)override;
 
+	int getDeathRow() const override;
+
 private:
 	virtual bool tryToEat(GameObject& food)override;
 

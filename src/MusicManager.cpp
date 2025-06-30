@@ -18,6 +18,9 @@ void MusicManager::loadTrack(const std::string& key, const std::string& filePath
 
 void MusicManager::play(const std::string& key, bool loop) 
 {
+    if (m_muted)
+        return;
+
     stopCurrent();
     
 
@@ -29,6 +32,9 @@ void MusicManager::play(const std::string& key, bool loop)
 
     m_currentTrack = it->second.get();
     m_currentTrack->setLoop(loop);
+    m_lastTrackKey = key;
+    m_lastLoopState = loop;
+
     m_currentTrack->setVolume(100); 
     m_currentTrack->play();
 }
@@ -54,3 +60,18 @@ void MusicManager::loadAndPlay(const std::string& key, const std::string& filePa
     loadTrack(key, filePath);
     play(key, loop);
 }
+
+void MusicManager::setMuted(bool mute) 
+{
+    m_muted = mute;
+    if (mute) {
+        stopAll();
+    }
+    else 
+    {
+        if (!m_lastTrackKey.empty()) {
+            play(m_lastTrackKey, m_lastLoopState);
+        }
+    }
+}
+

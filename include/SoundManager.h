@@ -11,9 +11,13 @@ public:
     void loadEffect(const std::string& key, const std::string& filePath);
     void play(const std::string& key);
     void initialize(); 
+    void setMuted(bool mute) { m_muted = mute; }
+    bool isMuted() const { return m_muted; }
 
 private:
     SoundManager() = default;
+    bool m_muted = false;
+
     std::unordered_map<std::string, sf::SoundBuffer> m_buffers;
     std::vector<sf::Sound> m_sounds; // Reusable sounds to allow multiple effects
     std::vector<std::unique_ptr<sf::Sound>> m_activeSounds;
