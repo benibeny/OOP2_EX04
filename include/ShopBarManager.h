@@ -43,7 +43,7 @@
 
 #define MAXSLOTS 7
 
-
+#define FOOD_COST 5
 
 
 class ShopBarManager
@@ -53,12 +53,14 @@ public:
 	
 	void initialize(float slotSize);
 	void handleMouseClick(const sf::Vector2f& mousePos);
+	void handleMouseHover(const sf::Vector2f& mousePos);
 	void draw(sf::RenderWindow& window) const;
 	float getSlotSize() const { return m_slotSize; }
-	void reset();
+	void reset(int level);
 
 	void unRegisterFromEventManager();
 	void registerToEventManager();
+
 private:
 	//std::vector<ShopSlot> m_shopSlots;
 	std::vector<std::unique_ptr<ShopSlot>> m_shopSlots;
@@ -67,7 +69,13 @@ private:
 	MoneyDisplay m_moneyDisplay;
 	Clickable m_OptionButton;
 
-	std::function<void(int money)> m_moneyChange;
-
 	float m_slotSize ;	
+
+
+	struct EventSubscription
+	{
+		std::function<void()> unsubscribe;
+	};
+
+	std::vector<EventSubscription> m_eventSubscriptions;
 };

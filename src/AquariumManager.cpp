@@ -1,7 +1,5 @@
 #include "AquariumManager.h"
 
-int AquariumManager::m_coins = 0;
-
 AquariumManager::AquariumManager(sf::Vector2u windowSize) 
 	: m_windowSize(windowSize),m_foodType(Food::Foodtype::Worst)
 {
@@ -28,11 +26,10 @@ void AquariumManager::handleMouseClick(const sf::Vector2f mousePos)
 
 	if (!m_monserSpawned)
 	{
-		if (m_maxFoodSpawned > m_foodCount && !clickedOnGameObject)
+		if (m_maxFoodSpawned > m_foodCount && !clickedOnGameObject && EventManager::getInstance().notifyTryBuyFood())
 		{
 			m_eatables.push_back(std::make_unique<Food>(m_foodType, mousePos));
 			m_foodCount++;
-			EventManager::getInstance().notifyMoneyChange(-FOOD_COST);
 		}
 
 	}
@@ -161,11 +158,6 @@ bool AquariumManager::isColliding(const sf::FloatRect& rect1, const sf::FloatRec
 	return rect1.intersects(rect2);
 }
 
-//added
-int AquariumManager::getCoins() 
-{
-	return m_coins;
-}
 
 
 void AquariumManager::registerToEventManager()
@@ -270,4 +262,27 @@ void AquariumManager::unRegisterFromEventManager()
 		subscription.unsubscribe();
 	}
 	m_eventSubscriptions.clear();
+}
+
+
+void AquariumManager::reset()
+{
+	m_eatables.clear();
+
+	addEatable(std::make_unique<GoldFish>(sf::Vector2f(500.0f,500.0f)));
+	addEatable(std::make_unique<GoldFish>(sf::Vector2f(400.0f, 400.0f)));
+
+	m_maxFoodSpawned = 1;
+	m_foodCount = 0;
+	m_foodType = Food::Foodtype::Worst;
+
+	m_monserSpawned = false;
+	m_monsterSpawnTimer = 0.0f;
+
+	m_currentHitDmg = 5;
+	m_weaponLevel = 0;
+	m_hitAnimationTimer = 0.0f;
+	m_isHitAnimation = false;
+
+	m_hitMark.setScale(0.f, 0.f);
 }

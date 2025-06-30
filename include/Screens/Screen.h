@@ -13,6 +13,8 @@ public:
     virtual void render(sf::RenderWindow& window) = 0;
 
     virtual void setActive(bool active) = 0;
+
+    virtual void reset() = 0;
 protected:
 	bool m_isActive = false;
 };

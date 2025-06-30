@@ -119,3 +119,5 @@ void HelpScreen::setActive(bool active)
 {
     m_isActive = active;
 }
+
+void HelpScreen::reset() {}

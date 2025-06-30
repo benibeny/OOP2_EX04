@@ -18,17 +18,13 @@ int MoneyDisplay::getMoney() const
 }
 
 
-void MoneyDisplay::addMoney(int amount)
+void MoneyDisplay::changeMoney(int amount)
 {
 	m_money += amount;
 	updateMoneyText();
 }
 
 
-void MoneyDisplay::subtractMoney(int amount)
-{ 
-	m_money -= amount; updateMoneyText();
-}
 
 
 void MoneyDisplay::updateMoneyText() 
@@ -49,5 +45,11 @@ void MoneyDisplay::draw(sf::RenderWindow& window)const
 void MoneyDisplay::setPosition(const sf::Vector2f& position)
 {
 	UiElement::setPosition(position);
+	updateMoneyText();
+}
+
+void MoneyDisplay::reset()
+{
+	m_money = MONEY_START;
 	updateMoneyText();
 }

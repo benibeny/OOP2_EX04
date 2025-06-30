@@ -17,8 +17,6 @@ ScreenManager::ScreenManager() :m_screenType(ScreenType::MainMenu)
 	m_screens[ScreenType::ChooseLevelScreen] = std::make_unique<ChooseLevelScreen>();
 	m_screens[ScreenType::HelpScreen] = std::make_unique<HelpScreen>();
 	m_screens[ScreenType::MainMenu] = std::make_unique<MenuScreen>();
-	
-
 }
 
 ScreenManager& ScreenManager::getInstance() 
@@ -54,6 +52,19 @@ void ScreenManager::handleEvents(const sf::Event& event)
 	{
 		m_screens[m_screenType]->handleEvent(event);
 	}
+}
+
+void ScreenManager::reset(ScreenType screen)
+{
+	if (m_screens.contains(m_screenType))
+	{
+		m_screens[m_screenType]->reset();
+	}
+}
+
+void ScreenManager::reset()
+{
+	reset(m_screenType);
 }
 
 

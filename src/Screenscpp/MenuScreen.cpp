@@ -120,3 +120,5 @@ void MenuScreen::setActive(bool active)
 {
     m_isActive = active;
 }
+
+void MenuScreen::reset() {}

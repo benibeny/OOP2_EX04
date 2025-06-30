@@ -25,7 +25,7 @@ public:
     void render(sf::RenderWindow& window) override;
 
 	virtual void setActive(bool active) override;
-	
+	virtual void reset() override;
 
 	void setUpUi();
 private:
@@ -38,9 +38,8 @@ private:
 
 	sf::Sprite m_background;
     //sf::Texture m_backgroundTexture;
-	std::function<void()> m_onNextLevelCallback;
 
 	ShopBarManager m_shopBarManager;
 	AquariumManager m_aquariumManager;
- 
+
 };

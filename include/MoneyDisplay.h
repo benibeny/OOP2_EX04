@@ -4,7 +4,7 @@
 #include "Commands/Command.h"
 
 #define MONEY_DISPLAY_SPRITE "moneyBackground.jpg"
-#define MONEY_START 100000 
+#define MONEY_START 10000 
 
 class MoneyDisplay : public UiElement
 {
@@ -13,10 +13,11 @@ public:
 	MoneyDisplay();
 
 	int getMoney() const;
-	void addMoney(int amount);
-	void subtractMoney(int amount);
+	void changeMoney(int amount);
+
 	void updateMoneyText();
 
+	void reset();
 
 	void setPosition(const sf::Vector2f& position) override;
 	void draw(sf::RenderWindow& window)const override;

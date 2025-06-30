@@ -14,6 +14,7 @@ public:
     void render(sf::RenderWindow& window) override;
 
     virtual void setActive(bool active)override;
+	virtual void reset() override;
 private:
     sf::RectangleShape backgroundRect;
     //sf::Font font;

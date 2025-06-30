@@ -16,6 +16,7 @@ public:
 
 
     virtual void setActive(bool active)override;
+	virtual void reset() override;
 
 private:
     sf::Font font;

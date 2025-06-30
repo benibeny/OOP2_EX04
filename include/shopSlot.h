@@ -19,6 +19,10 @@ public:
 	int getPrice() const { return m_price; }
 	bool isMaxBought() const { return m_isMaxBought; }
 
+	bool isMouseOver(const sf::Vector2f& mousePosition) const override;
+
+	void reset(int currRow);
+
 protected:
 	void setMaxSprite();
 	void updateSlotSpriteRow();

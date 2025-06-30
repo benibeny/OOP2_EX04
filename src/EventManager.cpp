@@ -20,6 +20,7 @@ void EventManager::cleanUp()
 	m_monstarDeath.clear();
 	m_nextLevel.clear();
 	m_buyAnimalCallBack = nullptr;
+	m_tryBuyFoodCallBack = nullptr;
 
 }
 
@@ -239,23 +240,23 @@ void EventManager::unsubscribeFromMonstarDeath(const std::function<void(sf::Vect
 	}
 }
 
-void EventManager::subscribeToNextLevel(const std::function<void()> callback)
+void EventManager::subscribeToNextLevel(const std::function<void(int nextLevel)> callback)
 {
 	m_nextLevel.push_back(callback);
 }
 
-void EventManager::notifyNextLevel()
+void EventManager::notifyNextLevel(int nextLevel)
 {
 	for (auto& callback : m_nextLevel)
 	{
 		if (callback)
 		{
-			callback();
+			callback(nextLevel);
 		}
 	}
 }
 
-void EventManager::unsubscribeFromNextLevel(const std::function<void()>& callback)
+void EventManager::unsubscribeFromNextLevel(const std::function<void(int nextLevel)>& callback)
 {
 	auto it = std::find_if(m_nextLevel.begin(), m_nextLevel.end(), [&callback](const auto& func)
 		{
@@ -265,4 +266,25 @@ void EventManager::unsubscribeFromNextLevel(const std::function<void()>& callbac
 	{
 		m_nextLevel.erase(it);
 	}
+}
+
+
+void EventManager::subscribeToTryBuyFood(const std::function<bool()> callback)
+{
+	m_tryBuyFoodCallBack = callback;
+}
+
+
+bool EventManager::notifyTryBuyFood()
+{
+	if (m_tryBuyFoodCallBack)
+	{
+		return m_tryBuyFoodCallBack();
+	}
+}
+
+
+void EventManager::unsubscribeFromTryBuyFood()
+{
+	m_tryBuyFoodCallBack = nullptr;
 }

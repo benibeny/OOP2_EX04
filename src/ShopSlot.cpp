@@ -30,6 +30,12 @@ void ShopSlot::onClick()
 }
 
 
+void ShopSlot::reset(int currRow)
+{
+	m_currentRow = currRow;
+	m_isMaxBought = false;
+	updateSlotSpriteRow();
+}
 
 
 void ShopSlot::setMaxSprite()
@@ -44,4 +50,16 @@ void ShopSlot::updateSlotSpriteRow()
 {
 	ResourceManager& resource = ResourceManager::getInstance();
 	resource.setSpriteTextureFromSheet(m_sprite, m_spriteName, 0, m_currentRow);
+}
+
+
+bool ShopSlot::isMouseOver(const sf::Vector2f& mousePosition) const
+{
+	sf::FloatRect bounds = m_sprite.getGlobalBounds();
+	bounds.left += bounds.width * 0.1f;
+	bounds.top += bounds.height * 0.1f;
+	bounds.width *= 0.8f;
+	bounds.height *= 0.8f;
+
+	return bounds.contains(mousePosition);
 }
