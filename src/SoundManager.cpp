@@ -52,5 +52,7 @@ void SoundManager::initialize()
     loadEffect("buttonclick", "buttonclick.ogg");
     loadEffect("buy", "BUY.ogg");
     loadEffect("buzzer", "BUZZER.ogg");
-
+    loadEffect("die", "DIE.ogg");
+    loadEffect("hatch", "DIE.ogg");
+    loadEffect("splash", "DIE.ogg");
 }

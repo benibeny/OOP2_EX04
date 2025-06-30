@@ -78,10 +78,10 @@ void Fish::handleHungerTimer(float deltaTime)
 		m_health -= 1; // Decrease health due to hunger
 		if (m_health <= 0) 
 		{
+			SoundManager::getInstance().play("die");
 			m_shouldDestroy = true; // Mark fish as dead if health drops to zero
 		}
 	}
-
 }
 
 

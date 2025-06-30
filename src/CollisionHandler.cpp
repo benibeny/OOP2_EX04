@@ -6,6 +6,7 @@
 #include "Entities/Food.h"
 #include "Entities/NormalMonstar.h"
 #include "Entities/Pirana.h"
+#include "SoundManager.h"
 
 #include <iostream>
 namespace 
@@ -30,22 +31,26 @@ namespace
 	void normalMonstarGoldFish(GameObject& normalMonstar, GameObject& fish)
 	{
 		fish.setDestroyed(true);
+		SoundManager::getInstance().play("alienEat");
 	}
 
 	void goldFishNormalMonstar(GameObject& fish,GameObject& normalMonstar)
 	{
 		normalMonstarGoldFish(normalMonstar, fish);
+		SoundManager::getInstance().play("alienEat");
 	}
 
 
 	void normalMonstarPirana(GameObject& normalMonstar, GameObject& pirana)
 	{
 		pirana.setDestroyed(true);
+		SoundManager::getInstance().play("alienEat");
 	}
 
 	void piranaNormalMonstar(GameObject& pirana, GameObject& normalMonstar)
 	{
 		normalMonstarPirana(normalMonstar, pirana);
+		SoundManager::getInstance().play("alienEat");
 	}
 
 	void piranaGoldFish(GameObject& pirana, GameObject& goldFish)
