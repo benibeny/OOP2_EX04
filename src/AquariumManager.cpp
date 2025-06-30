@@ -5,7 +5,7 @@ int AquariumManager::m_coins = 0;
 AquariumManager::AquariumManager(sf::Vector2u windowSize) 
 	: m_windowSize(windowSize),m_foodType(Food::Foodtype::Worst)
 {
-	registerToEventManager();
+	//registerToEventManager();
 
 	ResourceManager& resourceManager = ResourceManager::getInstance();
 	resourceManager.loadSpriteSheet(NORMALMONSTAR_HITMARK_SPTITE, 1, 11);

@@ -141,7 +141,7 @@ void GameScreen::unRegisterEvents()
 
 void GameScreen::setActive(bool active)
 {
-	Screen::setActive(active);
+	m_isActive = active;
     if (active)
     {
         registerEvents();
@@ -151,3 +151,4 @@ void GameScreen::setActive(bool active)
 		unRegisterEvents();
     }
 }
+

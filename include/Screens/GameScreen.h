@@ -24,7 +24,7 @@ public:
     void update(float deltaTime) override;
     void render(sf::RenderWindow& window) override;
 
-	void setActive(bool active) override;
+	virtual void setActive(bool active) override;
 	
 
 	void setUpUi();

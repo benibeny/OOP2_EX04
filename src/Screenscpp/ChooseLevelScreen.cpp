@@ -77,3 +77,9 @@ void ChooseLevelScreen::handleEvent(const sf::Event& event)
 void ChooseLevelScreen::update(float deltaTime)
 {
 }
+
+
+void ChooseLevelScreen::setActive(bool active)
+{
+	m_isActive = active;
+}

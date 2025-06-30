@@ -113,3 +113,10 @@ void MenuScreen::render(sf::RenderWindow& window)
         btn.draw(window);
     }
 }
+
+
+
+void MenuScreen::setActive(bool active)
+{
+    m_isActive = active;
+}

@@ -20,6 +20,8 @@ public:
     void handleEvent(const sf::Event& event) override;
     void update(float deltaTime) override;
     void render(sf::RenderWindow& window) override;
+
+	virtual void setActive(bool active)override;
 private:
     //sf::Font font;
     std::vector<Button> m_buttons;

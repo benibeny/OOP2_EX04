@@ -21,7 +21,7 @@ ShopBarManager::ShopBarManager(int level)
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(10,std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW));
 	m_shopSlots.emplace_back(std::make_unique<EggShopSlot>(eggRow,eggPrice,std::make_unique<CommandBuyEgg>(), EGGSSLOT, EGGSROW));
 
-	registerToEventManager();
+	//registerToEventManager();
 }
 
 void ShopBarManager::registerToEventManager() 

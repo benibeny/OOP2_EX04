@@ -14,6 +14,9 @@ public:
     void render(sf::RenderWindow& window) override;
     void toggleBackground();
 
+
+    virtual void setActive(bool active)override;
+
 private:
     sf::Font font;
     sf::Texture backgroundTexture;

@@ -13,6 +13,7 @@ public:
     void update(float deltaTime) override;
     void render(sf::RenderWindow& window) override;
 
+    virtual void setActive(bool active)override;
 private:
     sf::RectangleShape backgroundRect;
     //sf::Font font;
