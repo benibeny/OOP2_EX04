@@ -12,6 +12,7 @@
 #include "Commands/CommandOptions.h"
 #include "Commands/CommandBuyWeapon.h"
 #include "Commands/CommandBuyEgg.h"
+#include "Commands/CommandBuyOctopusHelper.h"
 #include "EggShopSlot.h"
 
 
@@ -39,6 +40,9 @@
 
 #define EGGSSLOT "eggs.png"
 #define EGGSROW 12
+
+#define HELPERSLOT "eggwalter.png"
+#define HELPERROW 0
 
 
 #define MAXSLOTS 7
