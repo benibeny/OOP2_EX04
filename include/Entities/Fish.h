@@ -64,6 +64,7 @@ protected:
 	int m_deathFrame = 0;           // Current frame in death animation
 	bool m_deathAnimDone = false;   // Did we finish the death animation
 
+	bool updateDeathAnimation(float deltaTime);
 
 
 

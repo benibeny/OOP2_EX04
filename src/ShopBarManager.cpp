@@ -18,7 +18,7 @@ ShopBarManager::ShopBarManager(int level)
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(300,std::make_unique<CommandBuyFoodAmount>(), NUMBERFOODSLOT, NUMBERFOODROW));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(1000,std::make_unique<CommandBuyPirana>(), PIRANASLOT, PIRANAROW,0, false));
 	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(1000,std::make_unique<CommandBuyWeapon>(), WEPONSLOT, WEPONROW));
-	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(2000,std::make_unique<CommandBuyOctopusHelper>(),HELPERSLOT,1, HELPERROW,false));
+	m_shopSlots.emplace_back(std::make_unique<ShopSlot>(100, std::make_unique<CommandBuyGoldFish>(), GOLDFISHSLOT, GOLDFISHROW, 0, false));
 	m_shopSlots.emplace_back(std::make_unique<EggShopSlot>(eggRow,eggPrice,std::make_unique<CommandBuyEgg>(level+1), EGGSSLOT, EGGSROW));
 
 }
