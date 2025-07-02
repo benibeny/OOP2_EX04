@@ -29,10 +29,7 @@ MenuScreen::MenuScreen()
         std::cerr << "Failed to load background image!\n";
     }
     backgroundSprite.setTexture(backgroundTexture);
-    backgroundSprite.setScale(
-        static_cast<float>(winSize.x) / backgroundTexture.getSize().x,
-        static_cast<float>(winSize.y) / backgroundTexture.getSize().y);
-
+ 
 	sf::Font& font = ResourceManager::getInstance().getGameFont();
     
     // Create menu buttons with their respective commands
@@ -60,6 +57,24 @@ MenuScreen::MenuScreen()
     buttons.back().setBaseCharacterSize(Game::BASE_FONT_SIZE - 4);
     buttons.back().resize(winSize);
 
+    setUpUi();
+
+}
+
+
+void MenuScreen::setUpUi()
+{
+    sf::Vector2u windowSize = Game::getInstance().getWindow().getSize();
+    // Adjust background size
+    backgroundSprite.setScale(
+        static_cast<float>(windowSize.x) / backgroundTexture.getSize().x,
+        static_cast<float>(windowSize.y) / backgroundTexture.getSize().y);
+
+    // Adjust button layout
+    
+    for (auto& btn : buttons) {
+        btn.resize(windowSize);
+    }
 }
 
 void MenuScreen::handleEvent(const sf::Event& event) 
@@ -70,16 +85,7 @@ void MenuScreen::handleEvent(const sf::Event& event)
         sf::FloatRect visibleArea(0.f, 0.f, static_cast<float>(event.size.width), static_cast<float>(event.size.height));
         Game::getInstance().getWindow().setView(sf::View(visibleArea));
 
-        // Adjust background size
-        backgroundSprite.setScale(
-            static_cast<float>(event.size.width) / backgroundTexture.getSize().x,
-            static_cast<float>(event.size.height) / backgroundTexture.getSize().y);
-
-        // Adjust button layout
-        sf::Vector2u newSize(event.size.width, event.size.height);
-        for (auto& btn : buttons) {
-            btn.resize(newSize);
-        }
+        setUpUi();
     }
     else if (event.type == sf::Event::MouseMoved) 
     {
@@ -128,6 +134,7 @@ void MenuScreen::render(sf::RenderWindow& window)
 
 void MenuScreen::setActive(bool active)
 {
+    setUpUi();
     m_isActive = active;
 }
 

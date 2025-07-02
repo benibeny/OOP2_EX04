@@ -8,8 +8,18 @@ AquariumManager::AquariumManager(sf::Vector2u windowSize)
 	ResourceManager& resourceManager = ResourceManager::getInstance();
 	resourceManager.loadSpriteSheet(NORMALMONSTAR_HITMARK_SPTITE, 1, 11);
 	resourceManager.setSpriteTextureFromSheet(m_hitMark, NORMALMONSTAR_HITMARK_SPTITE, 0, 0);
+
+	createGoldFishStart();
 }
 
+
+void AquariumManager::createGoldFishStart()
+{
+	sf::Vector2u windowSize = Game::getInstance().getWindow().getSize();
+
+	addEatable(std::make_unique<GoldFish>(sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f)));
+	addEatable(std::make_unique<GoldFish>(sf::Vector2f(windowSize.x * 0.6f, windowSize.y * 0.6f)));
+}
 
 void AquariumManager::handleMouseClick(const sf::Vector2f mousePos)
 {
@@ -269,8 +279,7 @@ void AquariumManager::reset()
 {
 	m_eatables.clear();
 
-	addEatable(std::make_unique<GoldFish>(sf::Vector2f(500.0f,500.0f)));
-	addEatable(std::make_unique<GoldFish>(sf::Vector2f(400.0f, 400.0f)));
+	createGoldFishStart();
 
 	m_maxFoodSpawned = 1;
 	m_foodCount = 0;

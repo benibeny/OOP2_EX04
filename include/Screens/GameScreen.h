@@ -8,6 +8,8 @@
 #include "ScreenManager.h"
 #include "ShopBarManager.h"
 #include "EventManager.h"
+#include "Commands/CommandFunction.h"
+#include "PopUp.h"
 #include <iostream>
 #include <functional>
 
@@ -41,5 +43,6 @@ private:
 
 	ShopBarManager m_shopBarManager;
 	AquariumManager m_aquariumManager;
+	PopUp m_popUpMenu;
 
 };

@@ -10,6 +10,7 @@ configure_file ("Backgrounds/tips0.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Backgrounds/tips1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Backgrounds/tips2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Backgrounds/selectorback.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Backgrounds/popUp.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 configure_file ("ANIMATION/HatchANIMATION.gif" ${CMAKE_BINARY_DIR} COPYONLY)
