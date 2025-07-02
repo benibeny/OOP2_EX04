@@ -46,6 +46,18 @@ void GameObject::setDestroyed(bool destroyed)
 	m_shouldDestroy = destroyed;
 }
 
+
+void GameObject::setScale(sf::Vector2f scale)
+{
+	m_sprite.setScale(scale);
+}
+
+
+sf::Vector2f GameObject::getScale() const
+{
+	return m_sprite.getScale();
+}
+
 void GameObject::updateAnimation(float deltaTime)
 {
 	m_animationTimer += deltaTime;

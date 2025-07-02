@@ -29,7 +29,7 @@ void Animal::bounceOffWalls(const sf::Vector2u& windowSize)
 		
 	}
 
-	float shopBarHeight = windowSize.x / 9.0f;
+	float shopBarHeight = (windowSize.x / 9.0f) * 1.0588;
 	float sandBarHeight = windowSize.y / 10.0f;
 
 	if( position.y <= shopBarHeight)

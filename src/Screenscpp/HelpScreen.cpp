@@ -54,8 +54,12 @@ void HelpScreen::handleEvent(const sf::Event& event)
     {
         ScreenManager::getInstance().switchScreen(ScreenType::MainMenu);
     }
-
-    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) 
+    else if (event.type == sf::Event::Resized)
+    {
+        sf::FloatRect visibleArea(0.f, 0.f, static_cast<float>(event.size.width), static_cast<float>(event.size.height));
+        Game::getInstance().getWindow().setView(sf::View(visibleArea));
+    }
+    else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) 
     {
         float x = static_cast<float>(event.mouseButton.x);
         float y = static_cast<float>(event.mouseButton.y);

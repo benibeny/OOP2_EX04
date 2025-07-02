@@ -3,5 +3,7 @@
 
 void CommandBuyGoldFish::execute()
 {
-	EventManager::getInstance().notifyBuyAnimal(std::make_unique<GoldFish>(sf::Vector2f(500.0f, 500.0f)));
+
+	sf::Vector2u windowSize = Game::getInstance().getWindow().getSize();
+	EventManager::getInstance().notifyBuyAnimal(std::make_unique<GoldFish>(sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f)));
 }
