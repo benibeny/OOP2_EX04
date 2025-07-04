@@ -1,7 +1,8 @@
 #include "Commands/CommandBuyGoldFish.h"
+#include "GameObjectFactory.h"
 
 
 void CommandBuyGoldFish::execute()
 {
-	EventManager::getInstance().notifyBuyAnimal(std::make_unique<GoldFish>(sf::Vector2f(500.0f, 500.0f)));
+	EventManager::getInstance().notifyBuyAnimal(GameObjectFactory::create("GoldFish", { 500.0f, 500.0f }));
 }
