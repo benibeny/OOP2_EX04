@@ -9,6 +9,7 @@
 #include "Entities/NormalMonstar.h"
 #include "CollisionHandler.h"
 #include "EventManager.h"
+#include "Game.h"
 
 #define MONSETER_SPAWN_TIME 10.0f // Time in seconds to spawn a monster
 #define NORMALMONSTAR_HITMARK_SPTITE "hitmark.png"
@@ -35,6 +36,7 @@ public:
 	void reset();
 
 private:
+	void createGoldFishStart();
 	bool isColliding(const sf::FloatRect& rect1, const sf::FloatRect& rect2);
 	void destroyEaten();
 	void checkSpawnMonsterAndHit(float deltaTime);

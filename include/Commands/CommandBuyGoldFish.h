@@ -4,6 +4,7 @@
 #include "Entities/GameObject.h"
 #include <SFML/Graphics.hpp>
 #include "Entities/Goldfish.h"
+#include "Game.h"
 #include "EventManager.h"
 #include <iostream>
 #include <memory>

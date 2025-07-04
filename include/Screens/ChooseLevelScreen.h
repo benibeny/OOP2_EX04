@@ -23,6 +23,7 @@ public:
     void render(sf::RenderWindow& window) override;
 
     void registerEvents();
+    void setUpUi();
 
 	virtual void setActive(bool active)override;
 	virtual void reset() override;

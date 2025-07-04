@@ -3,14 +3,15 @@
 
 GameScreen::GameScreen(int level)
 	:m_aquariumManager(Game::getInstance().getWindow().getSize()), m_isActive(false), m_currentLevel(level)
-    ,m_shopBarManager(level)
+    ,m_shopBarManager(level),m_popUpMenu("Memu","popUp.png")
 {
-
+    m_popUpMenu.addButtons(std::make_unique<Button>("Continue", ResourceManager::getInstance().getGameFont(), std::make_unique<CommandFunction>([this]() { m_popUpMenu.setVisible(false); })));
+    m_popUpMenu.addButtons(std::make_unique<Button>("Reset", ResourceManager::getInstance().getGameFont(), std::make_unique<CommandFunction>([this]() { reset(); })));
+    /*m_popUpMenu.addButtons(std::make_unique<Button>("Mute", ResourceManager::getInstance().getGameFont(), std::make_unique<CommandFunction>([this]() { m_popUpMenu.setVisible(false); })));
+    m_popUpMenu.addButtons(std::make_unique<Button>("Mute", ResourceManager::getInstance().getGameFont(), std::make_unique<ToggleMuteCommand>([this]() { m_popUpMenu.setVisible(false); })));
+        */
     updateBackground();
     setUpUi();
-    m_aquariumManager.addEatable(std::make_unique<GoldFish>(sf::Vector2f(200.f, 200.f)));
-    m_aquariumManager.addEatable(std::make_unique<GoldFish>(sf::Vector2f(300.f, 300.f)));
-   
 }
 
 GameScreen::~GameScreen()
@@ -33,6 +34,8 @@ void GameScreen::handleEvent(const sf::Event& event)
 
     if (event.type == sf::Event::Resized) 
     {
+        sf::FloatRect visibleArea(0.f, 0.f, static_cast<float>(event.size.width), static_cast<float>(event.size.height));
+        Game::getInstance().getWindow().setView(sf::View(visibleArea));
 		setUpUi();
     }
     else if (event.type == sf::Event::KeyPressed) 
@@ -48,7 +51,11 @@ void GameScreen::handleEvent(const sf::Event& event)
         if (event.mouseButton.button == sf::Mouse::Left) 
         {
             sf::Vector2f mousePos(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
-            if (mousePos.y <= m_shopBarManager.getSlotSize())
+            if (m_popUpMenu.isVisible())
+            {
+                m_popUpMenu.handleMouseClick(mousePos);
+			}
+            else if (mousePos.y <= m_shopBarManager.getSlotSize())
             {
                 m_shopBarManager.handleMouseClick(mousePos);
             }
@@ -62,7 +69,11 @@ void GameScreen::handleEvent(const sf::Event& event)
     else if(event.type == sf::Event::MouseMoved) 
     {
         sf::Vector2f mousePos(static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y));
-        if (mousePos.y <= m_shopBarManager.getSlotSize() + 20)
+        if (m_popUpMenu.isVisible() /*&& m_popUpMenu.handleMouseClick(mousePos)*/)
+        {
+            return;
+        }
+        else if (mousePos.y <= m_shopBarManager.getSlotSize() + 20)
         {
             m_shopBarManager.handleMouseHover(mousePos);
         }
@@ -72,10 +83,10 @@ void GameScreen::handleEvent(const sf::Event& event)
 
 void GameScreen::update(float deltaTime) 
 {
-	sf::Vector2u winSize = Game::getInstance().getWindow().getSize();
-
-    m_aquariumManager.update(deltaTime);
-    
+    if (!m_popUpMenu.isVisible())
+    {
+        m_aquariumManager.update(deltaTime);
+    }
   
 
 }
@@ -84,10 +95,14 @@ void GameScreen::render(sf::RenderWindow& window)
 {
     // Draw gameplay elements (for now, just the message text)
 	
-	m_shopBarManager.draw(window);
+	
 	window.draw(m_background);
 
     m_aquariumManager.draw(window);
+
+	m_popUpMenu.render(window);
+    m_shopBarManager.draw(window);
+    
 }
 
 
@@ -112,7 +127,7 @@ void GameScreen::setUpUi()
     }
 
     
-	
+    m_popUpMenu.setUp();
 
     updateBackground();
  
@@ -143,6 +158,8 @@ void GameScreen::setActive(bool active)
 	m_isActive = active;
     if (active)
     {
+        setUpUi();
+		//m_popUpMenu.setVisible(true);
         registerEvents();
     }
     else 

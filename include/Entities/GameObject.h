@@ -28,7 +28,8 @@ public:
 
 	virtual void clicked(int damage, sf::Vector2f mousePos) {};
 	
-
+	void setScale(sf::Vector2f scale);
+	sf::Vector2f getScale() const;
 	void updateAnimation(float deltaTime);
 	void setPosition(const sf::Vector2f& position);
 	virtual void update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize) = 0;
