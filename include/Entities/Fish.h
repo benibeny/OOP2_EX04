@@ -42,7 +42,7 @@ public:
 protected:
 	virtual Money::Moneytype getProducedMoneyType() = 0;
 
-	virtual int getDeathRow() const = 0; //add
+	virtual int getDeathRow() const = 0; 
 
 
 	int foodEaten = 0;

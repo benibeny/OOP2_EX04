@@ -3,8 +3,16 @@
 #include "Screens/Screen.h"
 #include <SFML/Graphics.hpp>
 #include "MusicManager.h" 
-
 #include "SoundManager.h"
+
+#include "Entities/GoldFish.h"
+#include "Entities/Pirana.h"
+#include "Entities/NormalMonstar.h"
+#include "Entities/Helper.h"
+#include "Entities/Food.h"
+#include "Entities/Money.h"
+#include "GameObjectFactory.h"
+
 
 Game::Game() 
 {
@@ -24,7 +32,9 @@ Game& Game::getInstance()
 void Game::run() 
 {
     MusicManager::getInstance().loadAndPlay("menu", "musicbackround.ogg", true); 
-    SoundManager::getInstance().initialize(); //add
+    SoundManager::getInstance().initialize(); 
+
+	GameObjectFactory::registerGameObjectTypes();
 
     ScreenManager& screen = ScreenManager::getInstance();
     sf::Clock clock;
@@ -60,3 +70,4 @@ void Game::quit()
 {
     window.close();
 }
+
