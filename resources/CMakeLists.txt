@@ -22,7 +22,7 @@ configure_file ("ANIMATION/money.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/balrog.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/food.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/clyde.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("ANIMATION/Snail.gif" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ANIMATION/Snail.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 configure_file ("shopbar/moneyBackground.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -32,9 +32,10 @@ configure_file ("shopbar/max.jpeg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("shopbar/numberFoodSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("shopbar/PiranaSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("shopbar/weponSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("shopbar/HelperSlot.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("shopbar/menu_slots.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("shopbar/eggs.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("shopbar/eggwalter.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 
 
 configure_file("sounds/musicbackround.ogg" ${CMAKE_BINARY_DIR} COPYONLY)

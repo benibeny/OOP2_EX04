@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 
-#define HELPER_SNAIL_SPRITE "Snail.gif"
+#define HELPER_SNAIL_SPRITE "Snail.png"
 #define HELPER_SNAIL_SPEED 50.0f
 
 class HelperSnail : public HelperSeekCoin

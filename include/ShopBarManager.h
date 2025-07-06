@@ -41,8 +41,8 @@
 #define EGGSSLOT "eggs.png"
 #define EGGSROW 12
 
-#define HELPERSLOT "eggwalter.png"
-#define HELPERROW 0
+#define HELPERSLOT "helperSlot.png"
+#define HELPERROW 1
 
 
 #define MAXSLOTS 7
