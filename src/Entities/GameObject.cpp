@@ -141,3 +141,7 @@ bool GameObject::canBeEatenBy(const Food& food)
 {
 	return false;
 }
+bool GameObject::canBeEatenBy(const HelperSeekCoin& food)
+{
+	return false;
+}

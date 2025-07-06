@@ -53,6 +53,10 @@ public:
 	bool notifyTryBuyFood();
 	void unsubscribeFromTryBuyFood();
 
+	void subscribeToShowPopUpOption(const std::function<void()> callback);
+	void notifyShowPopUpOption();
+	void unsubscribeFromShowPopUpOption();
+
 	void cleanUp();
 
 private:
@@ -75,5 +79,6 @@ private:
 	std::vector<std::function<void(int nextLevel)>> m_nextLevel;
 
 	std::function<bool()> m_tryBuyFoodCallBack;
+	std::function<void()> m_showPopUpOption;
 
 };

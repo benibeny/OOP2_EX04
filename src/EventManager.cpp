@@ -288,3 +288,19 @@ void EventManager::unsubscribeFromTryBuyFood()
 {
 	m_tryBuyFoodCallBack = nullptr;
 }
+
+
+void EventManager::subscribeToShowPopUpOption(const std::function<void()> callback)
+{
+	m_showPopUpOption = callback;
+}
+
+void EventManager::notifyShowPopUpOption()
+{
+	m_showPopUpOption();
+}
+
+void EventManager::unsubscribeFromShowPopUpOption()
+{
+	m_showPopUpOption = nullptr;
+}

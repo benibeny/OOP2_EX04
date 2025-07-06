@@ -12,7 +12,7 @@
 #include "Commands/CommandOptions.h"
 #include "Commands/CommandBuyWeapon.h"
 #include "Commands/CommandBuyEgg.h"
-#include "Commands/CommandBuyOctopusHelper.h"
+#include "Commands/CommandBuyHelper.h"
 #include "EggShopSlot.h"
 
 

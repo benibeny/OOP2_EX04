@@ -4,7 +4,7 @@
 #include "Entities/NormalMonstar.h"
 #include "Entities/Food.h"
 #include "Entities/Money.h"
-#include "Entities/Helper.h"
+
 
 std::unordered_map<std::string, GameObjectFactory::Creator>& GameObjectFactory::getRegistry() {
     static std::unordered_map<std::string, Creator> registry;

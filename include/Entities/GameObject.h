@@ -12,6 +12,8 @@ class NormalMonstar;
 class Money;
 class Food;
 class Fish;
+//class HelperJellyfish;
+class HelperSeekCoin;
 
 
 class GameObject
@@ -45,6 +47,7 @@ public:
 	virtual bool canBeEatenBy(const NormalMonstar& monster);
 	virtual bool canBeEatenBy(const Money& money);
 	virtual bool canBeEatenBy(const Food& food);
+	virtual bool canBeEatenBy(const HelperSeekCoin& food);
 
 
 	

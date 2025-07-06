@@ -1,6 +1,7 @@
 #pragma once
 #include "Animal.h"
 
+
 class SeekingFoodAnimal : public Animal 
 {
 public:

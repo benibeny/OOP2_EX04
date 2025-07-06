@@ -2,14 +2,15 @@
 
 
 GameScreen::GameScreen(int level)
-	:m_aquariumManager(Game::getInstance().getWindow().getSize()), m_isActive(false), m_currentLevel(level)
+	:m_aquariumManager(Game::getInstance().getWindow().getSize()), m_isActive(false), m_currentLevel(level), m_firstTime(true)
     ,m_shopBarManager(level),m_popUpMenu("Memu","popUp.png")
 {
+
     m_popUpMenu.addButtons(std::make_unique<Button>("Continue", ResourceManager::getInstance().getGameFont(), std::make_unique<CommandFunction>([this]() { m_popUpMenu.setVisible(false); })));
-    m_popUpMenu.addButtons(std::make_unique<Button>("Reset", ResourceManager::getInstance().getGameFont(), std::make_unique<CommandFunction>([this]() { reset(); })));
-    /*m_popUpMenu.addButtons(std::make_unique<Button>("Mute", ResourceManager::getInstance().getGameFont(), std::make_unique<CommandFunction>([this]() { m_popUpMenu.setVisible(false); })));
-    m_popUpMenu.addButtons(std::make_unique<Button>("Mute", ResourceManager::getInstance().getGameFont(), std::make_unique<ToggleMuteCommand>([this]() { m_popUpMenu.setVisible(false); })));
-        */
+    m_popUpMenu.addButtons(std::make_unique<Button>("Reset", ResourceManager::getInstance().getGameFont(), std::make_unique<CommandFunction>([this]() { reset(); m_popUpMenu.setVisible(false); })));
+    m_popUpMenu.addButtons(std::make_unique<Button>("Menu", ResourceManager::getInstance().getGameFont(), std::make_unique<CommandSwitchScreen>(ScreenType::MainMenu)));
+    m_popUpMenu.addButtons(std::make_unique<Button>("Mute", ResourceManager::getInstance().getGameFont(), std::make_unique<ToggleMuteCommand>()));
+        
     updateBackground();
     setUpUi();
 }
@@ -24,6 +25,7 @@ GameScreen::~GameScreen()
 
 void GameScreen::registerEvents()
 {
+	EventManager::getInstance().subscribeToShowPopUpOption([this]() { m_popUpMenu.setVisible(true); });
 	m_aquariumManager.registerToEventManager();
 	m_shopBarManager.registerToEventManager();
 }
@@ -69,9 +71,9 @@ void GameScreen::handleEvent(const sf::Event& event)
     else if(event.type == sf::Event::MouseMoved) 
     {
         sf::Vector2f mousePos(static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y));
-        if (m_popUpMenu.isVisible() /*&& m_popUpMenu.handleMouseClick(mousePos)*/)
+        if (m_popUpMenu.isVisible())
         {
-            return;
+			m_popUpMenu.handleMouseHover(mousePos);
         }
         else if (mousePos.y <= m_shopBarManager.getSlotSize() + 20)
         {
@@ -148,6 +150,7 @@ void GameScreen::updateBackground()
 void GameScreen::unRegisterEvents()
 {
     EventManager& manager = EventManager::getInstance();
+    manager.unsubscribeFromShowPopUpOption();
     m_aquariumManager.unRegisterFromEventManager();
 	m_shopBarManager.unRegisterFromEventManager();
 }
@@ -159,7 +162,15 @@ void GameScreen::setActive(bool active)
     if (active)
     {
         setUpUi();
-		//m_popUpMenu.setVisible(true);
+        if (m_firstTime)
+        {
+            m_firstTime = false;
+        }
+        else 
+        {
+            m_popUpMenu.setVisible(true);
+        }
+		
         registerEvents();
     }
     else 
@@ -170,6 +181,7 @@ void GameScreen::setActive(bool active)
 
 void GameScreen::reset()
 {
+	m_firstTime = true;
     m_aquariumManager.reset();
     m_shopBarManager.reset(m_currentLevel);
 }
