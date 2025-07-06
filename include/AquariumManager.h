@@ -7,6 +7,7 @@
 #include "Entities/Fish.h"
 #include "Entities/Food.h"
 #include "Entities/NormalMonstar.h"
+#include "Entities/HelperJellyfish.h"
 #include "CollisionHandler.h"
 #include "EventManager.h"
 #include "Game.h"

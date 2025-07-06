@@ -82,3 +82,9 @@ void Money::clicked(int damage, sf::Vector2f mousePos)
 	SoundManager::getInstance().play("diamond"); 
 }	
 
+
+
+bool Money::canBeEatenBy(const HelperSeekCoin& helperJellyfish)
+{
+	return true;
+}

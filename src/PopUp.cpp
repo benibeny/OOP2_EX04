@@ -11,11 +11,16 @@ PopUp::PopUp(std::string titleName, std::string spriteName)
 	m_title.setFont(resource.getGameFont());
 	m_title.setString(titleName);
 	m_title.setCharacterSize(Game::BASE_FONT_SIZE);
+
+
+	setUp();
 }
 
 void PopUp::addButtons(std::unique_ptr<Button> button)
 {
 	m_buttons.emplace_back(std::move(button));
+
+	setUp();
 }
 
 void PopUp::setUp()
@@ -27,7 +32,7 @@ void PopUp::setUp()
 	const sf::Texture* backgroundTexture = m_background.getTexture();
 	m_background.setScale(
 		(static_cast<float>(windowSize.x) / backgroundTexture->getSize().x) * 0.5f,
-		(static_cast<float>(windowSize.y) / backgroundTexture->getSize().y) * 0.5f
+		(static_cast<float>(windowSize.y) / backgroundTexture->getSize().y) * 0.65f
 	);
 
 	m_background.setPosition(
@@ -37,8 +42,21 @@ void PopUp::setUp()
 
 	m_title.setPosition(
 		(m_background.getPosition().x + m_background.getGlobalBounds().width / 2.f - m_title.getLocalBounds().width / 2.f),
-		m_background.getPosition().y * 1.1f
+		m_background.getPosition().y * 1.2f
 	);
+
+	//float startY = m_title.getPosition().y / 100;
+	float startY = 0.35f;
+	//float stepY = m_background.getGlobalBounds().height * 0.01; 
+	float stepY = 0.11f;
+
+	for (size_t i = 0; i < m_buttons.size(); ++i)
+	{
+		float posY = startY + i * stepY;
+		m_buttons[i]->setRelativePosition(0.5f, posY);
+		m_buttons[i]->setBaseCharacterSize(Game::BASE_FONT_SIZE);
+		m_buttons[i]->resize(windowSize);
+	}
 }
 
 
@@ -57,13 +75,34 @@ void PopUp::render(sf::RenderWindow& window)
 
 void PopUp::handleMouseClick(const sf::Vector2f& mousePos)
 {
+	if (!m_visible)
+	{
+		return;
+	}
 
+	for (const auto& button : m_buttons)
+	{
+		if (button->contains(mousePos.x, mousePos.y))
+		{
+			button->onClick(); // Hide the popup after a button click
+		}
+		
+	}
 }
 
 
 void PopUp::handleMouseHover(const sf::Vector2f& mousePos)
 {
+	if (!m_visible)
+	{
+		return;
+	}
 
+	for (const auto& button : m_buttons)
+	{
+		bool isHovering = button->contains(mousePos.x, mousePos.y);
+		button->setHover(isHovering);
+	}
 }
 
 void PopUp::setVisible(bool visible)

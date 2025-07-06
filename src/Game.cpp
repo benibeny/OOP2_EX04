@@ -8,7 +8,6 @@
 #include "Entities/GoldFish.h"
 #include "Entities/Pirana.h"
 #include "Entities/NormalMonstar.h"
-#include "Entities/Helper.h"
 #include "Entities/Food.h"
 #include "Entities/Money.h"
 #include "GameObjectFactory.h"

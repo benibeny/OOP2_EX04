@@ -2,11 +2,10 @@
 #include <memory>
 
 #include "Commands/Command.h"
-#include "Commands/StartAdventureCommand.h"
-#include "Commands/ShowHelpCommand.h"
 #include "Commands/QuitGameCommand.h"
 #include "Commands/SwitchBackgroundCommand.h"
 #include "Commands/CommandToggleMute.h"
+#include "Commands/CommandSwitchScreen.h"
 
 #include "Screens/MenuScreen.h"
 #include "ScreenManager.h"
@@ -33,8 +32,8 @@ MenuScreen::MenuScreen()
 	sf::Font& font = ResourceManager::getInstance().getGameFont();
     
     // Create menu buttons with their respective commands
-    buttons.emplace_back("Start Adventure", font, std::make_unique<StartAdventureCommand>());
-    buttons.emplace_back("Help", font, std::make_unique<ShowHelpCommand>());
+    buttons.emplace_back("Start Adventure", font, std::make_unique<CommandSwitchScreen>(ScreenType::ChooseLevelScreen));
+    buttons.emplace_back("Help", font, std::make_unique<CommandSwitchScreen>(ScreenType::HelpScreen));
     buttons.emplace_back("Quit Game", font, std::make_unique<QuitGameCommand>());
 
     buttons.emplace_back("Mute", font, std::make_unique<ToggleMuteCommand>());

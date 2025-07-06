@@ -22,6 +22,7 @@ configure_file ("ANIMATION/money.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/balrog.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/food.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("ANIMATION/clyde.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("ANIMATION/Snail.gif" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 configure_file ("shopbar/moneyBackground.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -53,4 +54,5 @@ configure_file("sounds/SPLASH3.ogg" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("arial.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("hitmark.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("button.png" ${CMAKE_BINARY_DIR} COPYONLY)
 

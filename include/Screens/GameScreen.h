@@ -9,6 +9,8 @@
 #include "ShopBarManager.h"
 #include "EventManager.h"
 #include "Commands/CommandFunction.h"
+#include "Commands/CommandToggleMute.h"
+#include "Commands/CommandSwitchScreen.h"
 #include "PopUp.h"
 #include <iostream>
 #include <functional>
@@ -37,6 +39,7 @@ private:
 
 	int m_currentLevel;
     bool m_isActive;
+	bool m_firstTime;
 
 	sf::Sprite m_background;
     //sf::Texture m_backgroundTexture;

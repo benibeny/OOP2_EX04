@@ -1,11 +1,13 @@
 #pragma once
 #include "ResourceManager.h"
 #include "Entities/GameObject.h"
+
 #include <SFML/Graphics.hpp>
 #include "EventManager.h"
 
 
 #define MONEY_SPRITE_SHEET_NAME "Money.png"
+
 
 class Money : public GameObject
 {
@@ -21,10 +23,12 @@ public:
 
 	Money(Moneytype moneyType, const sf::Vector2f pos);
 	
-	void clicked(int damage, sf::Vector2f mousePos) override;
+	void clicked(int damage =0 , sf::Vector2f mousePos = sf::Vector2f(0.0f,0.0f)) override;
 
 	void update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize) override;
 	int getMoneyValue() const { return m_moneyValue; }
+
+	bool canBeEatenBy(const HelperSeekCoin& helperJellyfish)override;
 private:
 	void checkTouchedFloor(sf::Vector2u& windowSize, float deltaTime);
 

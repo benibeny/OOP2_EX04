@@ -6,11 +6,24 @@
 #include "Entities/Food.h"
 #include "Entities/NormalMonstar.h"
 #include "Entities/Pirana.h"
+#include "Entities/HelperJellyfish.h"
+#include "Entities/HelperSnail.h"
+#include "Entities/Money.h"
 #include "SoundManager.h"
 
 #include <iostream>
 namespace 
 {
+	void normalMonstarAnimal(GameObject& normalMonstar, GameObject& animalToDestroy)
+	{
+		animalToDestroy.setDestroyed(true);
+		SoundManager::getInstance().play("alienEat");
+	}
+
+	void animalNormalMonstar(GameObject& animalToDestroy, GameObject& normalMonstar)
+	{
+		normalMonstarAnimal(normalMonstar, animalToDestroy);
+	}
 
 	void goldFishFood(GameObject& goldFish, GameObject& food)
 	{
@@ -27,31 +40,7 @@ namespace
 		goldFishFood(goldFish, food);
 	}
 
-
-	void normalMonstarGoldFish(GameObject& normalMonstar, GameObject& fish)
-	{
-		fish.setDestroyed(true);
-		SoundManager::getInstance().play("alienEat");
-	}
-
-	void goldFishNormalMonstar(GameObject& fish,GameObject& normalMonstar)
-	{
-		normalMonstarGoldFish(normalMonstar, fish);
-		SoundManager::getInstance().play("alienEat");
-	}
-
-
-	void normalMonstarPirana(GameObject& normalMonstar, GameObject& pirana)
-	{
-		pirana.setDestroyed(true);
-		SoundManager::getInstance().play("alienEat");
-	}
-
-	void piranaNormalMonstar(GameObject& pirana, GameObject& normalMonstar)
-	{
-		normalMonstarPirana(normalMonstar, pirana);
-		SoundManager::getInstance().play("alienEat");
-	}
+	
 
 	void piranaGoldFish(GameObject& pirana, GameObject& goldFish)
 	{
@@ -69,6 +58,16 @@ namespace
 		piranaGoldFish(pirana, goldFish);
 	}
 
+	void helperMoney(GameObject& helper, GameObject& money)
+	{
+		Money& moneyFound = static_cast<Money&>(money);
+		moneyFound.clicked();
+	}
+
+	void moneyHelper(GameObject& money, GameObject& helper)
+	{
+		helperMoney(helper, money);
+	}
 
 
 	using CollisionHandlerFunction = void(*)(GameObject& , GameObject&);
@@ -84,12 +83,24 @@ namespace
 		
 		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(Food))] = &goldFishFood;
 		collisionMap[CollisionPairKey(typeid(Food), typeid(GoldFish))] = &foodGoldFish;
-		collisionMap[CollisionPairKey(typeid(NormalMonstar), typeid(GoldFish))] = &normalMonstarGoldFish;
-		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(NormalMonstar))] = &goldFishNormalMonstar;
-		collisionMap[CollisionPairKey(typeid(NormalMonstar), typeid(Pirana))] = &normalMonstarPirana;
-		collisionMap[CollisionPairKey(typeid(Pirana), typeid(NormalMonstar))] = &piranaNormalMonstar;
+		collisionMap[CollisionPairKey(typeid(NormalMonstar), typeid(GoldFish))] = &normalMonstarAnimal;
+		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(NormalMonstar))] = &animalNormalMonstar;
+		collisionMap[CollisionPairKey(typeid(NormalMonstar), typeid(Pirana))] = &normalMonstarAnimal;
+		collisionMap[CollisionPairKey(typeid(Pirana), typeid(NormalMonstar))] = &animalNormalMonstar;
 		collisionMap[CollisionPairKey(typeid(Pirana), typeid(GoldFish))] = &piranaGoldFish;
 		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(Pirana))] = &goldFishPirana;
+		collisionMap[CollisionPairKey(typeid(NormalMonstar), typeid(HelperJellyfish))] = &normalMonstarAnimal;
+		collisionMap[CollisionPairKey(typeid(HelperJellyfish), typeid(NormalMonstar))] = &animalNormalMonstar;
+		collisionMap[CollisionPairKey(typeid(HelperJellyfish), typeid(Money))] = &helperMoney;
+		collisionMap[CollisionPairKey(typeid(Money), typeid(HelperJellyfish))] = &moneyHelper;
+
+		collisionMap[CollisionPairKey(typeid(NormalMonstar), typeid(HelperSnail))] = &normalMonstarAnimal;
+		collisionMap[CollisionPairKey(typeid(HelperSnail), typeid(NormalMonstar))] = &animalNormalMonstar;
+		collisionMap[CollisionPairKey(typeid(HelperSnail), typeid(Money))] = &helperMoney;
+		collisionMap[CollisionPairKey(typeid(Money), typeid(HelperSnail))] = &moneyHelper;
+
+
+
 
 		return collisionMap;
 	}
