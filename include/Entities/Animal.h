@@ -34,6 +34,7 @@ protected:
 		Left,
 		Right
 	};
+
 	AnimalDirection m_direction = AnimalDirection::Left;
 
 	float m_speed;

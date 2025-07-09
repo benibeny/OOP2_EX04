@@ -10,23 +10,16 @@ Animal::Animal(sf::Vector2f pos, float speed, std::string textuerName, const int
 
 void Animal::bounceOffWalls(const sf::Vector2u& windowSize)
 {
-	
 	sf::Vector2f position = m_sprite.getPosition();
 	sf::FloatRect bounds = m_sprite.getGlobalBounds();
 
 	if (position.x <= 0)
 	{
-		//swapDirection();
 		position.x = 0;
-		//m_velocity.x = std::abs(m_velocity.x);
-		
 	}
 	else if (position.x  > windowSize.x)
 	{
-		//swapDirection();
 		position.x = windowSize.x;
-		//m_velocity.x = -std::abs(m_velocity.x);
-		
 	}
 
 	float shopBarHeight = (windowSize.x / 9.0f) * 1.0588;
@@ -71,8 +64,6 @@ void Animal::moveRandomly(float deltaTime)
 		m_velocity.x = m_randomDirection(m_random) * m_speed; // Random speed in x direction
 		m_velocity.y = m_randomDirection(m_random) * m_speed * 0.5f;
 		m_directionChangeTime = 0.0f;
-
-		//checkTurn();
 	}
 }
 

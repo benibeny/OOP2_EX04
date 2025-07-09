@@ -2,12 +2,11 @@
 #include "Commands/Command.h"
 #include "Screens/HelpScreen.h"
 
-class SwitchBackgroundCommand : public Command {
+class SwitchBackgroundCommand : public Command
+{
 public:
-    SwitchBackgroundCommand(HelpScreen* screen) : screen(screen) {}
-    void execute() override {
-        if (screen) screen->toggleBackground();
-    }
+    SwitchBackgroundCommand(HelpScreen* screen);
+    void execute() override;
 private:
     HelpScreen* screen;
 };

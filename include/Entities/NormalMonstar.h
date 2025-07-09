@@ -16,8 +16,6 @@ public:
 	NormalMonstar();
 
 	void update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize)override;
-
-
 	void clicked(int damage, sf::Vector2f mousePos)override;
 
 private:

@@ -52,8 +52,7 @@ void Food::destroyTouchedFloor(sf::Vector2u& windowSize)
 
 }
 
-//TODO : mplement struct to return 2 valuse for food and size
-//do both signal eaten and give value
+
 std::pair<int,int> Food::foodEaten()
 {
 	if (!isDestroyed())
@@ -74,7 +73,7 @@ void Food::update(float deltaTime, const std::list <std::unique_ptr<GameObject>>
 		sf::Vector2f currentPos = getPosition();
 		sf::Vector2f newPos = currentPos + m_velocity * deltaTime;
 
-		setPosition(newPos);
+		m_sprite.setPosition(newPos);
 
 		updateAnimation(deltaTime);
 		destroyTouchedFloor(windowSize);

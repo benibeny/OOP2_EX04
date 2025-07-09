@@ -3,6 +3,7 @@
 #include "Command.h"
 #include <functional>
 
+//execute the function when the command is executed
 class CommandFunction: public Command
 {
 public:

@@ -25,8 +25,6 @@ Money::Money(Moneytype moneyType, const sf::Vector2f pos)
 		break;
 	}
 
-	
-	
 }
 
 
@@ -39,7 +37,7 @@ void Money::update(float deltaTime, const std::list <std::unique_ptr<GameObject>
 			sf::Vector2f currentPos = getPosition();
 			sf::Vector2f newPos = currentPos + m_velocity * deltaTime;
 
-			setPosition(newPos);
+			m_sprite.setPosition(newPos);
 		}
 		
 		updateAnimation(deltaTime);
@@ -51,15 +49,11 @@ void Money::update(float deltaTime, const std::list <std::unique_ptr<GameObject>
 
 void Money::checkTouchedFloor(sf::Vector2u& windowSize, float deltaTime)
 {
-	
-
 	sf::Vector2f position = m_sprite.getPosition();
 	sf::FloatRect bounds = m_sprite.getGlobalBounds();
 
 
 	float sandBarHeight = windowSize.y / 10.0f;
-
-
 
 	if (position.y + bounds.height > (windowSize.y - sandBarHeight))
 	{
@@ -71,7 +65,6 @@ void Money::checkTouchedFloor(sf::Vector2u& windowSize, float deltaTime)
 			m_shouldDestroy = true;
 		}
 	}
-
 }
 
 

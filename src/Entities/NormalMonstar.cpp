@@ -7,7 +7,6 @@ NormalMonstar::NormalMonstar()
 	m_health = 100;
 	m_sprite.setScale(1.3f,1.3f);
 	SoundManager::getInstance().play("roar");
-
 }
 
 
@@ -15,7 +14,6 @@ void NormalMonstar::update(float deltaTime,
 						   const std::list <std::unique_ptr<GameObject>>& foodItems,
 						   sf::Vector2u& windowSize) 
 {
-
 	if (m_isWaitTurning)
 	{
 		handleWaitingTimer(deltaTime);
@@ -24,8 +22,6 @@ void NormalMonstar::update(float deltaTime,
 	move(windowSize, deltaTime, foodItems);
 	
 	updateAnimation(deltaTime);
-
-	
 }
 
 
@@ -37,7 +33,6 @@ void NormalMonstar::handleWaitingTimer(float deltaTime)
 		m_isWaitTurning = false;
 		m_turningWaitTimer = 0.f;
 	}
-
 }
 
 void NormalMonstar::move(sf::Vector2u& windowSize,
@@ -59,7 +54,7 @@ void NormalMonstar::move(sf::Vector2u& windowSize,
 
 	sf::Vector2f currentPos = m_sprite.getPosition();
 	sf::Vector2f newPos = currentPos + m_velocity * deltaTime;
-	setPosition(newPos);
+	m_sprite.setPosition(newPos);
 
 	bounceOffWalls(windowSize);
 	checkTurn();
@@ -89,9 +84,6 @@ void NormalMonstar::clicked(int damage, sf::Vector2f mousePos)
 	m_velocity = sf::Vector2f(-(m_velocity.x), -(m_velocity.y));
 
 	
-
-
-
 	sf::Vector2f direction = center - mousePos;
 
 	float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);

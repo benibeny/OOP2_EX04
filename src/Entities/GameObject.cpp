@@ -28,7 +28,6 @@ void GameObject::draw(sf::RenderWindow& window)
 	if (m_isSpriteLoaded) 
 	{
 		window.draw(m_sprite);
-		//std::cout << "Sprite loaded: " << m_spriteName << std::endl;
 	}
 	else 
 	{
@@ -46,17 +45,6 @@ void GameObject::setDestroyed(bool destroyed)
 	m_shouldDestroy = destroyed;
 }
 
-
-void GameObject::setScale(sf::Vector2f scale)
-{
-	m_sprite.setScale(scale);
-}
-
-
-sf::Vector2f GameObject::getScale() const
-{
-	return m_sprite.getScale();
-}
 
 void GameObject::updateAnimation(float deltaTime)
 {
@@ -101,19 +89,8 @@ sf::Vector2f GameObject::getCenter() const
 	
 }
 
-
-void GameObject::setPosition(const sf::Vector2f& position)
-{
-	if (m_isSpriteLoaded)
-	{
-		m_sprite.setPosition(position);
-	}
-}
-
-
 bool GameObject::canBeEatenBy(const Fish& gameObject) const
 {
-	std::cout << "GameObject::canBeEatenBy called for Fish" << std::endl;
 	return false;
 }
 

@@ -6,6 +6,11 @@
 #include "SeekingFoodAnimal.h"
 
 
+#define MOVE_ONE_DIRC_SPRITE_NAME "smallswim.png"
+#define TURNING_SPRITE_NAME "smallFish2.png"
+
+#define MAX_FRAMES 10
+
 class Fish : public SeekingFoodAnimal
 {
 public:
@@ -15,40 +20,30 @@ public:
 										const int animationRow,
 										const std::string& turningSpriteSheetName);
 		
-	
-
-
 	virtual void update(float deltaTime, const std::list<std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize) = 0;
 	virtual void handleCollision(GameObject* food) {}
-	
-	void checkTurn()override;
-	virtual void handleTurnAnimation();
-
-
 	virtual void foodEatenIncrement(std::pair<int, int> foodValue = std::pair<int,int>(0,0));
 	int getFoodEaten() const { return foodEaten; }
-	
-
-	void handleHungerTimer(float deltaTime);
 	bool isHungry() const { return m_health <= float(m_fishStartHunger); }
-	//virtual bool shouldProduceMoney() const;
-	//void resetMoneyTimer() override;
-
-	
-
 	virtual void shouldProduceMoney(float deltaTime) = 0;
-	
 
 protected:
+	void move(sf::Vector2u& windowSize, float deltaTime, const std::list<std::unique_ptr<GameObject>>& eatable);
+	void handleHungerTimer(float deltaTime);
+	void checkTurn()override;
+	virtual void handleTurnAnimation();
 	virtual Money::Moneytype getProducedMoneyType() = 0;
-
+	void applyDirectionScale();
+	void updateAnimation(float deltaTime)override;
+	bool updateDeathAnimation(float deltaTime);
 	virtual int getDeathRow() const = 0; 
 
 
 	int foodEaten = 0;
 	float m_hungerTimer = 0.0f;
 	int m_fishStartHunger = 30;//can change for every fish
-	
+	int m_swimingFrame = 0;
+	float m_normalSpeed;
 
 	bool m_isTurning;
 	int m_turningFrame;
@@ -64,7 +59,7 @@ protected:
 	int m_deathFrame = 0;           // Current frame in death animation
 	bool m_deathAnimDone = false;   // Did we finish the death animation
 
-	bool updateDeathAnimation(float deltaTime);
+	
 
 
 

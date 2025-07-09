@@ -19,7 +19,7 @@ void HelperSnail::move(sf::Vector2u& windowSize, float deltaTime, const std::lis
 
 	float sandBarHeight = windowSize.y / 10.0f;
 	newPos.y = windowSize.y - sandBarHeight + 0.1f;
-	setPosition(newPos);
+	m_sprite.setPosition(newPos);
 
 	bounceOffWalls(windowSize);
 	checkTurn();

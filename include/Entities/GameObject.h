@@ -12,7 +12,6 @@ class NormalMonstar;
 class Money;
 class Food;
 class Fish;
-//class HelperJellyfish;
 class HelperSeekCoin;
 
 
@@ -26,14 +25,9 @@ public:
 
 	bool isDestroyed() const;
 	virtual void setDestroyed(bool destroyed);
-	
-
 	virtual void clicked(int damage, sf::Vector2f mousePos) {};
 	
-	void setScale(sf::Vector2f scale);
-	sf::Vector2f getScale() const;
-	void updateAnimation(float deltaTime);
-	void setPosition(const sf::Vector2f& position);
+	
 	virtual void update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize) = 0;
 
 
@@ -52,6 +46,9 @@ public:
 
 	
 protected:
+	virtual void updateAnimation(float deltaTime);
+
+
 
 	bool m_isSpriteLoaded;
 
@@ -66,7 +63,4 @@ protected:
 
 
 	int m_spriteReduction; // Reduction in size for the sprite
-
-	
-
 };

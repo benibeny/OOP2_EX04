@@ -1,7 +1,7 @@
 #include "Entities/HelperSeekCoin.h"
 
 HelperSeekCoin::HelperSeekCoin(std::string spriteSheet, float speed)
-	:SeekingFoodAnimal(sf::Vector2f(500.0f, 500.0f), speed, spriteSheet, 1, 10, 0)
+	:SeekingFoodAnimal(sf::Vector2f(500.0f, 500.0f), speed, spriteSheet, 1, 10, 0)//all helpers are row 1 and 10 frames
 {}
 
 
@@ -35,7 +35,7 @@ void HelperSeekCoin::move(sf::Vector2u& windowSize, float deltaTime, const std::
 
 	sf::Vector2f currentPos = m_sprite.getPosition();
 	sf::Vector2f newPos = currentPos + m_velocity * deltaTime;
-	setPosition(newPos);
+	m_sprite.setPosition(newPos);
 
 	bounceOffWalls(windowSize);
 	checkTurn();
