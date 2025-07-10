@@ -66,9 +66,7 @@ public:
 	void registerToEventManager();
 
 private:
-	//std::vector<ShopSlot> m_shopSlots;
 	std::vector<std::unique_ptr<ShopSlot>> m_shopSlots;
-
 
 	MoneyDisplay m_moneyDisplay;
 	Clickable m_OptionButton;

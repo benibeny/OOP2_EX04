@@ -33,7 +33,6 @@ void Game::run()
     MusicManager::getInstance().loadAndPlay("menu", "musicbackround.ogg", true); 
     SoundManager::getInstance().initialize(); 
 
-	GameObjectFactory::registerGameObjectTypes();
 
     ScreenManager& screen = ScreenManager::getInstance();
     sf::Clock clock;

@@ -28,7 +28,6 @@ public:
 	virtual void setActive(bool active)override;
 	virtual void reset() override;
 private:
-    //sf::Font font;
     std::vector<Button> m_buttons;
 
 	int m_currentAmountOfLevels = 1;

@@ -13,7 +13,4 @@ public:
 private:
 	int m_currentBoughtEggs = 0;
 	constexpr static int m_maxEggs = 12;
-
-
-
 };

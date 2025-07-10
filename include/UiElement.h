@@ -19,9 +19,6 @@ public:
 	virtual void draw(sf::RenderWindow& window) const;
 	virtual bool isMouseOver(const sf::Vector2f& mousePosition) const;
 	
-
-
-
 protected:
 	sf::Vector2f m_position;
 	sf::Vector2f m_size;

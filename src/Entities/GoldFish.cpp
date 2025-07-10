@@ -35,7 +35,7 @@ void GoldFish::update(float deltaTime, const std::list <std::unique_ptr<GameObje
 
 void GoldFish::shouldProduceMoney(float deltaTime)
 {
-	if (m_fishSize != Size::Small && m_coinTimer >= m_maxCoinTimer)
+	if (m_fishSize != Size::Small && m_coinTimer >= m_maxCoinTimer && m_health > m_fishStartHunger)
 	{
 		sf::Vector2f center = m_sprite.getPosition() + sf::Vector2f(m_sprite.getGlobalBounds().width / 2.f, m_sprite.getGlobalBounds().height / 2.f);
 		m_coinTimer = 0;

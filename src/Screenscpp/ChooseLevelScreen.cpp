@@ -6,12 +6,12 @@ ChooseLevelScreen::ChooseLevelScreen()
 	resourceManager.loadSpriteSheet(CHOOSE_SCREEN_BACKGROUND,1,1);
 	resourceManager.setSpriteTextureFromSheet(m_backgroundSprite, CHOOSE_SCREEN_BACKGROUND, 0, 0);
 
-	sf::Font& font = resourceManager.getGameFont();
+	sf::Font& m_font = resourceManager.getGameFont();
 	registerEvents();
 
 	for(int i = 0; i < MAX_LEVELS; i++)
 	{
-		m_buttons.emplace_back("Level " + std::to_string(i + 1), font, std::make_unique<StartLevelCommand>(i + 1));
+		m_buttons.emplace_back("Level " + std::to_string(i + 1), m_font, std::make_unique<StartLevelCommand>(i + 1));
 		float xPos = 0.75f;
 		float yPos = 0.18f + i * 0.21f;
 		m_buttons[i].setRelativePosition(xPos, yPos);
@@ -94,12 +94,6 @@ void ChooseLevelScreen::handleEvent(const sf::Event& event)
 }
 
 
-
-void ChooseLevelScreen::update(float deltaTime)
-{
-}
-
-
 void ChooseLevelScreen::setActive(bool active)
 {
 	m_isActive = active;
@@ -111,6 +105,17 @@ void ChooseLevelScreen::registerEvents()
 {
 	EventManager& eventManager = EventManager::getInstance();
 	
+	eventManager.subscribeToGameOver([this]()
+		{
+			m_currentAmountOfLevels = 1; // Reset to the first level after game over
+			
+			ScreenManager& screenManager = ScreenManager::getInstance();
+			screenManager.reset(ScreenType::Level1);
+			screenManager.reset(ScreenType::Level2);
+			screenManager.reset(ScreenType::Level3);
+			screenManager.reset(ScreenType::Level4);
+			setUpUi();
+		});
 
 	eventManager.subscribeToNextLevel([this](int nextLevel) 
 		{
@@ -123,3 +128,5 @@ void ChooseLevelScreen::registerEvents()
 
 
 void ChooseLevelScreen::reset() {}
+
+void ChooseLevelScreen::update(float deltaTime){}

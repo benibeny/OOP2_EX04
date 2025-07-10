@@ -9,14 +9,4 @@
 #include "Entities/Food.h"
 
 
-// Sample struct for exception throwing
-//struct UnknownCollision : public std::runtime_error
-//{
-//    UnknownCollision(Eatable& a, Eatable& b)
-//        : std::runtime_error(std::string("Unknown collision"))
-//    {
-//    }
-//};
-
-
 void processCollision(GameObject& a, GameObject& b);

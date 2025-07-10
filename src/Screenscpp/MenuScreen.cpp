@@ -1,16 +1,5 @@
-#include <iostream>
-#include <memory>
-
-#include "Commands/Command.h"
-#include "Commands/QuitGameCommand.h"
-#include "Commands/SwitchBackgroundCommand.h"
-#include "Commands/CommandToggleMute.h"
-#include "Commands/CommandSwitchScreen.h"
-
 #include "Screens/MenuScreen.h"
-#include "ScreenManager.h"
-#include "Game.h"
-#include "ResourceManager.h"
+
 
 MenuScreen::MenuScreen() 
 {
@@ -19,26 +8,22 @@ MenuScreen::MenuScreen()
     window.setView(sf::View(sf::FloatRect(0.f, 0.f, static_cast<float>(size.x), static_cast<float>(size.y))));
 
     
+	ResourceManager& resourceManager = ResourceManager::getInstance();
+	resourceManager.loadSpriteSheet("titlescreen.jpg", 1, 1);
+	resourceManager.setSpriteTextureFromSheet(m_backgroundSprite, "titlescreen.jpg", 0, 0);
 
+    sf::Font& m_font = ResourceManager::getInstance().getGameFont();
+    
 
-    // Initialize background texture and sprite
     sf::Vector2u winSize = window.getSize();
-    if (!backgroundTexture.loadFromFile("titlescreen.jpg")) 
-    {
-        std::cerr << "Failed to load background image!\n";
-    }
-    backgroundSprite.setTexture(backgroundTexture);
- 
-	sf::Font& font = ResourceManager::getInstance().getGameFont();
     
+
     // Create menu buttons with their respective commands
-    buttons.emplace_back("Start Adventure", font, std::make_unique<CommandSwitchScreen>(ScreenType::ChooseLevelScreen));
-    buttons.emplace_back("Help", font, std::make_unique<CommandSwitchScreen>(ScreenType::HelpScreen));
-    buttons.emplace_back("Quit Game", font, std::make_unique<QuitGameCommand>());
-
-    buttons.emplace_back("Mute", font, std::make_unique<ToggleMuteCommand>());
+    buttons.emplace_back("Start Adventure", m_font, std::make_unique<CommandSwitchScreen>(ScreenType::ChooseLevelScreen));
+    buttons.emplace_back("Help", m_font, std::make_unique<CommandSwitchScreen>(ScreenType::HelpScreen));
+    buttons.emplace_back("Quit Game", m_font, std::make_unique<QuitGameCommand>());
+    buttons.emplace_back("Mute", m_font, std::make_unique<ToggleMuteCommand>());
     
-
 
     // Set normalized positions for each button (centered horizontally, spaced vertically)
     float startY = 0.5f;
@@ -65,13 +50,17 @@ void MenuScreen::setUpUi()
 {
     sf::Vector2u windowSize = Game::getInstance().getWindow().getSize();
     // Adjust background size
-    backgroundSprite.setScale(
-        static_cast<float>(windowSize.x) / backgroundTexture.getSize().x,
-        static_cast<float>(windowSize.y) / backgroundTexture.getSize().y);
+    const sf::Texture* backgroundTexture = m_backgroundSprite.getTexture();
+
+    sf::Vector2u winSize = Game::getInstance().getWindow().getSize();
+    m_backgroundSprite.setScale(
+        winSize.x / (float)backgroundTexture->getSize().x,
+        winSize.y / (float)backgroundTexture->getSize().y
+    );
 
     // Adjust button layout
-    
-    for (auto& btn : buttons) {
+    for (auto& btn : buttons) 
+    {
         btn.resize(windowSize);
     }
 }
@@ -115,15 +104,12 @@ void MenuScreen::handleEvent(const sf::Event& event)
     }
 }
 
-void MenuScreen::update(float /*deltaTime*/) 
-{
-    // Static menu: no per-frame updates needed (could add animations here)
-}
+
 
 void MenuScreen::render(sf::RenderWindow& window) 
 {
     // Draw background and then all buttons
-    window.draw(backgroundSprite);
+    window.draw(m_backgroundSprite);
     for (auto& btn : buttons) {
         btn.draw(window);
     }
@@ -138,3 +124,4 @@ void MenuScreen::setActive(bool active)
 }
 
 void MenuScreen::reset() {}
+void MenuScreen::update(float /*deltaTime*/){}

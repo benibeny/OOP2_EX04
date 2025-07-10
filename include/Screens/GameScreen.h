@@ -23,7 +23,7 @@ public:
     GameScreen(int lvl);
     ~GameScreen() override;
 
-	void registerEvents();
+	
     void handleEvent(const sf::Event& event) override;
     void update(float deltaTime) override;
     void render(sf::RenderWindow& window) override;
@@ -32,9 +32,10 @@ public:
 	virtual void reset() override;
 
 	void setUpUi();
-private:
-	void updateBackground();
 
+private:
+	void registerEvents();
+	void updateBackground();
 	void unRegisterEvents();
 
 	int m_currentLevel;
@@ -42,7 +43,6 @@ private:
 	bool m_firstTime;
 
 	sf::Sprite m_background;
-    //sf::Texture m_backgroundTexture;
 
 	ShopBarManager m_shopBarManager;
 	AquariumManager m_aquariumManager;

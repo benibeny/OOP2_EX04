@@ -42,7 +42,7 @@ void Pirana::foodEatenIncrement(std::pair<int, int> foodValue)
 
 void Pirana::shouldProduceMoney(float deltaTime)
 {
-	if (m_coinTimer >= m_maxCoinTimer)
+	if (m_coinTimer >= m_maxCoinTimer && m_health > m_fishStartHunger)
 	{
 		sf::Vector2f center = m_sprite.getPosition() + sf::Vector2f(m_sprite.getGlobalBounds().width / 2.f, m_sprite.getGlobalBounds().height / 2.f);
 		m_coinTimer = 0;

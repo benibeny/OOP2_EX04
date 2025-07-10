@@ -9,6 +9,7 @@
 #include "Entities/HelperJellyfish.h"
 #include "Entities/HelperSnail.h"
 #include "Entities/Money.h"
+#include "Entities/SquidMonstar.h"
 #include "SoundManager.h"
 
 #include <iostream>
@@ -98,6 +99,18 @@ namespace
 		collisionMap[CollisionPairKey(typeid(HelperSnail), typeid(NormalMonstar))] = &animalNormalMonstar;
 		collisionMap[CollisionPairKey(typeid(HelperSnail), typeid(Money))] = &helperMoney;
 		collisionMap[CollisionPairKey(typeid(Money), typeid(HelperSnail))] = &moneyHelper;
+
+
+		collisionMap[CollisionPairKey(typeid(SquidMonstar), typeid(GoldFish))] = &normalMonstarAnimal;
+		collisionMap[CollisionPairKey(typeid(SquidMonstar), typeid(Pirana))] = &normalMonstarAnimal;
+		collisionMap[CollisionPairKey(typeid(SquidMonstar), typeid(HelperJellyfish))] = &normalMonstarAnimal;
+		collisionMap[CollisionPairKey(typeid(SquidMonstar), typeid(HelperSnail))] = &normalMonstarAnimal;
+
+		collisionMap[CollisionPairKey(typeid(GoldFish), typeid(SquidMonstar))] = &animalNormalMonstar;
+		collisionMap[CollisionPairKey(typeid(Pirana), typeid(SquidMonstar))] = &animalNormalMonstar;
+		collisionMap[CollisionPairKey(typeid(HelperJellyfish), typeid(SquidMonstar))] = &animalNormalMonstar;
+		collisionMap[CollisionPairKey(typeid(HelperSnail), typeid(SquidMonstar))] = &animalNormalMonstar;
+		
 
 
 

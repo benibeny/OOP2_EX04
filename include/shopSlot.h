@@ -29,9 +29,7 @@ protected:
 
 	int m_spriteSheetRows;
 	
-
 	int m_price;
-
 	bool m_hasMax;
 	bool m_isMaxBought = false;
 

@@ -1,49 +1,32 @@
 #include "Screens/HelpScreen.h"
-#include "Game.h"
-#include "ScreenManager.h"
-#include "Screens/MenuScreen.h"
-#include <iostream>
-#include "Commands/SwitchBackgroundCommand.h"
+
 
 HelpScreen::HelpScreen()
 {
-    if (!font.loadFromFile("C:/Windows/Fonts/Arial.ttf")) {
-        std::cerr << "Failed to load font for HelpScreen.\n";
-    }
+    setUpUI("talkshow.png");
 
-    if (!backgroundTexture.loadFromFile("talkshow.png")) {
-        std::cerr << "Failed to load help background image.\n";
-    }
-
-    backgroundSprite.setTexture(backgroundTexture);
     sf::Vector2u winSize = Game::getInstance().getWindow().getSize();
-    backgroundSprite.setScale(
-        winSize.x / (float)backgroundTexture.getSize().x,
-        winSize.y / (float)backgroundTexture.getSize().y
-    );
-
     unsigned int fontSize = static_cast<unsigned int>(winSize.y * 0.03f);
     float lineSpacing = fontSize + 10.f;
 
 
     // Footer text
-    footerText.setFont(font);
-    footerText.setString("Press ESC to return to the main menu");
-    footerText.setCharacterSize(static_cast<unsigned int>(fontSize * 0.9f));
-    footerText.setFillColor(sf::Color::Black);
-    footerText.setOutlineColor(sf::Color::White);
-    footerText.setOutlineThickness(2.f);
+    m_footerText.setFont(m_font);
+    m_footerText.setString("Press ESC to return to the main menu");
+    m_footerText.setCharacterSize(static_cast<unsigned int>(fontSize * 0.9f));
+    m_footerText.setFillColor(sf::Color::Black);
+    m_footerText.setOutlineColor(sf::Color::White);
+    m_footerText.setOutlineThickness(2.f);
 
-    sf::FloatRect footerBounds = footerText.getLocalBounds();
-    //footerText.setOrigin(footerBounds.width / 2.f, 0.f);
-    footerText.setPosition(15.f, 50.f);
+    sf::FloatRect footerBounds = m_footerText.getLocalBounds();
+    m_footerText.setPosition(15.f, 50.f);
 
 
 
     auto command = std::make_unique<SwitchBackgroundCommand>(this);
-    switchBackgroundButton = std::make_unique<Button>("next", font, std::move(command));
-    switchBackgroundButton->setRelativePosition(0.5f, 0.95f);
-    switchBackgroundButton->resize(winSize);
+    m_switchBackgroundButton = std::make_unique<Button>("next", m_font, std::move(command));
+    m_switchBackgroundButton->setRelativePosition(0.5f, 0.95f);
+    m_switchBackgroundButton->resize(winSize);
 
 }
 
@@ -63,39 +46,38 @@ void HelpScreen::handleEvent(const sf::Event& event)
     {
         float x = static_cast<float>(event.mouseButton.x);
         float y = static_cast<float>(event.mouseButton.y);
-        if (switchBackgroundButton && switchBackgroundButton->contains(x, y)) {
-            switchBackgroundButton->onClick();
+        if (m_switchBackgroundButton && m_switchBackgroundButton->contains(x, y)) {
+            m_switchBackgroundButton->onClick();
         }
     }
 }
 
 void HelpScreen::update(float)
 {
-    if (switchBackgroundButton) 
+    if (m_switchBackgroundButton) 
     {
         sf::Vector2i mousePos = sf::Mouse::getPosition(Game::getInstance().getWindow());
-        bool isHovering = switchBackgroundButton->contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-        switchBackgroundButton->setHover(isHovering);
+        bool isHovering = m_switchBackgroundButton->contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+        m_switchBackgroundButton->setHover(isHovering);
         sf::Vector2u winSize = Game::getInstance().getWindow().getSize();
-        switchBackgroundButton->resize(winSize);
+        m_switchBackgroundButton->resize(winSize);
     }
 }
 
 
-void HelpScreen::render(sf::RenderWindow& window) {
-    if (backgroundTexture.getSize().x == 0 || font.getInfo().family.empty())
-        return;
+void HelpScreen::render(sf::RenderWindow& window) 
+{
+    window.draw(m_backgroundSprite);
+    window.draw(m_footerText);
 
-    window.draw(backgroundSprite);
-
-    window.draw(footerText);
-
-    if (switchBackgroundButton)
-        switchBackgroundButton->draw(window);
+    if (m_switchBackgroundButton)
+        m_switchBackgroundButton->draw(window);
 
 }
 
-void HelpScreen::toggleBackground() {
+void HelpScreen::toggleBackground() 
+{
+
     // Move to next background index
     m_backgroundIndex = (m_backgroundIndex + 1) % 4; // assuming 4 backgrounds
 
@@ -107,16 +89,25 @@ void HelpScreen::toggleBackground() {
     case 3: fileName = "tips2.png"; break;
     }
 
-    if (!backgroundTexture.loadFromFile(fileName)) {
-        std::cerr << "Failed to load background image: " << fileName << "\n";
-        return;
-    }
+	setUpUI(fileName);
+}
 
-    backgroundSprite.setTexture(backgroundTexture);
+
+void HelpScreen::setUpUI(std::string fileName)
+{
+    ResourceManager& resManager = ResourceManager::getInstance();
+
+    m_font = resManager.getGameFont();
+
+    resManager.loadSpriteSheet(fileName, 1, 1);
+    resManager.setSpriteTextureFromSheet(m_backgroundSprite, fileName, 0, 0);
+
+    const sf::Texture* backgroundTexture = m_backgroundSprite.getTexture();
+
     sf::Vector2u winSize = Game::getInstance().getWindow().getSize();
-    backgroundSprite.setScale(
-        winSize.x / static_cast<float>(backgroundTexture.getSize().x),
-        winSize.y / static_cast<float>(backgroundTexture.getSize().y)
+    m_backgroundSprite.setScale(
+        winSize.x / (float)backgroundTexture->getSize().x,
+        winSize.y / (float)backgroundTexture->getSize().y
     );
 }
 
@@ -127,3 +118,4 @@ void HelpScreen::setActive(bool active)
 }
 
 void HelpScreen::reset() {}
+

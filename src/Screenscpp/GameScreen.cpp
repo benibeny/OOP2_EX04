@@ -2,8 +2,8 @@
 
 
 GameScreen::GameScreen(int level)
-	:m_aquariumManager(Game::getInstance().getWindow().getSize()), m_isActive(false), m_currentLevel(level), m_firstTime(true)
-    ,m_shopBarManager(level),m_popUpMenu("Memu","popUp.png")
+	: m_isActive(false), m_currentLevel(level), m_firstTime(true)
+    ,m_aquariumManager(level), m_shopBarManager(level), m_popUpMenu("Memu", "popUp.png")
 {
 
     m_popUpMenu.addButtons(std::make_unique<Button>("Continue", ResourceManager::getInstance().getGameFont(), std::make_unique<CommandFunction>([this]() { m_popUpMenu.setVisible(false); })));
@@ -19,7 +19,6 @@ GameScreen::~GameScreen()
 {
     EventManager::getInstance().cleanUp();
 	unRegisterEvents();
-
 }
 
 

@@ -3,6 +3,7 @@
 #include "Screens/MenuScreen.h"
 #include "Screens/GameScreen.h"
 #include "Screens/HelpScreen.h"
+#include "Screens/GameOverScreen.h"
 #include "Screens/ChooseLevelScreen.h"
 
 
@@ -17,6 +18,7 @@ ScreenManager::ScreenManager() :m_screenType(ScreenType::MainMenu)
 	m_screens[ScreenType::ChooseLevelScreen] = std::make_unique<ChooseLevelScreen>();
 	m_screens[ScreenType::HelpScreen] = std::make_unique<HelpScreen>();
 	m_screens[ScreenType::MainMenu] = std::make_unique<MenuScreen>();
+	m_screens[ScreenType::GameOver] = std::make_unique<GameOverScreen>();
 }
 
 ScreenManager& ScreenManager::getInstance() 
@@ -56,9 +58,9 @@ void ScreenManager::handleEvents(const sf::Event& event)
 
 void ScreenManager::reset(ScreenType screen)
 {
-	if (m_screens.contains(m_screenType))
+	if (m_screens.contains(screen))
 	{
-		m_screens[m_screenType]->reset();
+		m_screens[screen]->reset();
 	}
 }
 

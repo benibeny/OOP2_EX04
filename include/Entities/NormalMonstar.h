@@ -14,11 +14,12 @@ class NormalMonstar : public SeekingFoodAnimal
 {
 public:
 	NormalMonstar();
+	NormalMonstar(float speed, std::string sprite, int numRow, int health);
 
-	void update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize)override;
-	void clicked(int damage, sf::Vector2f mousePos)override;
+	virtual void update(float deltaTime, const std::list <std::unique_ptr<GameObject>>& foodItems, sf::Vector2u& windowSize)override;
+	virtual void clicked(int damage, sf::Vector2f mousePos)override;
 
-private:
+protected:
 	virtual bool tryToEat(GameObject& food)override;
 
 	void handleWaitingTimer(float deltaTime);

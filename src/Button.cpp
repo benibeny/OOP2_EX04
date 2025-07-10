@@ -2,14 +2,13 @@
 #include <SFML/Graphics.hpp>
 #include "SoundManager.h"
 
-Button::Button(const std::string& textString, sf::Font& font, std::unique_ptr<Command> cmd)
+Button::Button(const std::string& textString, sf::Font& m_font, std::unique_ptr<Command> cmd)
     : command(std::move(cmd)), isHovered(false), relativeX(0.5f), relativeY(0.5f), baseCharSize(24) 
 {
 	sf::Texture* resourceTexture = ResourceManager::getInstance().getTexture("button.png");
     if (resourceTexture) 
     {
         background.setTexture(resourceTexture);
-        //background.setSize({ resourceTexture->getSize().x, resourceTexture->getSize().y });
     }
     else 
     {
@@ -18,7 +17,7 @@ Button::Button(const std::string& textString, sf::Font& font, std::unique_ptr<Co
         background.setOutlineThickness(outlineThickness);
     }
     
-    text.setFont(font);
+    text.setFont(m_font);
     text.setString(textString);
     text.setFillColor(sf::Color::White);
     text.setCharacterSize(baseCharSize);
@@ -28,7 +27,7 @@ Button::Button(const std::string& textString, sf::Font& font, std::unique_ptr<Co
     // Center the origin of the text for proper scaling and positioning
     sf::FloatRect bounds = text.getLocalBounds();
     text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
-} // test test
+}
 
 bool Button::contains(float x, float y) const 
 {
@@ -41,13 +40,11 @@ void Button::setHover(bool hover)
     {
         isHovered = true;
         text.setFillColor(sf::Color::Yellow);
-        //background.setFillColor(hoverColor);
     }
     else if (!hover && isHovered) 
     {
         isHovered = false;
         text.setFillColor(sf::Color::White);
-        //background.setFillColor(normalColor);
     }
 }
 

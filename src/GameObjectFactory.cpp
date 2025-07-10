@@ -6,12 +6,19 @@
 #include "Entities/Money.h"
 
 
-std::unordered_map<std::string, GameObjectFactory::Creator>& GameObjectFactory::getRegistry() {
+GameObjectFactory::GameObjectFactory()
+{
+	registerGameObjectTypes();
+}
+
+std::unordered_map<std::string, GameObjectFactory::Creator>& GameObjectFactory::getRegistry() 
+{
     static std::unordered_map<std::string, Creator> registry;
     return registry;
 }
 
-void GameObjectFactory::registerType(const std::string& type, Creator creator) {
+void GameObjectFactory::registerType(const std::string& type, Creator creator) 
+{
     getRegistry()[type] = std::move(creator);
 }
 
@@ -37,8 +44,6 @@ void GameObjectFactory::registerGameObjectTypes()
     GameObjectFactory::registerType("NormalMonstar", [](const sf::Vector2f& pos) {
         return std::make_unique<NormalMonstar>();
         });
-    //GameObjectFactory::registerType("Helper", [](const sf::Vector2f& pos, float speed, const std::string& tex) {
-    //    return std::make_unique<Helper>(pos, speed, tex, 2, 4, 0); // You can adapt args here});
     GameObjectFactory::registerType("Food", [](const sf::Vector2f& pos) {
         return std::make_unique<Food>(Food::Foodtype::Medium, pos);
         });
@@ -64,4 +69,11 @@ void GameObjectFactory::registerGameObjectTypes()
         return std::make_unique<Food>(Food::Foodtype::Best, pos);
         });
 
+}
+
+
+GameObjectFactory& GameObjectFactory::getInstance() 
+{
+    static GameObjectFactory instance;
+    return instance;
 }

@@ -9,7 +9,7 @@
 class Button 
 {
 public:
-    Button(const std::string& textString, sf::Font& font, std::unique_ptr<Command> cmd);
+    Button(const std::string& textString, sf::Font& m_font, std::unique_ptr<Command> cmd);
     // Non-copyable (contains unique_ptr)
     Button(const Button&) = delete;
     Button& operator=(const Button&) = delete;

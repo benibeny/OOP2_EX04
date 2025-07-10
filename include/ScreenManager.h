@@ -18,6 +18,7 @@ enum class ScreenType
     MainMenu,
 	HelpScreen,
     ChooseLevelScreen,
+    GameOver,
     Level1,
     Level2,
     Level3,
@@ -29,15 +30,9 @@ enum class ScreenType
 class ScreenManager 
 {
 public:
-    
-
     static ScreenManager& getInstance();
     // Switch to a new screen. The old screen is scheduled to be deleted.
     void switchScreen(ScreenType screen);
-
-    
-  
-
 	void updateAndRender(float deltaTime, sf::RenderWindow& window);
 	void handleEvents(const sf::Event& event);
 
@@ -49,8 +44,6 @@ private:
     std::unordered_map <ScreenType, std::unique_ptr<Screen>> m_screens;
 
 	ScreenType m_screenType;
-
-    
 
     ScreenManager();
     ScreenManager(const ScreenManager&) = delete;

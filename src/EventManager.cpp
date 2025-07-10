@@ -304,3 +304,19 @@ void EventManager::unsubscribeFromShowPopUpOption()
 {
 	m_showPopUpOption = nullptr;
 }
+
+
+void EventManager::subscribeToGameOver(const std::function<void()> callback)
+{
+	m_gameOver =callback;
+}
+
+void EventManager::notifyGameOver()
+{
+	m_gameOver();
+}
+
+void EventManager::unsubscribeFromGameOver(const std::function<void()>& callback)
+{
+	m_gameOver = nullptr;
+}

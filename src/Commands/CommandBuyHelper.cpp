@@ -18,7 +18,7 @@ void CommandBuyHelper::execute()
 			helper = std::make_unique<HelperJellyfish>();
 			break;
 		case 1:
-			helper = std::make_unique<HelperSnail>();
+			helper = std::make_unique<HelperSnail>();//adir
 			break;
 		
 		default:

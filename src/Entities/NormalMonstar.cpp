@@ -9,6 +9,12 @@ NormalMonstar::NormalMonstar()
 	SoundManager::getInstance().play("roar");
 }
 
+NormalMonstar::NormalMonstar(float speed, std::string sprite, int numRow,int health)
+	:SeekingFoodAnimal(sf::Vector2f(900.0f, 400.0f), speed, sprite, numRow, 10, 0), m_startTimer(0.0f)
+{
+	m_health = health;
+	m_sprite.setScale(1.3f, 1.3f);
+}
 
 void NormalMonstar::update(float deltaTime, 
 						   const std::list <std::unique_ptr<GameObject>>& foodItems,

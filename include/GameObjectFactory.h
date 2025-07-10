@@ -11,13 +11,14 @@ class GameObject;
 class GameObjectFactory {
 public:
     using Creator = std::function<std::unique_ptr<GameObject>(const sf::Vector2f&)>;
-
-    static void registerType(const std::string& type, Creator creator);
-    static std::unique_ptr<GameObject> create(const std::string& type,
+    std::unique_ptr<GameObject> create(const std::string& type,
         const sf::Vector2f& pos);
 
-    static void registerGameObjectTypes();
-
+    static GameObjectFactory& getInstance();
 private:
-    static std::unordered_map<std::string, Creator>& getRegistry();
+    GameObjectFactory();
+
+    void registerGameObjectTypes();
+    void registerType(const std::string& type, Creator creator);
+    std::unordered_map<std::string, Creator>& getRegistry();
 };

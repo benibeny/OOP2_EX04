@@ -1,11 +1,9 @@
 #include "AquariumManager.h"
-#include "GameObjectFactory.h"
 
-AquariumManager::AquariumManager(sf::Vector2u windowSize) 
-	: m_windowSize(windowSize),m_foodType(Food::Foodtype::Worst)
+
+AquariumManager::AquariumManager(int currentLevel)
+	:m_foodType(Food::Foodtype::Worst), m_currentLevel(currentLevel)
 {
-	//registerToEventManager();
-
 	ResourceManager& resourceManager = ResourceManager::getInstance();
 	resourceManager.loadSpriteSheet(NORMALMONSTAR_HITMARK_SPTITE, 1, 11);
 	resourceManager.setSpriteTextureFromSheet(m_hitMark, NORMALMONSTAR_HITMARK_SPTITE, 0, 0);
@@ -18,10 +16,8 @@ void AquariumManager::createGoldFishStart()
 {
 	sf::Vector2u windowSize = Game::getInstance().getWindow().getSize();
 
-	addEatable(std::make_unique<HelperJellyfish>());
-	addEatable(std::make_unique<HelperJellyfish>());
-	addEatable(std::make_unique<GoldFish>(sf::Vector2f(windowSize.x * 0.5f, windowSize.y * 0.5f)));
-	addEatable(std::make_unique<GoldFish>(sf::Vector2f(windowSize.x * 0.6f, windowSize.y * 0.6f)));
+	addEatable(GameObjectFactory::getInstance().create("GoldFish", {500.0f, 500.0f}));
+	addEatable(GameObjectFactory::getInstance().create("GoldFish", { 500.0f, 500.0f }));
 }
 
 void AquariumManager::handleMouseClick(const sf::Vector2f mousePos)
@@ -47,7 +43,7 @@ void AquariumManager::handleMouseClick(const sf::Vector2f mousePos)
 			case Food::Foodtype::Medium: foodTypeStr = "Food_Medium"; break;
 			case Food::Foodtype::Best:   foodTypeStr = "Food_Best"; break;
 			}
-			m_eatables.push_back(GameObjectFactory::create(foodTypeStr, mousePos));
+			m_eatables.push_back(GameObjectFactory::getInstance().create(foodTypeStr, mousePos));
 
 			m_foodCount++;
 		}
@@ -76,11 +72,13 @@ void AquariumManager::addEatable(std::unique_ptr<GameObject> eatable)
 
 void AquariumManager::update(float deltaTime)
 {
+	sf::Vector2u windowSize = Game::getInstance().getWindow().getSize();
+
 	for(auto& eatable : m_eatables)
 	{
 		if (eatable)
 		{
-			eatable->update(deltaTime, m_eatables, m_windowSize);
+			eatable->update(deltaTime, m_eatables, windowSize);
 			checkCollisions(eatable);
 		}
 	}
@@ -115,6 +113,21 @@ void AquariumManager::destroyEaten()
 		{
 			return eatable->isDestroyed();
 		});
+
+	//check if lost game
+	int currntAnimals = m_eatables.size();
+	currntAnimals -= m_foodCount;
+	if (m_monserSpawned)
+	{
+		currntAnimals--;
+	}
+	if (currntAnimals <= 0)
+	{
+		ScreenManager::getInstance().switchScreen(ScreenType::GameOver);
+		EventManager::getInstance().notifyGameOver();
+		
+	}
+
 }
 
 
@@ -126,8 +139,15 @@ void AquariumManager::checkSpawnMonsterAndHit(float deltaTime)
 		m_monsterSpawnTimer += deltaTime;
 		if (m_monsterSpawnTimer > MONSETER_SPAWN_TIME)
 		{
-			/*addEatable(std::make_unique<NormalMonstar>());*/
-			addEatable(GameObjectFactory::create("NormalMonstar", { 300.0f, 300.0f })); //add
+			if (m_currentLevel > 2)
+			{
+				addEatable(std::make_unique<SquidMonstar>());//adir
+			}
+			else 
+			{
+				addEatable(GameObjectFactory::getInstance().create("NormalMonstar", { 300.0f, 300.0f })); //add
+			}
+			
 			m_monsterSpawnTimer = 0.f;
 			m_monserSpawned = true;
 		}
@@ -238,7 +258,7 @@ void AquariumManager::registerToEventManager()
 			case Money::Moneytype::Gold:    moneyTypeStr = "Money_Gold"; break;
 			case Money::Moneytype::Diamond: moneyTypeStr = "Money_Diamond"; break;
 			}
-			addEatable(GameObjectFactory::create(moneyTypeStr, position));
+			addEatable(GameObjectFactory::getInstance().create(moneyTypeStr, position));
 
 		};
 	manager.subscribeToCreateMoney(CreateMoney);
@@ -255,7 +275,7 @@ void AquariumManager::registerToEventManager()
 			m_hitAnimationTimer = 0.f;
 			m_hitMark.setScale(0.f, 0.f);
 
-			addEatable(GameObjectFactory::create("Money_Diamond", position));
+			addEatable(GameObjectFactory::getInstance().create("Money_Diamond", position));
 		};
 	manager.subscribeToMonstarDeath(MonstarDeath);
 	m_eventSubscriptions.push_back(
@@ -297,11 +317,7 @@ void AquariumManager::reset()
 {
 	m_eatables.clear();
 
- 
-	/*addEatable(std::make_unique<GoldFish>(sf::Vector2f(500.0f,500.0f)));
-	addEatable(std::make_unique<GoldFish>(sf::Vector2f(400.0f, 400.0f)));*/
-	addEatable(GameObjectFactory::create("GoldFish", { 500.0f, 500.0f })); //add
-	addEatable(GameObjectFactory::create("GoldFish", { 400.0f, 400.0f }));
+	createGoldFishStart();
 
 
 	m_maxFoodSpawned = 1;
