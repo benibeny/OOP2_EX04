@@ -4,7 +4,8 @@
 #include "Entities/NormalMonstar.h"
 #include "Entities/Food.h"
 #include "Entities/Money.h"
-
+#include "Entities/HelperSnail.h"
+#include "Entities/HelperJellyfish.h"
 
 GameObjectFactory::GameObjectFactory()
 {
@@ -69,6 +70,13 @@ void GameObjectFactory::registerGameObjectTypes()
         return std::make_unique<Food>(Food::Foodtype::Best, pos);
         });
 
+    // Register helper types
+    GameObjectFactory::registerType("Helper_Snail", [](const sf::Vector2f& pos) {
+        return std::make_unique<HelperSnail>();
+        });
+    GameObjectFactory::registerType("Helper_Jellyfish", [](const sf::Vector2f& pos) {
+        return std::make_unique<HelperJellyfish>();
+        });
 }
 
 

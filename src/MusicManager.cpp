@@ -35,7 +35,7 @@ void MusicManager::play(const std::string& key, bool loop)
     m_lastTrackKey = key;
     m_lastLoopState = loop;
 
-    m_currentTrack->setVolume(100); 
+    m_currentTrack->setVolume(30); 
     m_currentTrack->play();
 }
 

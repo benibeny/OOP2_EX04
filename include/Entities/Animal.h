@@ -8,7 +8,6 @@
 #include "Entities/GameObject.h"
 
 
-//snail ,fish 
 class Animal : public GameObject
 {
 public:
