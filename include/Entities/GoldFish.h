@@ -4,9 +4,9 @@
 #include <string>
 
 #include "Entities/Fish.h"
-#include "EventManager.h"
+#include "Managers/EventManager.h"
 
-#include "ResourceManager.h"
+#include "Managers/ResourceManager.h"
 
 
 #define GOLDFISH_SPEED 150.0f

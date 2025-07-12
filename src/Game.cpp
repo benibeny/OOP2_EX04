@@ -1,9 +1,9 @@
 #include "Game.h"
-#include "ScreenManager.h"
+#include "Managers/ScreenManager.h"
 #include "Screens/Screen.h"
 #include <SFML/Graphics.hpp>
-#include "MusicManager.h" 
-#include "SoundManager.h"
+#include "Managers/MusicManager.h" 
+#include "Managers/SoundManager.h"
 
 #include "Entities/GoldFish.h"
 #include "Entities/Pirana.h"

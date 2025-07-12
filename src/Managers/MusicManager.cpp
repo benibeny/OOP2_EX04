@@ -1,4 +1,4 @@
-#include "MusicManager.h"
+#include "Managers/MusicManager.h"
 #include <stdexcept>
 
 MusicManager& MusicManager::getInstance() {

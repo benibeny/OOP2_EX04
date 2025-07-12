@@ -8,7 +8,7 @@
 #include "Entities/GameObject.h"
 
 #include <SFML/Graphics.hpp>
-#include "EventManager.h"
+#include "Managers/EventManager.h"
 
 
 class CommandBuyPirana : public Command

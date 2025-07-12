@@ -1,7 +1,7 @@
 #pragma once
 
 #include "SeekingFoodAnimal.h"
-#include "EventManager.h"
+#include "Managers/EventManager.h"
 
 
 #define NORMALMONSTAR_SPEED 100.0f

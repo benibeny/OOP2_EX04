@@ -1,5 +1,5 @@
-#include "ShopBarManager.h"
-#include "SoundManager.h"
+#include "Managers/ShopBarManager.h"
+#include "Managers/SoundManager.h"
 
 ShopBarManager::ShopBarManager(int level)
 	:m_OptionButton(Clickable(std::make_unique<CommandOptions>(), MENUBACKGROUND)),m_slotSize(0.0f)

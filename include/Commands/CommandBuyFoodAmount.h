@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Command.h"
-#include "EventManager.h"
+#include "Managers/EventManager.h"
 #include <iostream>
 
 class CommandBuyFoodAmount : public Command

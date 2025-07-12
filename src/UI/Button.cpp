@@ -1,6 +1,6 @@
-#include "Button.h"
+#include "UI/Button.h"
 #include <SFML/Graphics.hpp>
-#include "SoundManager.h"
+#include "Managers/SoundManager.h"
 
 Button::Button(const std::string& textString, sf::Font& m_font, std::unique_ptr<Command> cmd)
     : command(std::move(cmd)), isHovered(false), relativeX(0.5f), relativeY(0.5f), baseCharSize(24) 

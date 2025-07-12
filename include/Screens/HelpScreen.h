@@ -1,14 +1,14 @@
 #pragma once
 #include "Screens/Screen.h"
 #include <SFML/Graphics.hpp>
-#include "Button.h"
+#include "UI/Button.h"
 #include "Commands/Command.h"
 #include "Game.h"
-#include "ScreenManager.h"
+#include "Managers/ScreenManager.h"
 #include "Screens/MenuScreen.h"
 #include <iostream>
 #include "Commands/SwitchBackgroundCommand.h"
-#include "ResourceManager.h"
+#include "Managers/ResourceManager.h"
 
 // HelpScreen: displays help or instructions to the player
 class HelpScreen : public Screen {

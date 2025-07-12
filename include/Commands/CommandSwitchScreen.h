@@ -2,7 +2,7 @@
 
 #include "Commands/Command.h"
 #include "Screens/HelpScreen.h"
-#include "ScreenManager.h"
+#include "Managers/ScreenManager.h"
 
 class CommandSwitchScreen : public Command
 {

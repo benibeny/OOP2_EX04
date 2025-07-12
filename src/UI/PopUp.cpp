@@ -1,4 +1,4 @@
-#include "PopUp.h"
+#include "UI/PopUp.h"
 
 PopUp::PopUp(std::string titleName, std::string spriteName)
 	: m_visible(false)

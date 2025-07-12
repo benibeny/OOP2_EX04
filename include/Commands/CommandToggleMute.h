@@ -1,7 +1,7 @@
 #pragma once
 #include "Commands/Command.h"
-#include "SoundManager.h"
-#include "MusicManager.h"
+#include "Managers/SoundManager.h"
+#include "Managers/MusicManager.h"
 
 class ToggleMuteCommand : public Command {
 public:

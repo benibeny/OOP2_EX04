@@ -1,7 +1,7 @@
 #pragma once
 
 #include "NormalMonstar.h"
-#include "EventManager.h"
+#include "Managers/EventManager.h"
 
 
 #define NORMALMONSTAR_SPEED 150.0f

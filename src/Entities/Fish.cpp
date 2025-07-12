@@ -1,9 +1,9 @@
 #include "Entities/Fish.h"
 #include <iostream>
 #include <string>
-#include "ResourceManager.h"
 #include "Entities/Money.h"
-#include "SoundManager.h"
+#include "Managers/SoundManager.h"
+#include "Managers/ResourceManager.h"
 
 
 

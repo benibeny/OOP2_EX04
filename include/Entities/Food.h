@@ -1,7 +1,7 @@
 #pragma once	
-#include "ResourceManager.h"
+#include "Managers/ResourceManager.h"
 #include "Entities/GameObject.h"
-#include "EventManager.h"
+#include "Managers/EventManager.h"
 #include <SFML/Graphics.hpp>
 
 

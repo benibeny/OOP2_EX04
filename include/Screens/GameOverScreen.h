@@ -1,8 +1,8 @@
 #pragma once
 #include "Screens/Screen.h"
 #include "Game.h"
-#include "ResourceManager.h"
-#include "ScreenManager.h"
+#include "Managers/ResourceManager.h"
+#include "Managers/ScreenManager.h"
 #include <SFML/Graphics.hpp>
 
 #define GAME_OVER_SCREEN "gameOver.jpg"

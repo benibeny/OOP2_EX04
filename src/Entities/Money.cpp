@@ -1,5 +1,5 @@
 #include "Entities/Money.h"
-#include "SoundManager.h"
+#include "Managers/SoundManager.h"
 
 Money::Money(Moneytype moneyType, const sf::Vector2f pos)
 	:GameObject(pos, MONEY_SPRITE_SHEET_NAME, 6, 10, int(moneyType),40), m_moneyType(moneyType)

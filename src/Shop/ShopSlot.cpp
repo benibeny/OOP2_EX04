@@ -1,5 +1,5 @@
-#include "shopSlot.h"
-#include "SoundManager.h"
+#include "Shop/shopSlot.h"
+#include "Managers/SoundManager.h"
 
 
 

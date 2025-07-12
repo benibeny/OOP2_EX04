@@ -10,7 +10,7 @@
 #include "Entities/HelperSnail.h"
 #include "Entities/Money.h"
 #include "Entities/SquidMonstar.h"
-#include "SoundManager.h"
+#include "Managers/SoundManager.h"
 
 #include <iostream>
 namespace 

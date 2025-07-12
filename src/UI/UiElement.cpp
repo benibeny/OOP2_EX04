@@ -1,4 +1,4 @@
-#include "UiElement.h"
+#include "UI/UiElement.h"
 
 
 UiElement::UiElement(std::string spriteName, const int rows, const int cols,const int currentRow)
@@ -9,8 +9,6 @@ UiElement::UiElement(std::string spriteName, const int rows, const int cols,cons
 	ResourceManager &resource = ResourceManager::getInstance();
 	resource.loadSpriteSheet(spriteName, cols, rows);
 	resource.setSpriteTextureFromSheet(m_sprite,spriteName, 0, currentRow);
-	/*m_sprite.setPosition(m_position);
-	m_sprite.setScale(m_size);*/
 }
 
 
