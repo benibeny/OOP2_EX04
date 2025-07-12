@@ -1,29 +1,32 @@
 #include "Commands/CommandBuyHelper.h"
+#include "GameObjectFactory.h" 
 
 void CommandBuyHelper::execute()
 {
-	static bool seeded = false;
+    static bool seeded = false;
+    if (!seeded) {
+        srand(static_cast<unsigned int>(time(nullptr)));
+        seeded = true;
+    }
 
-	if (!seeded) {
-		srand(static_cast<unsigned int>(time(nullptr)));
-		seeded = true;
-	}
+    int randomHelper = rand() % HELPER_NUMBER;
+    std::string helperType;
 
-	int randomHelper = rand() % HELPER_NUMBER; // Randomly choose a helper (0, 1, or 2)
-	std::unique_ptr<GameObject> helper;
+    switch (randomHelper)
+    {
+    case 0:
+        helperType = "Helper_Jellyfish";
+        break;
+    case 1:
+        helperType = "Helper_Snail";
+        break;
+    default:
+        return;
+    }
 
-	switch (randomHelper) 
-	{
-		case 0:
-			helper = std::make_unique<HelperJellyfish>();
-			break;
-		case 1:
-			helper = std::make_unique<HelperSnail>();//adir
-			break;
-		
-		default:
-			return; // Should never happen
-	}
-
-	EventManager::getInstance().notifyBuyAnimal(std::move(helper));
+    auto helper = GameObjectFactory::getInstance().create(helperType, { 0.f, 0.f });
+    if (helper)
+    {
+        EventManager::getInstance().notifyBuyAnimal(std::move(helper));
+    }
 }

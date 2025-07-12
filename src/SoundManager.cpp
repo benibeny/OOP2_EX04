@@ -26,6 +26,7 @@ void SoundManager::play(const std::string& key) {
 
     auto sound = std::make_unique<sf::Sound>();
     sound->setBuffer(it->second);
+    sound->setVolume(30);       
     sound->play();
 
 

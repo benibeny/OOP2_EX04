@@ -37,7 +37,7 @@ void AquariumManager::handleMouseClick(const sf::Vector2f mousePos)
 	{
 		if (m_maxFoodSpawned > m_foodCount && !clickedOnGameObject && EventManager::getInstance().notifyTryBuyFood())
 		{
-			std::string foodTypeStr; //add
+			std::string foodTypeStr; 
 			switch (m_foodType) {
 			case Food::Foodtype::Worst:  foodTypeStr = "Food_Worst"; break;
 			case Food::Foodtype::Medium: foodTypeStr = "Food_Medium"; break;
@@ -141,11 +141,11 @@ void AquariumManager::checkSpawnMonsterAndHit(float deltaTime)
 		{
 			if (m_currentLevel > 2)
 			{
-				addEatable(std::make_unique<SquidMonstar>());//adir
+				addEatable(std::make_unique<SquidMonstar>());
 			}
 			else 
 			{
-				addEatable(GameObjectFactory::getInstance().create("NormalMonstar", { 300.0f, 300.0f })); //add
+				addEatable(GameObjectFactory::getInstance().create("NormalMonstar", { 300.0f, 300.0f })); 
 			}
 			
 			m_monsterSpawnTimer = 0.f;
