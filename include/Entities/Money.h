@@ -1,9 +1,9 @@
 #pragma once
-#include "ResourceManager.h"
+#include "Managers/ResourceManager.h"
 #include "Entities/GameObject.h"
 
 #include <SFML/Graphics.hpp>
-#include "EventManager.h"
+#include "Managers/EventManager.h"
 
 
 #define MONEY_SPRITE_SHEET_NAME "Money.png"

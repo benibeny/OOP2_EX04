@@ -3,8 +3,8 @@
 #include <vector>
 #include <memory>
 
-#include "Button.h"
-#include "ResourceManager.h"
+#include "UI/Button.h"
+#include "Managers/ResourceManager.h"
 #include "Game.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>

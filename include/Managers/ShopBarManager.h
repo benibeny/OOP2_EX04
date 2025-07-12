@@ -1,9 +1,9 @@
 #pragma once
 
-#include "shopSlot.h"
+#include "Shop/shopSlot.h"
 #include "Game.h"
-#include "MoneyDisplay.h"
-#include "EventManager.h"
+#include "Shop/MoneyDisplay.h"
+#include "Managers/EventManager.h"
 
 #include "Commands/CommandBuyGoldFish.h"
 #include "Commands/CommandBuyFoodTier.h"
@@ -13,7 +13,7 @@
 #include "Commands/CommandBuyWeapon.h"
 #include "Commands/CommandBuyEgg.h"
 #include "Commands/CommandBuyHelper.h"
-#include "EggShopSlot.h"
+#include "Shop/EggShopSlot.h"
 
 
 #include <memory>

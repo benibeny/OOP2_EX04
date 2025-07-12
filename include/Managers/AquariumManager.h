@@ -11,8 +11,8 @@
 #include "Entities/SquidMonstar.h"
 #include "GameObjectFactory.h"
 #include "CollisionHandler.h"
-#include "EventManager.h"
-#include "ScreenManager.h"
+#include "Managers/EventManager.h"
+#include "Managers/ScreenManager.h"
 #include "Game.h"
 
 #define MONSETER_SPAWN_TIME 10.0f // Time in seconds to spawn a monster

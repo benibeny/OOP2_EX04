@@ -1,4 +1,4 @@
-#include "MoneyDisplay.h"
+#include "Shop/MoneyDisplay.h"
 
 
 MoneyDisplay::MoneyDisplay() 

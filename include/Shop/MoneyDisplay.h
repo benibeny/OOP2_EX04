@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UiElement.h"
+#include "UI/UiElement.h"
 #include "Commands/Command.h"
 
 #define MONEY_DISPLAY_SPRITE "moneyBackground.jpg"

@@ -1,17 +1,17 @@
 #pragma once
 #include "Screens/Screen.h"
 #include <SFML/Graphics.hpp>
-#include "AquariumManager.h"
+#include "Managers/AquariumManager.h"
 #include "Entities/GoldFish.h"
 #include "Entities/Money.h"
 #include "Game.h"
-#include "ScreenManager.h"
-#include "ShopBarManager.h"
-#include "EventManager.h"
+#include "Managers/ScreenManager.h"
+#include "Managers/ShopBarManager.h"
+#include "Managers/EventManager.h"
 #include "Commands/CommandFunction.h"
 #include "Commands/CommandToggleMute.h"
 #include "Commands/CommandSwitchScreen.h"
-#include "PopUp.h"
+#include "UI/PopUp.h"
 #include <iostream>
 #include <functional>
 

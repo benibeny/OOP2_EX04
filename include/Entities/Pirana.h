@@ -4,9 +4,8 @@
 #include <string>
 
 #include "Entities/Fish.h"
-#include "EventManager.h"
-
-#include "ResourceManager.h"
+#include "Managers/EventManager.h"
+#include "Managers/ResourceManager.h"
 
 //becasuse it send un set thing so we use define to make it global
 #define PIRANA_SPEED 150.0f

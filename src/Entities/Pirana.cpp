@@ -1,5 +1,5 @@
 #include "Entities/Pirana.h"
-#include "SoundManager.h"
+#include "Managers/SoundManager.h"
 
 
 Pirana::Pirana(sf::Vector2f pos)

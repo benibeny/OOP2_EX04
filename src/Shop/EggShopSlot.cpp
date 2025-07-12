@@ -1,4 +1,4 @@
-#include "EggShopSlot.h"
+#include "Shop/EggShopSlot.h"
 
 EggShopSlot::EggShopSlot(int currentRow, const int price, std::unique_ptr<Command> command, const std::string& spriteSheetName, const int row)
 	:ShopSlot(price, std::move(command), spriteSheetName, row, currentRow)

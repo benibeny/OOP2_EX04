@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shopSlot.h"
+#include "Shop/shopSlot.h"
 
 
 class EggShopSlot : public ShopSlot

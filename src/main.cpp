@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "ScreenManager.h"
+#include "Managers/ScreenManager.h"
 #include "Screens/MenuScreen.h"
 
 int main() 

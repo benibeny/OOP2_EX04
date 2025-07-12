@@ -7,7 +7,7 @@
 #include "Entities/HelperJellyfish.h"
 #include "Entities/HelperSnail.h"
 #include "Game.h"
-#include "EventManager.h"
+#include "Managers/EventManager.h"
 #include <iostream>
 #include <memory>
 #include <ctime>

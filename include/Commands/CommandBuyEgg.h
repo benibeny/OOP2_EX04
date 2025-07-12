@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Command.h"
-#include "EventManager.h"
-#include "ScreenManager.h"
+#include "Managers/EventManager.h"
+#include "Managers/ScreenManager.h"
 #include <iostream>
 
 class CommandBuyEgg : public Command

@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <list>
 
-#include "ResourceManager.h"
+#include "Managers/ResourceManager.h"
 #include <iostream>
 
 class GoldFish;

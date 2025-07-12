@@ -1,9 +1,9 @@
 #pragma once
 #include "Screens/Screen.h"
-#include "ResourceManager.h"
+#include "Managers/ResourceManager.h"
 #include "Commands/StartLevelCommand.h"
-#include "EventManager.h"
-#include "Button.h"
+#include "Managers/EventManager.h"
+#include "UI/Button.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Game.h"

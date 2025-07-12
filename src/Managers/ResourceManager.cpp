@@ -1,4 +1,4 @@
-#include "ResourceManager.h"
+#include "Managers/ResourceManager.h"
 #include <iostream>
 
 bool ResourceManager::loadTexture(const std::string& filename)
