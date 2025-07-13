@@ -15,8 +15,6 @@
 class Pirana : public Fish
 {
 public:
-	
-
 	Pirana(sf::Vector2f pos);
 
 	void update(float deltaTime, const std::list<std::unique_ptr<GameObject>>& foods, sf::Vector2u& windowSize) override;
