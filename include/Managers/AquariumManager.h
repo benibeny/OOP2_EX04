@@ -15,7 +15,7 @@
 #include "Managers/ScreenManager.h"
 #include "Game.h"
 
-#define MONSETER_SPAWN_TIME 10.0f // Time in seconds to spawn a monster
+#define MONSETER_SPAWN_TIME 12.0f // Time in seconds to spawn a monster
 #define NORMALMONSTAR_HITMARK_SPTITE "hitmark.png"
 
 
