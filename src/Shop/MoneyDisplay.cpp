@@ -24,15 +24,27 @@ void MoneyDisplay::changeMoney(int amount)
 	updateMoneyText();
 }
 
+void MoneyDisplay::setSize(const float width, const float height)
+{
+	UiElement::setSize(width, height);
 
+	unsigned int fontSize = static_cast<unsigned int>(height * 0.6f);
+	m_moneyText.setCharacterSize(fontSize);
+
+
+	updateMoneyText();  
+}
 
 
 void MoneyDisplay::updateMoneyText() 
 {
 	m_moneyText.setString("$" + std::to_string(m_money));
 	sf::FloatRect textBounds = m_moneyText.getLocalBounds();
-	m_moneyText.setPosition(m_position.x + (m_size.x - textBounds.width) / 2.0f,
-							m_position.y + (m_size.y - textBounds.height) / 2.0f);
+
+	m_moneyText.setOrigin(textBounds.left + textBounds.width / 2.f,
+		textBounds.top + textBounds.height / 2.f);
+	m_moneyText.setPosition(m_position.x + m_size.x / 2.f,
+		m_position.y + m_size.y / 2.f);
 }
 
 

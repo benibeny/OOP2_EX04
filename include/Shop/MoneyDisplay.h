@@ -16,6 +16,7 @@ public:
 	void changeMoney(int amount);
 
 	void updateMoneyText();
+	void setSize(const float width,const float height) override;
 
 	void reset();
 

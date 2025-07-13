@@ -11,7 +11,7 @@ public:
 	UiElement(std::string spriteName,const int rows,const int cols,const int currentRow = 0);
 	virtual ~UiElement() = default;
 
-	void setSize(const float width, const float highet);
+	virtual void setSize(const float width, const float highet);
 
 	virtual void setPosition(const sf::Vector2f& position);
 	
