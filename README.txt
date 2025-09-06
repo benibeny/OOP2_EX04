@@ -2,8 +2,8 @@
 **Insaniquarium Deluxe – Interactive Virtual Aquarium Game**
 
 ## 2. Written by:
-**Adir Cohen**, ID: 208327817  
-**Beni Hananis**, ID: 314906421
+**Adir Cohen**
+**Beni Hananis**
 
 ## 3. Project Description:
 Insaniquarium Deluxe is a real-time strategy and simulation game where players manage a virtual aquarium filled with colorful fish, helpful pets, and alien invaders.
